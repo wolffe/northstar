@@ -1,0 +1,2 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/wolffe/northstar/badge/master)](https://www.codefactor.io/repository/github/wolffe/northstar/overview/master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8fd5be7473ad453e9e3851240f710edb)](https://www.codacy.com/app/wolffe/northstar?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=wolffe/northstar&amp;utm_campaign=Badge_Grade)
