@@ -1,0 +1,315 @@
+.feed-wrapper {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.feed-welcome {
+    font-weight: 300;
+    font-size: 20px;
+}
+.feed-title,
+.sidebar-feed h2 {
+    font-weight: 400;
+    font-size: 20px;
+    padding: 0;
+    margin: 24px 0;
+    line-height: 54px;
+}
+.sidebar-feed h2 {
+    margin: 0 0 24px 0;
+}
+.feed-actions {
+    float: right;
+    padding: 0;
+    line-height: 54px;
+}
+.feed-action-following,
+.feed-action-discover {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 4px 4px 0 4px;
+}
+.feed-action-inactive {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.feed-item {
+    margin: 0 0 24px 0;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.feed-meta-primary,
+.feed-meta-secondary,
+.feed-meta-tertiary {
+    padding: 8px 0;
+}
+.feed-meta-secondary {
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+.feed-meta-tertiary {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    text-align: right;
+}
+.feed-meta-tertiary time {
+    float: left;
+    font-size: 12px;
+    line-height: 24px;
+}
+.feed-meta-tertiary .feed-pipe {
+    color: rgba(255, 255, 255, 0.15);
+    font-weight: 300;
+}
+
+.feed-avatar {
+    display: inline-block;
+    margin: 0 12px 0 0;
+}
+.feed-avatar img {
+    border-radius: 2px;
+}
+.feed-author-to-follow .avatar {
+    display: inline-block;
+    margin: 0 12px 0 0;
+    background-color: black;
+    border-radius: 2px;
+}
+.feed-author-to-follow .follow,
+.feed-author-to-follow .unfollow {
+    float: right;
+    margin: 10px 0 0 0 !important;
+}
+.sidebar-feed .widget-most-liked .follow-links {
+    float: right;
+    display: inline-block;
+}
+.sidebar-feed .widget-most-liked .follow,
+.sidebar-feed .widget-most-liked .unfollow {
+    padding: 6px 8px;
+    font-size: 12px;
+    border-radius: 2px;
+}
+.feed-author-to-follow .feed-author-inner {
+    clear: both;
+    margin: 0 0 24px 0;
+    font-size: 16px;
+}
+
+.feed-loader {
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.feed-loading {
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+    border-top-color: rgba(255, 255, 255, 0.15);
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+
+.sidebar-feed {
+    width: 434px !important;
+}
+.sidebar-feed .widget-container {
+    margin: 0 0 16px 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 16px;
+}
+.sidebar-feed .widget-container img {
+    max-width: 100%;
+    height: auto;
+}
+.sidebar-feed .widget-most-liked img {
+    padding: 16px;
+    margin: 8px 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+.sidebar-feed .contest-box {
+    float: none;
+    width: 100%;
+    margin: 0 0 24px 0;
+}
+
+.widget-most-liked ul li {
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+}
+.widget-most-liked ul li b {
+    font-weight: 500;
+    font-size: 16px;
+}
+.widget-most-liked ul li small {
+    font-size: 15px;
+}
+
+
+
+.page-template-page-feed h1.entry-title {
+    display: none;
+}
+.page-template-page-feed #wrap {
+    max-width: 1170px;
+}
+.page-template-page-feed #content {
+    width: 720px;
+}
+
+
+
+.regular-link:hover {
+    color: #0cb8fc;
+}
+
+
+
+
+@-webkit-keyframes descend {
+  0% {
+    top: 10px;
+    left: 10px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+    background-color: rgba(224, 36, 94, 1);
+  }
+  100% {
+    top: -26px;
+    left: -26px;
+    width: 64px;
+    height: 64px;
+    opacity: 0;
+    background-color: rgba(224, 36, 94, 0);
+  }
+}
+
+@keyframes descend {
+  0% {
+    top: 6px;
+    left: 12px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+    background-color: rgba(224, 36, 94, 1);
+  }
+  100% {
+    top: -26px;
+    left: -24px;
+    width: 64px;
+    height: 64px;
+    opacity: 0;
+    background-color: rgba(224, 36, 94, 0);
+  }
+}
+@-webkit-keyframes bubble {
+  15% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  30%,
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes bubble {
+  15% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  30%,
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+.feed-like,
+.feed-like:hover,
+.feed-meta-tertiary a,
+.feed-meta-tertiary a:hover {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+.feed-item .fa-heart,
+.feed-item .fa-heart-o {
+    color: #e0245e;
+    cursor: pointer;
+    position: relative;
+
+    -ms-touch-action: none;
+    touch-action: none;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.like--on {
+  -webkit-transform: scale(1.6);
+      -ms-transform: scale(1.6);
+          transform: scale(1.6);
+  -webkit-animation: bubble 2s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+          animation: bubble 2s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+
+}
+.like--on:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border: 1px solid #e0245e;
+  border-radius: 50%;
+  top: 6px;
+  left: 6px;
+  width: 0;
+  height: 0;
+
+  -webkit-animation: descend 0.75s ease-out;
+          animation: descend 0.75s ease-out;
+}
+
+@media only screen and (max-width: 768px) {
+    .sidebar-feed,
+    #adsense,
+    #Advertisement { display: none; }
+
+    .feed-meta-primary {
+        min-height: 64px;
+        line-height: 1.5;
+    }
+    .feed-avatar {
+        float: left;
+    }
+}
+
+/**
+.follow.imagepress-button,
+.unfollow.followed.imagepress-button {
+    -webkit-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+/**/
+
+.sidebar-feed {
+    will-change: min-height;
+}
+.sidebar__inner{
+    transform: translate(0, 0); /* For browsers don't support translate3d. */
+    transform: translate3d(0, 0, 0);
+    will-change: position, transform;
+}
