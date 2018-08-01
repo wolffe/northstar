@@ -18,8 +18,6 @@ function imagepress_registration() {
     add_user_to_blog(1, 7358, 'author');
     /**/
 
-    $ip_slug = get_option('ip_slug');
-
 	$image_type_labels = [
 		'name' 					=> 'Images',
 		'singular_name' 		=> 'Image',
@@ -54,7 +52,7 @@ function imagepress_registration() {
 		'menu_icon' 			=> 'dashicons-format-gallery',
 	];
 
-	register_post_type($ip_slug, $image_type_args);
+	register_post_type('poster', $image_type_args);
 
 	$image_category_labels = [
 		'name' 					=> 'Poster Categories',
@@ -78,7 +76,7 @@ function imagepress_registration() {
 		'rewrite' 				=> ['slug' => 'genre'],
 	];
 
-	register_taxonomy('imagepress_image_category', [$ip_slug], $image_category_args);
+	register_taxonomy('imagepress_image_category', ['poster'], $image_category_args);
 
     // image keywords
     $labels = [
@@ -108,7 +106,7 @@ function imagepress_registration() {
 		'show_tagcloud'              => false,
 	];
 
-    register_taxonomy('imagepress_image_keyword', [$ip_slug], $args);
+    register_taxonomy('imagepress_image_keyword', ['poster'], $args);
 }
 
 
@@ -302,9 +300,7 @@ function ip_editor() {
                     ]);
 					$count = count($images);
 
-					if(get_option('ip_show_single_image') == 1) {
-						if($count > 1) {
-					}
+					if($count > 1) {
 
 					echo '<div>';
 						foreach($images as $attachment_id => $image) {
@@ -323,8 +319,6 @@ function ip_editor() {
 						}
 					echo '</div>';
 
-					if(get_option('ip_show_single_image') == 1) {
-						}
 					}
                     ?>
 

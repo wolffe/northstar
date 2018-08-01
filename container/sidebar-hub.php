@@ -133,7 +133,7 @@
     <div class="widget-container widget_text">
         <div class="textwidget" style="text-align: center;">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Poster Spy 300x250 -->
+            <!-- PosterSpy 300x250 -->
             <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-0187897359531094" data-ad-slot="1421253422"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             <br>

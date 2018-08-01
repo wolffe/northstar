@@ -9,7 +9,7 @@ function imagepress_admin_page() {
 		if(isset($_GET['tab']))
 			$t = $_GET['tab'];
 
-        $i = get_option('ip_slug');
+        $i = 'poster';
 		?>
 		<h2 class="nav-tab-wrapper">
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=dashboard_tab" class="nav-tab <?php echo $t == 'dashboard_tab' ? 'nav-tab-active' : ''; ?>"><div class="dashicons dashicons-info"></div></a>
@@ -125,53 +125,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 				<div class="postbox">
 					<h3>Installation</h3>
 					<div class="inside">
-                        <p>Check the installation steps below and make the required changes.</p>
-                        <h2>Basic Installation</h2>
-                        <?php
-                        $slug = get_option('ip_slug');
-                        $author_slug = get_option('cinnamon_author_slug');
-                        $single_template = 'single-' . $slug . '.php';
-                        $author_template = 'author.php';
-
-                        if($slug == '')
-                            echo '<p><div class="dashicons dashicons-no"></div> <b>Error:</b> Your image slug is not set. Go to <b>Configurator</b> section and set it.</p>';
-                        if($slug != '')
-                            echo '<p><div class="dashicons dashicons-yes"></div> <b>Note:</b> Your image slug is <code>' . $slug . '</code>. If you changed it recently, visit your <b>Permalinks</b> section and resave the changes.</p>';
-
-                        if($author_slug == '')
-                            echo '<p><div class="dashicons dashicons-no"></div> <b>Error:</b> Your author slug is not set. Go to <b>Users</b> section and set it.</p>';
-                        if($author_slug != '')
-                            echo '<p><div class="dashicons dashicons-yes"></div> <b>Note:</b> Your author slug is <code>' . $author_slug . '</code>. If you changed it recently, visit your <b>Permalinks</b> section and resave the changes.</p>';
-
-                        if('' != locate_template($single_template))
-                            echo '<p><div class="dashicons dashicons-yes"></div> <b>Note:</b> Your image template is available.</p>';
-
-                        if('' == locate_template($single_template)) {
-                            echo '<p><div class="dashicons dashicons-no"></div> <b>Error:</b> Your image template is not available. Duplicate your <code>single.php</code> template file inside your theme folder, rename it as <code>' . $single_template . '</code> and replace the <code>the_content()</code> section with the code from the sample template file inside the /documentation/ folder.</p>';
-                        }
-
-                        if('' != locate_template($author_template))
-                            echo '<p><div class="dashicons dashicons-yes"></div> <b>Note:</b> Your author template is available.</p>';
-                        if('' == locate_template($author_template)) {
-                            echo '<p><div class="dashicons dashicons-no"></div> <b>Error:</b> Your author template is not available. Create a template file called <code>' . $author_template . '</code> inside your theme folder and replace the <code>the_content()</code> section with the code from the sample template file inside the /documentation/ folder.</p>';
-                        }
-
-                        if(get_option('default_role') == 'author') {
-							echo '<p><div class="dashicons dashicons-yes"></div> <b>Note:</b> New user default role is <code>author</code>. Subscribers and contributors are not able to edit their uploaded images.</p>';
-						} else {
-							echo '<p><div class="dashicons dashicons-no"></div> <b>Error:</b> New user default role should be <code>author</code> in order to allow for front-end image editing. Subscribers and contributors are not able to edit their uploaded images. <a href="' . admin_url('options-general.php') . '">Change it</a>.</p>';
-						}
-                        ?>
-                        <h2>Advanced Installation (optional)</h2>
-                        <p>The steps below require modification of .php and .htaccess files inside your web site root.</p>
-                        <p>In order to enable the portfolio (hub) feature of ImagePress, check the <b>Dashboard</b> section and copy the required code inside your <code>author.php</code> template file and modify the <code>.htaccess</code> file.</p>
-                        <?php
-                        if(get_option('cinnamon_mod_hub') == 0)
-                            echo '<p><div class="dashicons dashicons-no"></div> <b>Note:</b> Your portfolio (hub) is disabled. Go to <b>Users</b> section and enable it.</p>';
-                        if(get_option('cinnamon_mod_hub') == 1)
-                            echo '<p><div class="dashicons dashicons-yes"></div> <b>Note:</b> Your portfolio (hub) is enabled. Go to <b>Users</b> section and configure it. Also, make sure you made the correct changes to your <code>author.php</code> template file and your <code>.htaccess</code> file.</p>';
-                        ?>
-
                         <?php
             			if(isset($_POST['isResetSubmit'])) {
                             global $wpdb;
@@ -289,7 +242,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 				update_option('ip_order', $_POST['ip_order']);
 				update_option('ip_orderby', $_POST['ip_orderby']);
 
-				update_option('ip_slug',                $_POST['ip_slug']);
 				update_option('ip_image_size',          $_POST['ip_image_size']);
 				update_option('ip_title_optional',      $_POST['ip_title_optional']);
 				update_option('ip_meta_optional',       $_POST['ip_meta_optional']);
@@ -297,7 +249,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 				update_option('ip_comments',            $_POST['ip_comments']);
 				update_option('ip_likes_optional',      $_POST['ip_likes_optional']);
 				update_option('ip_author_optional',     $_POST['ip_author_optional']);
-				update_option('ip_show_single_image',     $_POST['ip_show_single_image']);
 
 				echo '<div class="updated notice is-dismissible"><p>Settings updated successfully!</p></div>';
 			}
@@ -310,11 +261,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 			            <tr>
 			                <th scope="row"><label>Image box details</label></th>
 			                <td>
-                            <p>
-                                <input name="ip_slug" id="slug" type="text" class="regular-text" placeholder="Image slug" value="<?php echo get_option('ip_slug'); ?>" required> <label for="ip_slug"><b>Image</b> slug</label>
-                                <br><small>Use an appropriate slug for your image (e.g. <b>image</b> in <code>domain.com/<b>image</b>/myimage</code>)</small>
-                                <br><small>Tip: use a singular term, one word only (examples: image, poster, illustration)</small>
-                            </p>
                             <p>
                                 <select name="ip_image_size" id="ip_image_size">
                                     <optgroup label="WordPress (Default)">
@@ -376,13 +322,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 									<option value="1"<?php if(get_option('ip_author_optional') == 1) echo ' selected'; ?>>Show image author</option>
 								</select>
 								<label for="ip_author_optional">Show/hide the author name and link</label>
-							</p>
-							<p>
-								<select name="ip_show_single_image" id="ip_show_single_image">
-									<option value="0"<?php if(get_option('ip_show_single_image') == 0) echo ' selected'; ?>>Hide main/featured image in <b>Author Tools</b></option>
-									<option value="1"<?php if(get_option('ip_show_single_image') == 1) echo ' selected'; ?>>Show main/featured image in <b>Author Tools</b></option>
-								</select>
-								<label for="ip_show_single_image"><b>Author Tools</b> main/featured image</label>
 							</p>
 							</td>
 			            </tr>
@@ -666,7 +605,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 		<?php if($t == 'users_tab') { ?>
             <?php
             if(isset($_POST['cinnamon_submit'])) {
-                update_option('cinnamon_author_slug', $_POST['cinnamon_author_slug']);
                 update_option('cinnamon_label_index', $_POST['cinnamon_label_index']);
                 update_option('cinnamon_label_portfolio', $_POST['cinnamon_label_portfolio']);
                 update_option('cinnamon_label_about', $_POST['cinnamon_label_about']);
@@ -681,8 +619,6 @@ RewriteRule ^(.*)$ ?author_name=%1
                 update_option('cinnamon_show_awards', $_POST['cinnamon_show_awards']);
                 update_option('cinnamon_show_followers', $_POST['cinnamon_show_followers']);
                 update_option('cinnamon_show_following', $_POST['cinnamon_show_following']);
-
-                update_option('cinnamon_hide_admin', $_POST['cinnamon_hide_admin']);
 
                 update_option('cinnamon_account_page', $_POST['cinnamon_account_page']);
                 update_option('cinnamon_edit_page', $_POST['cinnamon_edit_page']);
@@ -704,13 +640,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 				<p>These settings apply globally for all ImagePress users.</p>
 			    <table class="form-table">
 			        <tbody>
-			            <tr>
-			                <th scope="row"><label for="cinnamon_author_slug">Author profile slug</label></th>
-			                <td>
-			                    <input type="text" name="cinnamon_author_slug" id="cinnamon_author_slug" value="<?php echo get_option('cinnamon_author_slug'); ?>" class="regular-text">
-			                    <br><small>Default is <b>author</b> (usage exemples: <b>author</b>, <b>profile</b> or <b>hub</b>).</small>
-			                </td>
-			            </tr>
 			            <tr>
 			                <th scope="row"><label for="cinnamon_account_page">Author account login page</label></th>
 			                <td>
@@ -790,12 +719,6 @@ RewriteRule ^(.*)$ ?author_name=%1
                                     <select name="cinnamon_show_awards" id="cinnamon_show_awards">
                                         <option value="1"<?php if(get_option('cinnamon_show_awards') == 1) echo ' selected'; ?>>Show awards</option>
                                         <option value="0"<?php if(get_option('cinnamon_show_awards') == 0) echo ' selected'; ?>>Hide awards</option>
-                                    </select>
-                                </p>
-                                <p>
-                                    <select name="cinnamon_hide_admin" id="cinnamon_hide_admin">
-                                        <option value="1"<?php if(get_option('cinnamon_hide_admin') == 1) echo ' selected'; ?>>Hide admin bar for non-admin users</option>
-                                        <option value="0"<?php if(get_option('cinnamon_hide_admin') == 0) echo ' selected'; ?>>Show admin bar for non-admin users</option>
                                     </select>
                                 </p>
                                 <hr>

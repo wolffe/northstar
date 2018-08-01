@@ -1,6 +1,6 @@
 # Moon UI Project
 
-Moon UI Project is the official Poster Spy WordPress theme.
+Moon UI Project is the official PosterSpy WordPress theme.
 
 ### Version
 2.5.0

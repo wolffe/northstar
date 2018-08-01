@@ -1,16 +1,16 @@
 <?php get_header(); ?>
 
-<?php //echo do_shortcode('[alert type="info"]We need your support to continue improving and developing Poster Spy - <a href="http://posterspy.com/donate-to-poster-spy/">Find out more</a>[/alert]'); ?>
+<?php //echo do_shortcode('[alert type="info"]We need your support to continue improving and developing PosterSpy - <a href="http://posterspy.com/donate-to-poster-spy/">Find out more</a>[/alert]'); ?>
 
 <!--// HOME /-->
 <section id="content-wide" role="main">
 	<?php //if(isset($_GET['ciprian'])) { ?>
 	<div style="margin: 32px 0;">
-		<h1 style="text-transform: uppercase; font-family: 'Montserrat'; font-weight: 300; font-size: 44px; text-align: center; margin: 0;">Welcome to <span style="font-weight: 700;" class="teal">Poster Spy</span></h1>
+		<h1 style="text-transform: uppercase; font-family: 'Montserrat'; font-weight: 300; font-size: 44px; text-align: center; margin: 0;">Welcome to <span style="font-weight: 700;" class="teal">PosterSpy</span></h1>
 		<h2 style="text-transform: uppercase; font-family: 'Montserrat'; text-align: center; font-weight: 300; font-size: 14px;">A global community for poster artists and poster art lovers. <b>Upload and Explore.</b></h2>
 	</div>
 
-<h1 style="font-family: 'Montserrat'; font-weight: 300; font-size: 25px;">Poster Spy News <small><i class="fa fa-newspaper-o"></i></small></h1>
+<h1 style="font-family: 'Montserrat'; font-weight: 300; font-size: 25px;">PosterSpy News <small><i class="fa fa-newspaper-o"></i></small></h1>
 <?php //} ?>
 
 	<section class="category-tabs">

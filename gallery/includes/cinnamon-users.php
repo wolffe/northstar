@@ -2,9 +2,7 @@
 function cinnamon_count_user_posts_by_type($userid, $post_type = 'post') {
     global $wpdb;
 
-    $ip_slug = get_option('ip_slug');
-
-    $where = get_posts_by_author_sql($ip_slug, true, $userid);
+    $where = get_posts_by_author_sql('poster', true, $userid);
     $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->posts $where");
 
     return apply_filters('get_usernumposts', $count, $userid);
@@ -26,19 +24,16 @@ function cinnamon_PostViews($id, $count = true) {
 function cinnamon_author_base() {
     global $wp_rewrite;
 
-    $cinnamon_author_slug = get_option('cinnamon_author_slug');
-    $author_slug = $cinnamon_author_slug; // change slug name
-    $wp_rewrite->author_base = $author_slug;
+    $wp_rewrite->author_base = 'profile';
 }
 
 function cinnamon_get_related_author_posts($author) {
     global $post;
 
-    $ip_slug = get_option('ip_slug');
     $authors_posts = get_posts([
         'author' => $author,
         'posts_per_page' => 9,
-        'post_type' => $ip_slug
+        'post_type' => 'poster'
     ]);
 
     $output = '';
@@ -69,10 +64,9 @@ function cinnamon_extra_contact_info($contactmethods) {
 function cinnamon_get_portfolio_posts($author, $count, $size = 'thumbnail') {
     global $post;
 
-    $ip_slug = get_option('ip_slug');
     $authors_posts = get_posts([
         'author' => $author,
-        'post_type' => $ip_slug,
+        'post_type' => 'poster',
         'posts_per_page' => $count,
         'meta_key' => 'imagepress_sticky',
         'meta_value' => 1,
@@ -95,7 +89,7 @@ function cinnamon_get_portfolio_posts($author, $count, $size = 'thumbnail') {
 }
 
 function user_query_count_post_type($args) {
-    $args->query_from = str_replace("post_type = 'post' AND", "post_type IN ('" . get_option('ip_slug') . "') AND ", $args->query_from);
+    $args->query_from = str_replace("post_type = 'post' AND", "post_type IN ('poster') AND ", $args->query_from);
 }
 
 /* CINNAMON CARD SHORTCODE */
@@ -107,8 +101,6 @@ function cinnamon_card($atts, $content = null) {
     ], $atts));
 
     global $post;
-
-    $ip_slug = get_option('ip_slug');
 
     if (empty($author))
         $author = get_current_user_id();
@@ -145,7 +137,7 @@ function cinnamon_card($atts, $content = null) {
             $authors_posts = get_posts([
                 'author' => $author,
                 'posts_per_page' => get_option('ip_cards_per_author'),
-                'post_type' => $ip_slug
+                'post_type' => 'poster'
             ]);
     
 			if($authors_posts) {
@@ -169,17 +161,17 @@ function cinnamon_card($atts, $content = null) {
 			$card .= '<div class="cinnamon-stats">
 				<div class="cinnamon-meta"><span class="views">' . kformat(cinnamon_PostViews($author, false)) . '</span><br><small>views</small></div>
 				<div class="cinnamon-meta"><span class="followers">' . kformat(pwuf_get_follower_count($author)) . '</span><br><small>followers</small></div>
-				<div class="cinnamon-meta"><span class="uploads">' . kformat(cinnamon_count_user_posts_by_type($author, $ip_slug)) . '</span><br><small>uploads</small></div>
+				<div class="cinnamon-meta"><span class="uploads">' . kformat(cinnamon_count_user_posts_by_type($author, 'poster')) . '</span><br><small>uploads</small></div>
 			</div>';
         $card .= '</li>';
 
         if(ipGetBaseUri() == 'posterspy.com') {
-            if($hub_user_info->first_name != '' && !empty($hub_location) && cinnamon_count_user_posts_by_type($author, $ip_slug) > 0) {
+            if($hub_user_info->first_name != '' && !empty($hub_location) && cinnamon_count_user_posts_by_type($author, 'poster') > 0) {
                 $display .= $card;
             }
         }
         else {
-            if(cinnamon_count_user_posts_by_type($author, $ip_slug) > 0) {
+            if(cinnamon_count_user_posts_by_type($author, 'poster') > 0) {
                 $display .= $card;
             }
         }
@@ -204,7 +196,6 @@ function cinnamon_profile_blank($atts, $content = null) {
         $author = get_current_user_id();
 
     $hub_user_info = get_userdata($author);
-    $ip_slug = get_option('ip_slug');
 
     $hub_googleplus = ''; $hub_facebook = ''; $hub_twitter = '';
     if($hub_user_info->googleplus != '')
@@ -283,8 +274,6 @@ function cinnamon_profile($atts, $content = null) {
     $author_rewrite = get_user_by('slug', get_query_var('author_name'));
     $author_rewrite = $author_rewrite->user_login;
 
-    $ip_slug = get_option('ip_slug');
-
     if (empty($author))
         $author = get_current_user_id();
 
@@ -315,7 +304,7 @@ function cinnamon_profile($atts, $content = null) {
     <div class="profile-hub-container">
         <div class="ip-tab">
             <ul class="ip-tabs active">
-                <li class="current"><a href="#">Uploads<span>' . kformat(cinnamon_count_user_posts_by_type($author, $ip_slug)) . '</span></a></li>';
+                <li class="current"><a href="#">Uploads<span>' . kformat(cinnamon_count_user_posts_by_type($author, 'poster')) . '</span></a></li>';
 
                 if ((int) get_option('cinnamon_show_followers') === 1 && (int) pwuf_get_follower_count($author) > 0) {
                     $display .= '<li><a href="#">Followers<span>' . kformat(pwuf_get_follower_count($author)) . '</span></a></li>';

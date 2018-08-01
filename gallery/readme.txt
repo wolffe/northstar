@@ -21,6 +21,7 @@ Create a user-powered image gallery or an image upload site, using nothing but W
 
 = 6.3.0 =
 * FIX: Consolidated sidebar areas on widget_init only
+* FIX: Removed unused function for non-admins
 * UPDATE: Removed bulk uploader
 * UPDATE: Removed deprecated async loop
 * UPDATE: Removed several checks (already active by default)
@@ -29,6 +30,8 @@ Create a user-powered image gallery or an image upload site, using nothing but W
 * UPDATE: Removed old Twitter OAuth assets
 * UPDATE: Implemented native PHP 7 arrays
 * UPDATE: Removed all translated strings
+* UPDATE: Hardcoded author slug
+* UPDATE: Hardcoded poster (CPT) slug
 
 * TODO: Remove keywords (+ post types)
 * TODO: Remove imagepress_meta_box_callback (Staff Comment section)

@@ -167,36 +167,36 @@ function ip_collections_display_custom($atts) {
 	], $atts));
 
 	global $wpdb;
+
 	$i = 0;
 
-	if($mode == 'random')
+	if ((string) $mode === 'random') {
 		$mode = 'RAND()';
+	}
 
 	$result = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ip_collections WHERE collection_status = 1 ORDER BY $mode", ARRAY_A);
 
 	$out = '<div class="the">';
-	foreach($result as $collection) {
+	foreach ($result as $collection) {
 		$postslistcount = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ip_collectionmeta WHERE image_collection_ID = '" . $collection['collection_ID'] . "'", ARRAY_A);
 
-		if(count($postslistcount) >= 4) {
-			if($i < $count) {
-				$out .= '<div class="ip_collections_edit ipc' . $collection['collection_ID'] . '" data-collection-edit="' . $collection['collection_ID'] . '">';
-					$postslist = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ip_collectionmeta WHERE image_collection_ID = '" . $collection['collection_ID'] . "' LIMIT 4", ARRAY_A);
+		if (count($postslistcount) >= 4) { // change this to check for more (or less) images in the collection (e.g. 3, 5 or 10)
+			if ((int) $i < (int) $count) {
+				$postslist = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ip_collectionmeta WHERE image_collection_ID = '" . $collection['collection_ID'] . "' LIMIT 4", ARRAY_A);
+				$ip_collections_page_id = get_option('ip_collections_page');
 
-					$out .= '<div class="ip_collection_box">';
-						foreach($postslist as $collectable) {
+				$out .= '<div class="ip_collections_edit ipc' . $collection['collection_ID'] . '" data-collection-edit="' . $collection['collection_ID'] . '">
+					<div class="ip_collection_box">';
+						foreach ($postslist as $collectable) {
 							$out .= get_the_post_thumbnail($collectable['image_ID'], 'imagepress_pt_std');
 						}
-					$out .= '</div>';
-
-					$out .= '<div class="ip_collections_overlay"><i class="fa fa-file"></i> ' . count($postslistcount) . '</div>';
-
-					$out .= '<div class="collection_details">';
-						$ip_collections_page_id = get_option('ip_collections_page');
-						$out .= '<h3><a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '/">' . $collection['collection_title'] . '</a></h3>';
-						$out .= '<div>By <a href="' . get_author_posts_url($collection['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection['collection_author_ID']) . '</a></div>';
-					$out .= '</div>';
-				$out .= '</div>';
+					$out .= '</div>
+					<div class="ip_collections_overlay"><i class="fa fa-file"></i> ' . count($postslistcount) . '</div>
+					<div class="collection_details">
+						<h3><a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '/">' . $collection['collection_title'] . '</a></h3>
+						<div>By <a href="' . get_author_posts_url($collection['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection['collection_author_ID']) . '</a></div>
+					</div>
+				</div>';
 			}
 			++$i;
 		}

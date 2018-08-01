@@ -67,13 +67,11 @@ function notification_reset() {
 
 function imagepress_notifications($atts, $content = null) {
     global $wpdb;
+
     $user_ID = get_current_user_id();
     $following = [pwuf_get_followers($user_ID)];
 
-    $ip_slug = get_option('ip_slug');
-    $display = '';
-
-    $display .= '<div class="notifications-title">
+    $display = '<div class="notifications-title">
 		Notifications
 		<a href="#" class="ip_notification_mark" data-userid="' . $user_ID . '">' . get_option('ip_notifications_mark') . '</a>
 	</div>';
@@ -97,10 +95,10 @@ function imagepress_notifications($atts, $content = null) {
             $class = 'read';
 
         if($action == 'loved' && $user_ID == $authorID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-heart"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your ' . $ip_slug . ' <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-heart"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
 
         if($action == 'collected' && $user_ID == $authorID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-folder"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your ' . $ip_slug . ' <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-folder"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
 
 		if($action == 'added' && pwuf_is_following($user_ID, $authorID))
             $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-arrow-circle-up"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
@@ -109,7 +107,7 @@ function imagepress_notifications($atts, $content = null) {
             $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-plus-circle"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $line->actionType . ' you<time>' . $time . '</time></div>';
 
         if($action == 'commented on' && $user_ID == $authorID && $user_ID != $line->userID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-comment"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your ' . $ip_slug . ' <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-comment"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
 
         if($action == 'replied to a comment on') {
             $comment_id = get_comment($line->postID);
@@ -121,7 +119,7 @@ function imagepress_notifications($atts, $content = null) {
         }
 
         if($action == 'featured' && $user_ID == $authorID && $user_ID != $line->userID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_the_post_thumbnail($line->postID, [48,48]) . '</div><i class="fa fa-fw fa-star"></i> Your <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a> ' . $ip_slug . ' was ' . $action . '<time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_the_post_thumbnail($line->postID, [48,48]) . '</div><i class="fa fa-fw fa-star"></i> Your <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a> poster was ' . $action . '<time>' . $time . '</time></div>';
 
         // custom
         if(0 == $line->postID || '-1' == $line->postID) {
@@ -137,10 +135,8 @@ function imagepress_notifications($atts, $content = null) {
     return $display;
 }
 
-$ip_slug = get_option('ip_slug');
-
 //add_action('post_updated', 'imagepress_post_update');
-//add_action('publish_' . $ip_slug, 'imagepress_post_add');
+//add_action('publish_poster', 'imagepress_post_add');
 add_action('new_to_publish', 'imagepress_post_add');
 //add_action('draft_to_publish', 'imagepress_post_add');
 add_action('comment_post', 'imagepress_comment_add');
@@ -150,10 +146,8 @@ function imagepress_post_add($act_post) {
 
 	// there's also this: if ($post->post_status != "publish") return;
 	// http://wordpress.stackexchange.com/questions/63976/do-new-to-publish-hooks-work-for-custom-post-types
-	if(!wp_is_post_revision($act_post)) {
-		$ip_slug = get_option('ip_slug');
-
-		if(get_query_var('post_type') == $ip_slug && is_numeric($act_post)) {
+	if (!wp_is_post_revision($act_post)) {
+		if ((string) get_query_var('post_type') === 'poster' && is_numeric($act_post)) {
 			$act_time = current_time('mysql', true);
 			$wpdb->query("INSERT INTO " . $wpdb->prefix . "notifications (ID, userID, postID, actionType, actionTime) VALUES (null, $user_ID, " . $act_post . ", 'added', '" . $act_time . "')");
 		}

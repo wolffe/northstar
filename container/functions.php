@@ -176,6 +176,7 @@ function noir_comments($comment, $args, $depth) {
 
 /**
  * Adds a box to the main column on the Post and Page edit screens.
+ * REMOVE THIS
  */
 function imagepress_add_meta_box() {
     $screens = ['poster'];
@@ -224,6 +225,7 @@ function imagepress_save_meta_box_data($post_id) {
     update_post_meta($post_id, '_comment_value_key', $my_data);
 }
 add_action('save_post', 'imagepress_save_meta_box_data');
+/////////////////////////////////////
 
 // custom width box
 function box_ps($atts, $content = null) {

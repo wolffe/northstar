@@ -59,7 +59,7 @@ add_filter('transition_post_status', 'imagepress_notify_status', 10, 3); // emai
 add_filter('widget_text', 'do_shortcode');
 
 function imagepress_menu() {
-    add_submenu_page('edit.php?post_type=' . get_option('ip_slug'), 'ImagePress Settings', 'ImagePress Settings', 'manage_options', 'imagepress_admin_page', 'imagepress_admin_page');
+    add_submenu_page('edit.php?post_type=poster', 'ImagePress Settings', 'ImagePress Settings', 'manage_options', 'imagepress_admin_page', 'imagepress_admin_page');
 }
 
 add_shortcode('imagepress-add', 'imagepress_add');
@@ -116,9 +116,7 @@ add_filter('user_contactmethods', 'cinnamon_extra_contact_info');
 
 
 // custom thumbnail column
-$ip_column_slug = get_option('ip_slug');
-
-add_filter('manage_edit-' . $ip_column_slug . '_columns', 'ip_columns_filter', 10, 1);
+add_filter('manage_edit-poster_columns', 'ip_columns_filter', 10, 1);
 function ip_columns_filter($columns) {
 	$column_thumbnail = [
 		'thumbnail' => 'Thumbnail'
@@ -144,10 +142,10 @@ function ip_manage_users_custom_column($output = '', $column_name, $user_id) {
 	if ((string) $column_name !== 'post_type_count')
 		return;
 
-	$where = get_posts_by_author_sql(get_option('ip_slug'), true, $user_id);
+	$where = get_posts_by_author_sql('poster', true, $user_id);
 	$result = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->posts $where");
 
-	return '<a href="' . admin_url("edit.php?post_type=" . get_option('ip_slug') . "&author=$user_id") . '">' . $result . '</a>';
+	return '<a href="' . admin_url("edit.php?post_type=poster&author=$user_id") . '">' . $result . '</a>';
 }
 add_filter('manage_users_custom_column', 'ip_manage_users_custom_column', 10, 3);
 
@@ -187,7 +185,7 @@ function imagepress_add($atts, $content = null) {
 			'post_content' => sanitize_text_field($_POST['imagepress_image_description']),
 			'post_status' => $ip_status,
 			'post_author' => $ip_image_author,
-			'post_type' => get_option('ip_slug')
+			'post_type' => 'poster'
 		];
 
 		// send notification email to administrator
@@ -480,7 +478,6 @@ function imagepress_activate() {
 	add_option('ip_ipp', 20);
 	add_option('ip_app', 10);
 	add_option('ip_padding', 1);
-	add_option('ip_slug', 'poster');
 
 	add_option('ip_upload_size', 2048);
 	add_option('ip_moderate', 0);
@@ -518,7 +515,6 @@ function imagepress_activate() {
     add_option('ip_cat_moderation_include', '');
 
     // users
-    add_option('cinnamon_author_slug', 'author'); // try 'profile'
     add_option('cinnamon_label_index', 'View all');
     add_option('cinnamon_label_portfolio', 'My Hub');
     add_option('cinnamon_label_about', 'About/Biography');
@@ -532,8 +528,6 @@ function imagepress_activate() {
     add_option('ip_cards_per_author', 9);
     add_option('ip_cards_image_size', 'thumbnail');
     add_option('cinnamon_edit_label', 'Edit profile');
-
-    add_option('cinnamon_hide_admin', 0);
 
     add_option('cinnamon_edit_page', '');
 
@@ -600,6 +594,10 @@ function imagepress_activate() {
 	delete_option('ip_mod_login');
 	delete_option('ip_click_behaviour');
 	delete_option('hook_share_single');
+	delete_option('cinnamon_author_slug');
+	delete_option('cinnamon_hide_admin');
+	delete_option('ip_slug');
+	delete_option('ip_show_single_image');
 
     global $wpdb;
 
@@ -705,7 +703,7 @@ function imagepress_search($atts, $content = null) {
 			<div>
 				<input type="search" name="s" id="s" placeholder="Search images..."> 
 				<input type="submit" id="searchsubmit" value="Search">
-				<input type="hidden" name="post_type" value="' . get_option('ip_slug') . '">
+				<input type="hidden" name="post_type" value="poster">
 			</div>
 		</form>';
 
@@ -803,7 +801,7 @@ function imagepress_show($atts, $content = null) {
 		$metaids = explode(',', $metaids);
 		$args = [
 			'imagepress_image_category' => $category,
-			'post_type' 				=> get_option('ip_slug'),
+			'post_type' 				=> 'poster',
 			'posts_per_page' 			=> $limit,//$ip_ipp,
 			'orderby' 					=> $ip_order,
 			'order' 					=> $ip_order_asc_desc,
@@ -816,7 +814,7 @@ function imagepress_show($atts, $content = null) {
 	else {
 		$args = [
 			'imagepress_image_category' => $category,
-			'post_type' 				=> get_option('ip_slug'),
+			'post_type' 				=> 'poster',
 			'posts_per_page' 			=> $limit,//$ip_ipp,
 			'orderby' 					=> $ip_order,
 			'order' 					=> $ip_order_asc_desc,
@@ -931,7 +929,7 @@ function imagepress_menu_bubble() {
 	global $menu, $submenu;
 
 	$args = [
-		'post_type' => get_option('ip_slug'),
+		'post_type' => 'poster',
 		'post_status' => 'pending',
 		'showposts' => -1,
 	];
@@ -939,7 +937,7 @@ function imagepress_menu_bubble() {
 
 	if ($draft_ip_links) {
 		foreach ($menu as $key => $value) {
-			if ($menu[$key][2] == 'edit.php?post_type=' . get_option('ip_slug')) {
+			if ($menu[$key][2] == 'edit.php?post_type=poster') {
 				$menu[$key][0] .= ' <span class="update-plugins count-' . $draft_ip_links . '"><span class="plugin-count">' . $draft_ip_links . '</span></span>';
 				return;
 			}
@@ -947,7 +945,7 @@ function imagepress_menu_bubble() {
 	}
 	if ($draft_ip_links) {
 		foreach ($submenu as $key => $value) {
-			if ($submenu[$key][2] == 'edit.php?post_type=' . get_option('ip_slug')) {
+			if ($submenu[$key][2] == 'edit.php?post_type=poster') {
 				$submenu[$key][0] .= ' <span class="update-plugins count-' . $draft_ip_links . '"><span class="plugin-count">' . $draft_ip_links . '</span></span>';
 				return;
 			}
@@ -1011,7 +1009,7 @@ function imagepress_widget($atts, $content = null) {
 		$count = 1;
 
     $args = [
-        'post_type' 				=> get_option('ip_slug'),
+        'post_type' 				=> 'poster',
         'posts_per_page' 			=> $count,
         'orderby' 					=> 'meta_value_num',
         'meta_key'                  => $imagepress_meta_key,
