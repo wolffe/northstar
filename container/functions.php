@@ -122,7 +122,7 @@ function noir_comments($comment, $args, $depth) {
         }
         ?>
         <li <?php comment_class(); ?> id="comment-<?php comment_ID(); ?>">
-            <p><?php _e('Pingback:', 'noir'); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( '(Edit)', 'noir' ), '<span class="edit-link">', '</span>' ); ?></p>
+            <p>Pingback: <?php comment_author_link(); ?> <?php edit_comment_link('(Edit)', '<span class="edit-link">', '</span>'); ?></p>
     <?php
             break;
         default :
@@ -352,23 +352,23 @@ function the_about_the_author_box() {
 // Register Banners
 function carousel_ps() {
     $labels = [
-        'name'                => _x( 'Banners', 'Post Type General Name', 'noir' ),
-        'singular_name'       => _x( 'Banner', 'Post Type Singular Name', 'noir' ),
-        'menu_name'           => __( 'Banners', 'noir' ),
-        'parent_item_colon'   => __( 'Parent Banner:', 'noir' ),
-        'all_items'           => __( 'All Banners', 'noir' ),
-        'view_item'           => __( 'View Banner', 'noir' ),
-        'add_new_item'        => __( 'Add New Banner', 'noir' ),
-        'add_new'             => __( 'Add New', 'noir' ),
-        'edit_item'           => __( 'Edit Banner', 'noir' ),
-        'update_item'         => __( 'Update Banner', 'noir' ),
-        'search_items'        => __( 'Search Banner', 'noir' ),
-        'not_found'           => __( 'Not found', 'noir' ),
-        'not_found_in_trash'  => __( 'Not found in Trash', 'noir' ),
+        'name'                => 'Banners',
+        'singular_name'       => 'Banner',
+        'menu_name'           => 'Banners',
+        'parent_item_colon'   => 'Parent Banner:',
+        'all_items'           => 'All Banners',
+        'view_item'           => 'View Banner',
+        'add_new_item'        => 'Add New Banner',
+        'add_new'             => 'Add New',
+        'edit_item'           => 'Edit Banner',
+        'update_item'         => 'Update Banner',
+        'search_items'        => 'Search Banner',
+        'not_found'           => 'Not found',
+        'not_found_in_trash'  => 'Not found in Trash',
     ];
     $args = [
-        'label'               => __( 'home_banner', 'noir' ),
-        'description'         => __( 'Homepage static banner', 'noir' ),
+        'label'               => 'home_banner',
+        'description'         => 'Homepage static banner',
         'labels'              => $labels,
         'supports'            => ['title', 'editor', 'thumbnail'],
         'hierarchical'        => false,
@@ -417,17 +417,17 @@ function chip_pagination($pages = '', $range = 4) {
     }
 
     if(1 != $pages) {
-        echo '<div class="noir-pagination"><span>'.__('Page').' '.$paged.' '.__('of').' '.$pages.'</span>';
-        if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo '<a href="'.get_pagenum_link(1).'">&laquo; '.__('First').'</a>';
-        if($paged > 1 && $showitems < $pages) echo '<a href="'.get_pagenum_link($paged - 1).'">&lsaquo; '.__('Previous').'</a>';
+        echo '<div class="noir-pagination"><span>Page '.$paged.' of '.$pages.'</span>';
+        if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo '<a href="'.get_pagenum_link(1).'">&laquo; First</a>';
+        if($paged > 1 && $showitems < $pages) echo '<a href="'.get_pagenum_link($paged - 1).'">&lsaquo; Previous</a>';
 
         for($i=1; $i <= $pages; $i++) {
             if(1 != $pages &&(!($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems))
                 echo ($paged == $i)? '<span class="noir-current">'.$i.'</span>':'<a href="'.get_pagenum_link($i).'" class="inactive">'.$i.'</a>';
         }
 
-        if($paged < $pages && $showitems < $pages) echo '<a href="'.get_pagenum_link($paged + 1).'">'.__('Next').' &rsaquo;</a>';
-        if($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo '<a href="'.get_pagenum_link($pages).'">'.__('Last').' &raquo;</a>';
+        if($paged < $pages && $showitems < $pages) echo '<a href="'.get_pagenum_link($paged + 1).'">Next &rsaquo;</a>';
+        if($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo '<a href="'.get_pagenum_link($pages).'">Last &raquo;</a>';
         echo '<div class="clear"></div>';
         echo "</div>\n";
     }

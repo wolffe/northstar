@@ -152,7 +152,7 @@ function ip_manage_users_custom_column($output = '', $column_name, $user_id) {
 add_filter('manage_users_custom_column', 'ip_manage_users_custom_column', 10, 3);
 
 function ip_manage_users_columns($columns) {
-	$columns['post_type_count'] = __('Images', 'imagepress');
+	$columns['post_type_count'] = 'Images';
 
 	return $columns;
 }
@@ -179,7 +179,7 @@ function imagepress_add($atts, $content = null) {
 		if (!empty($_POST['imagepress_image_caption'])) {
 			$imagepress_image_caption = sanitize_text_field($_POST['imagepress_image_caption']);
 		} else {
-			$imagepress_image_caption = __('ImagePress Image', 'imagepress') . uniqid();
+			$imagepress_image_caption = 'ImagePress Image' . uniqid();
 		}
 
 		$user_image_data = [
@@ -192,8 +192,8 @@ function imagepress_add($atts, $content = null) {
 
 		// send notification email to administrator
 		$ip_notification_email = get_option('ip_notification_email');
-		$ip_notification_subject = __('New image uploaded!', 'imagepress') . ' | ' . get_bloginfo('name');
-		$ip_notification_message = __('New image uploaded!', 'imagepress') . ' | ' . get_bloginfo('name');
+		$ip_notification_subject = 'New image uploaded! | ' . get_bloginfo('name');
+		$ip_notification_message = 'New image uploaded! | ' . get_bloginfo('name');
 
 		if ($post_id = wp_insert_post($user_image_data)) {
             if (!empty($_POST['imagepress_dropbox_file'])) {
@@ -302,7 +302,7 @@ function imagepress_add($atts, $content = null) {
 	}  
 
 	if ((int) get_option('ip_registration') === 0 && !is_user_logged_in()) {
-		$out .= '<p>' . __('You need to be logged in to upload an image.', 'imagepress') . '</p>';
+		$out .= '<p>You need to be logged in to upload an image.</p>';
 	}
 	if (((int) get_option('ip_registration') === 0 && is_user_logged_in()) || (int) get_option('ip_registration') === 1) {
 		if (isset($_POST['imagepress_image_caption']) && isset($_POST['imagepress_image_category']))
@@ -421,7 +421,7 @@ function imagepress_get_upload_image_form($imagepress_image_caption = '', $image
             $out .= '<hr>';
             $out .= '<div id="imagepress-errors"></div>';
             $out .= '<h3>Primary Image</h3>';
-            $out .= '<p style="display: inline-block;"><label for="imagepress_image_file"><i class="fa fa-cloud-upload"></i> Select a file (' . $uploadsize . 'MB ' . __('maximum', 'imagepress') . ')...</label><br><input type="file" accept="image/*" data-max-size="' . $datauploadsize . '" data-max-width="' . $ip_width . '" name="imagepress_image_file" id="imagepress_image_file"></p>';
+            $out .= '<p style="display: inline-block;"><label for="imagepress_image_file"><i class="fa fa-cloud-upload"></i> Select a file (' . $uploadsize . 'MB maximum)...</label><br><input type="file" accept="image/*" data-max-size="' . $datauploadsize . '" data-max-width="' . $ip_width . '" name="imagepress_image_file" id="imagepress_image_file"></p>';
 
             $out .= '<p style="display: inline-block; margin: 0 64px 0 8px;"><b><small>OR</small></b></p>';
 
@@ -443,7 +443,7 @@ function imagepress_get_upload_image_form($imagepress_image_caption = '', $image
 			$out .= '<hr>';
 
             $out .= '<h3>Secondary Image(s)<br><small>Additional images (variants, making of, progress shots)</small></h3>';
-            $out .= '<p><label for="imagepress_image_additional"><i class="fa fa-cloud-upload"></i> Select file(s) (' . $uploadsize . 'MB ' . __('maximum', 'imagepress') . ')...</label><br><input type="file" accept="image/*" name="imagepress_image_additional[]" id="imagepress_image_additional" multiple></p><hr>';
+            $out .= '<p><label for="imagepress_image_additional"><i class="fa fa-cloud-upload"></i> Select file(s) (' . $uploadsize . 'MB maximum)...</label><br><input type="file" accept="image/*" name="imagepress_image_additional[]" id="imagepress_image_additional" multiple></p><hr>';
 
             $out .= '<p style="padding: 16px 0; font-size: 13px;"><input type="checkbox" id="ip-agree"> <label for="ip-agree">By uploading my artwork to PosterSpy, I agree that the work is my own and complies with the website\'s <a href="https://posterspy.com/about/terms-of-use/" target="_blank">Terms of Service</a>.</label></p>';
 			$out .= '<p class="center">';
@@ -680,15 +680,15 @@ function ip_enqueue_scripts() {
 		'authorsperpage'              => get_option('ip_app'),
 		'likelabel'                   => get_option('ip_vote_like'),
 		'unlikelabel'                 => get_option('ip_vote_unlike'),
-		'processing_error'            => __('There was a problem processing your request.', 'imagepress'),
-		'login_required'              => __('Oops, you must be logged-in to follow users.', 'imagepress'),
+		'processing_error'            => 'There was a problem processing your request.',
+		'login_required'              => 'Oops, you must be logged-in to follow users.',
 		'logged_in'                   => is_user_logged_in() ? 'true' : 'false',
 		'ajaxurl'                     => admin_url('admin-ajax.php'),
 		'nonce'                       => wp_create_nonce('ajax-nonce'),
 
         'redirecturl'                 => apply_filters('fum_redirect_to', $_SERVER['REQUEST_URI']),
-        'loadingmessage'              => __('Checking credentials...', 'imagepress'),
-        'registrationloadingmessage'  => __('Processing registration...', 'imagepress'),
+        'loadingmessage'              => 'Checking credentials...',
+        'registrationloadingmessage'  => 'Processing registration...',
 
         'ajaxreloadurl'               => plugins_url('ajax/reload-like.php', __FILE__),
         'ajaxcollecturl'               => plugins_url('ajax/reload-collect.php', __FILE__),
@@ -703,8 +703,8 @@ function imagepress_search($atts, $content = null) {
 
 	$display = '<form role="search" method="get" action="' . home_url() . '" class="imagepress-form">
 			<div>
-				<input type="search" name="s" id="s" placeholder="' . __('Search images...', 'imagepress') . '"> 
-				<input type="submit" id="searchsubmit" value="' . __('Search', 'imagepress') . '">
+				<input type="search" name="s" id="s" placeholder="Search images..."> 
+				<input type="submit" id="searchsubmit" value="Search">
 				<input type="hidden" name="post_type" value="' . get_option('ip_slug') . '">
 			</div>
 		</form>';
@@ -782,16 +782,16 @@ function imagepress_show($atts, $content = null) {
 		$out .= '<div class="ip-template-collection-meta">';
 			$last_image_row = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "ip_collectionmeta WHERE image_collection_ID = '" . $collection_row['collection_ID'] . "' ORDER BY image_meta_ID DESC LIMIT 1", ARRAY_A);
 
-			$out .= '<div class="imagepress-float-right">' . $collection_row['collection_views'] . ' ' . __('views', 'imagepress') . ' | ' . count($collectionables) . ' ' . __('images', 'imagepress') . '</div>';
+			$out .= '<div class="imagepress-float-right">' . $collection_row['collection_views'] . ' views | ' . count($collectionables) . ' images</div>';
 			$out .= '<div class="imagepress-float-left"><a href="' . get_permalink($last_image_row['image_ID']) . '">' . get_the_post_thumbnail($last_image_row['image_ID'], 'thumbnail') . '</a></div>';
 			$out .= '<h3>' . $collection_row['collection_title'] . '</h3>';
-			$out .= '' . __('By', 'imagepress') . ' <a href="' . get_author_posts_url($collection_row['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection_row['collection_author_ID']) . '</a>';
+			$out .= 'By <a href="' . get_author_posts_url($collection_row['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection_row['collection_author_ID']) . '</a>';
 			$out .= '<div class="ipclear"></div>';
 		$out .= '</div>';
 
 		$hmc = count($collectionables);
 		if ((int) $hmc === 0 or empty($hmc)) {
-			$out .= '<p>' . __('This collection is empty.', 'imagepress') . '</p>';
+			$out .= '<p>This collection is empty.</p>';
 			return $out;
 			get_footer();
 			die();
@@ -843,10 +843,10 @@ function imagepress_show($atts, $content = null) {
 		if ((string) $sort === 'yes') {
 			$out .= '<div class="cinnamon-sortable">
 				<div class="innersort">
-					<h4>' . __('Sort', 'imagepress') . '</h4>
-					<span class="sort initial" data-sort="imageviews" data-order="desc"><i class="fa fa-circle fa-fw"></i> ' . __('Most views', 'imagepress') . '</span>
-					<span class="sort" data-sort="imagecomments" data-order="desc"><i class="fa fa-circle fa-fw"></i> ' . __('Most comments', 'imagepress') . '</span>
-					<span class="sort" data-sort="imagelikes" data-order="desc"><i class="fa fa-circle fa-fw"></i> ' . __('Most ', 'imagepress') . get_option('ip_likes') . '</span>
+					<h4>Sort</h4>
+					<span class="sort initial" data-sort="imageviews" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most views</span>
+					<span class="sort" data-sort="imagecomments" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most comments</span>
+					<span class="sort" data-sort="imagelikes" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most ' . get_option('ip_likes') . '</span>
 				</div>
 				<div class="innersort">
 					<h4>' . get_option('ip_image_find_title') . '</h4>
@@ -858,7 +858,7 @@ function imagepress_show($atts, $content = null) {
 
         if (current_user_can('manage_options')) {
             if ((string) $filters === 'yes') {
-                $out .= '<div class="cinnamon-filters"><a href="#" class="sortByTaxonomyList" id="ip-taxonomy-filter-none"><i class="fa fa-times"></i> ' . __('All', 'imagepress') . '</a>';
+                $out .= '<div class="cinnamon-filters"><a href="#" class="sortByTaxonomyList" id="ip-taxonomy-filter-none"><i class="fa fa-times"></i> All</a>';
                 $terms = get_terms('imagepress_image_category');
                 if (!empty($terms) && !is_wp_error($terms)) {
                     foreach ($terms as $term) {
@@ -919,7 +919,7 @@ function imagepress_show($atts, $content = null) {
         //}
         /**/
 	} else {
-		$out .= __('No images found!', 'imagepress');
+		$out .= 'No images found!';
 		return $out;
 	}
 

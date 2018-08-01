@@ -326,9 +326,9 @@ function pwuf_get_follow_unfollow_links( $follow_id = null ) {
 	ob_start(); ?>
     <div class="follow-links">
         <?php if (pwuf_is_following($user_ID, $follow_id)) { ?>
-            <a href="#" class="unfollow followed btn btn-small btn-primary" data-user-id="<?php echo $user_ID; ?>" data-follow-id="<?php echo $follow_id; ?>" style="background-color: #2ECC71 !important;"><i class="fa fa-fw fa-check"></i> <?php _e('Following', 'imagepress'); ?></a>
+            <a href="#" class="unfollow followed btn btn-small btn-primary" data-user-id="<?php echo $user_ID; ?>" data-follow-id="<?php echo $follow_id; ?>" style="background-color: #2ECC71 !important;"><i class="fa fa-fw fa-check"></i> Following</a>
         <?php } else { ?>
-            <a href="#" class="follow btn btn-small btn-primary" data-user-id="<?php echo $user_ID; ?>" data-follow-id="<?php echo $follow_id; ?>"><i class="fa fa-fw fa-plus"></i> <?php _e('Follow', 'imagepress'); ?></a>
+            <a href="#" class="follow btn btn-small btn-primary" data-user-id="<?php echo $user_ID; ?>" data-follow-id="<?php echo $follow_id; ?>"><i class="fa fa-fw fa-plus"></i> Follow</a>
         <?php } ?>
         <img src="<?php echo IP_PLUGIN_URL; ?>/img/loading.gif" class="pwuf-ajax" style="display: none;">
     </div>

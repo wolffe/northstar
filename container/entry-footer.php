@@ -1,6 +1,6 @@
 <footer class="entry-footer">
-<span class="cat-links"><?php _e( 'Categories: ', 'blankslate' ); ?><?php the_category( ', ' ); ?></span>
+<span class="cat-links">Categories: <?php the_category(', '); ?></span>
 <?php if ( comments_open() ) { 
-echo '<span class="meta-sep">|</span> <span class="comments-link"><a href="' . get_comments_link() . '">' . sprintf( __( 'Comments', 'blankslate' ) ) . '</a></span>';
+echo '<span class="meta-sep">|</span> <span class="comments-link"><a href="' . get_comments_link() . '">Comments</a></span>';
 } ?>
-</footer> 
+</footer>

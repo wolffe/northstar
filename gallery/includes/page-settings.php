@@ -14,20 +14,20 @@ function imagepress_admin_page() {
 		<h2 class="nav-tab-wrapper">
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=dashboard_tab" class="nav-tab <?php echo $t == 'dashboard_tab' ? 'nav-tab-active' : ''; ?>"><div class="dashicons dashicons-info"></div></a>
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=install_tab" class="nav-tab <?php echo $t == 'install_tab' ? 'nav-tab-active' : ''; ?>">Installation</a>
-			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=settings_tab" class="nav-tab <?php echo $t == 'settings_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Settings', 'imagepress'); ?></a>
-			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=configurator_tab" class="nav-tab <?php echo $t == 'configurator_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Configurator', 'imagepress'); ?></a>
+			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=settings_tab" class="nav-tab <?php echo $t == 'settings_tab' ? 'nav-tab-active' : ''; ?>">Settings</a>
+			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=configurator_tab" class="nav-tab <?php echo $t == 'configurator_tab' ? 'nav-tab-active' : ''; ?>">Configurator</a>
 
-            <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=collections_tab" class="nav-tab <?php echo $t == 'collections_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Collections', 'imagepress'); ?></a>
+            <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=collections_tab" class="nav-tab <?php echo $t == 'collections_tab' ? 'nav-tab-active' : ''; ?>">Collections</a>
 
-			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=label_tab" class="nav-tab <?php echo $t == 'label_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Labels', 'imagepress'); ?></a>
+			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=label_tab" class="nav-tab <?php echo $t == 'label_tab' ? 'nav-tab-active' : ''; ?>">Labels</a>
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=notifications_tab" class="nav-tab <?php echo $t == 'notifications_tab' ? 'nav-tab-active' : ''; ?>">Feed Ads &amp; Notifications</a>
-			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=upload_tab" class="nav-tab <?php echo $t == 'upload_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Upload', 'imagepress'); ?></a>
+			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=upload_tab" class="nav-tab <?php echo $t == 'upload_tab' ? 'nav-tab-active' : ''; ?>">Upload</a>
             <?php if(get_option('cinnamon_mod_hub') == 0) { ?>
-			    <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=users_tab" class="nav-tab <?php echo $t == 'users_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Users', 'imagepress'); ?></a>
+			    <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=users_tab" class="nav-tab <?php echo $t == 'users_tab' ? 'nav-tab-active' : ''; ?>">Users</a>
             <?php } else { ?>
-			    <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=users_tab" class="nav-tab <?php echo $t == 'users_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Users (HUB)', 'imagepress'); ?></a>
+			    <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=users_tab" class="nav-tab <?php echo $t == 'users_tab' ? 'nav-tab-active' : ''; ?>">Users (HUB)</a>
             <?php } ?>
-            <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=login_tab" class="nav-tab <?php echo $t == 'login_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Login', 'imagepress'); ?></a>
+            <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=login_tab" class="nav-tab <?php echo $t == 'login_tab' ? 'nav-tab-active' : ''; ?>">Login</a>
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=hooks_tab" class="nav-tab <?php echo $t == 'hooks_tab' ? 'nav-tab-active' : ''; ?>">Hooks</a>
 		</h2>
 
@@ -119,36 +119,11 @@ RewriteRule ^(.*)$ ?author_name=%1
                     </div>
 				</div>
 			</div>';
-
-            /**
-            $args = array(
-                'post_type' 				=> get_option('ip_slug'),
-                'posts_per_page' 			=> '-1',
-                'cache_results'             => false,
-                'no_found_rows'             => true,
-            );
-            $posts = get_posts($args);
-
-            if($posts) {
-                echo '<textarea class="large-text" rows="8">';
-                foreach($posts as $user_image) {
-                    $i = $user_image->ID;
-
-                    $meta_USERS = get_post_meta($i, '_user_liked');
-                    $totalUsers = array_sum(array_map('count', $meta_USERS));
-
-                    echo $i . ' (' . get_post_meta($i, 'votes_count', true) . ') === (' . $totalUsers . ')' . "\r\n";
-                    if(isset($_GET['fix']))
-                        update_post_meta($i, 'votes_count', $totalUsers);
-                }
-                echo '</textarea>';
-            }
-            /**/
 		} ?>
 		<?php if($t == 'install_tab') { ?>
 			<div id="poststuff" class="ui-sortable meta-box-sortables">
 				<div class="postbox">
-					<h3><?php _e('Installation', 'imagepress'); ?></h3>
+					<h3>Installation</h3>
 					<div class="inside">
                         <p>Check the installation steps below and make the required changes.</p>
                         <h2>Basic Installation</h2>
@@ -290,7 +265,7 @@ RewriteRule ^(.*)$ ?author_name=%1
             			?>
 
             			<hr>
-    					<h2><?php _e('Maintenance', 'imagepress'); ?></h2>
+    					<h2>Maintenance</h2>
 						<form method="post" action="">
 							<p>
 								<input type="submit" name="isResetSubmit" value="Reset all likes" class="button-primary">
@@ -328,7 +303,7 @@ RewriteRule ^(.*)$ ?author_name=%1
 			}
 			?>
 			<form method="post" action="">
-				<h3 class="title"><?php _e('Grid Configurator', 'imagepress'); ?></h3>
+				<h3 class="title">Grid Configurator</h3>
 				<p>The <b>Grid configurator</b> allows you to select which information will be visible inside the image box.</p>
 			    <table class="form-table">
 			        <tbody>
@@ -482,20 +457,18 @@ RewriteRule ^(.*)$ ?author_name=%1
 			?>
 			<div id="poststuff" class="ui-sortable meta-box-sortables">
 				<div class="postbox">
-					<h3><?php _e('Collections', 'imagepress'); ?></h3>
+					<h3>Collections</h3>
 					<div class="inside">
 						<form method="post" action="">
                             <p>
 								<?php
-								wp_dropdown_pages(
-									array(
-										'name' => 'ip_collections_page',
-										'echo' => 1,
-										'show_option_none' => __('Select collections page...', 'imagepress'),
-										'option_none_value' => '0',
-										'selected' => get_option('ip_collections_page')
-									)
-								);
+								wp_dropdown_pages([
+									'name' => 'ip_collections_page',
+									'echo' => 1,
+									'show_option_none' => 'Select collections page...',
+									'option_none_value' => '0',
+									'selected' => get_option('ip_collections_page')
+								]);
 								?> <label for="ip_collections_page">Collections page</label>
                                 <br><small>This page should contain the collections shortcode (i.e. [imagepress-show collection="1"]</code>)</small>
                             </p>
@@ -534,7 +507,7 @@ RewriteRule ^(.*)$ ?author_name=%1
 			}
 			?>
 			<form method="post" action="">
-				<h3 class="title"><?php _e('Login/Registration', 'imagepress'); ?></h3>
+				<h3 class="title">Login/Registration</h3>
     			<p>This section allows you to customize the native WordPress login/registration page (<code>/wp-login.php</code>) by adding/removing/renaming elements and changing default colours and background properties.</p>
 			    <table class="form-table">
 			        <tbody>
@@ -1002,7 +975,7 @@ RewriteRule ^(.*)$ ?author_name=%1
 			?>
 			<div id="poststuff" class="ui-sortable meta-box-sortables">
 				<div class="postbox">
-					<h3><?php _e('Label Settings', 'imagepress'); ?></h3>
+					<h3>Label Settings</h3>
 					<div class="inside">
 						<form method="post" action="">
 							<p>
@@ -1203,7 +1176,7 @@ RewriteRule ^(.*)$ ?author_name=%1
 			}
 			?>
 			<form method="post" action="">
-    			<h3 class="title"><?php _e('Upload Settings', 'imagepress'); ?></h3>
+    			<h3 class="title">Upload Settings</h3>
     		    <table class="form-table">
     		        <tbody>
     		            <tr>
@@ -1363,12 +1336,12 @@ RewriteRule ^(.*)$ ?author_name=%1
                             $post_type_object = get_post_type_object($post_type);
                             $label = $post_type_object->label;
                             $posts = get_posts(
-                                array(
+                                [
                                     'post_type' => $post_type,
                                     'post_status'=> 'publish',
                                     'suppress_filters' => false,
                                     'posts_per_page' => -1,
-                                )
+                                ]
                             );
 
                             echo '<select name="notification_feed_ad" id="notification_feed_ad">
@@ -1407,10 +1380,10 @@ RewriteRule ^(.*)$ ?author_name=%1
                 </p>
                 <p>
                     <?php
-                    $args = array(
+                    $args = [
                         'name' => 'notification_user',
                         'show_option_none' => 'Show to this user only (optional, leave blank to show to all users)...'
-                    );
+                    ];
                     wp_dropdown_users($args); ?>
                 </p>
                 <p>
@@ -1464,11 +1437,11 @@ RewriteRule ^(.*)$ ?author_name=%1
                         $display .= '' . get_avatar($result->userID, 16) . ' <i class="fa fa-fw fa-comment"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> replied to a comment on <a href="' . get_permalink($comment_post_ID) . '">' . get_the_title($comment_post_ID) . '</a> <time>' . $time . '</time>';
                     }
                     else if($action == 'featured')
-									$display .= '' . get_the_post_thumbnail($result->postID, array(16,16)) . ' <i class="fa fa-fw fa-star"></i> <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> poster was ' . $action . ' <time>' . $time . '</time>';
+									$display .= '' . get_the_post_thumbnail($result->postID, [16,16]) . ' <i class="fa fa-fw fa-star"></i> <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> poster was ' . $action . ' <time>' . $time . '</time>';
                     // custom
                     else if(0 == $result->postID || '-1' == $result->postID) {
                         $attachment_id = 202;
-                        $image_attributes = wp_get_attachment_image_src($attachment_id, array(16,16));
+                        $image_attributes = wp_get_attachment_image_src($attachment_id, [16,16]);
 
                         $display .= '<img src="' .  $image_attributes[0] . '" width="' . $image_attributes[1] . '" height="' . $image_attributes[2] . '"> <i class="fa fa-fw ' . $result->actionIcon . '"></i> ' . $result->actionType . ' <time>' . $time . '</time>';
                     }
@@ -1489,7 +1462,7 @@ RewriteRule ^(.*)$ ?author_name=%1
 			?>
 			<div id="poststuff" class="ui-sortable meta-box-sortables">
 				<div class="postbox">
-					<h3><?php _e('Hooks', 'imagepress'); ?></h3>
+					<h3>Hooks</h3>
 					<div class="inside">
 						<form method="post" action="">
                             <p>

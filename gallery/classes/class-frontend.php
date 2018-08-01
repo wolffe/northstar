@@ -43,11 +43,11 @@ class Cinnamon_Frontend_User_Manager {
 
                         <?php /** ?>
                         <form action="login" method="post" id="form" name="loginform">
-                            <h2><?php _e('Log in', 'imagepress'); ?></h2>
-                            <p><input type="text" name="log" id="login_user" value="<?php if(isset($user_login)) echo esc_attr($user_login); ?>" size="32" placeholder="<?php _e('Username', 'imagepress'); ?>"></p>
-                            <p><input type="password" name="pwd" id="login_pass" value="" size="32" placeholder="<?php _e('Password', 'imagepress'); ?>"></p>
-                            <p><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="true" checked> <?php _e('Remember me', 'imagepress'); ?></label></p>
-                            <p><input type="submit" name="wp-sumbit" id="wp-submit" value="<?php _e('Log in', 'imagepress'); ?>"></p>
+                            <h2>Log in</h2>
+                            <p><input type="text" name="log" id="login_user" value="<?php if(isset($user_login)) echo esc_attr($user_login); ?>" size="32" placeholder="Username"></p>
+                            <p><input type="password" name="pwd" id="login_pass" value="" size="32" placeholder="Password"></p>
+                            <p><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="true" checked> Remember me</label></p>
+                            <p><input type="submit" name="wp-sumbit" id="wp-submit" value="Log in"></p>
                             <input type="hidden" name="login" value="true">
                             <?php wp_nonce_field('ajax_form_nonce', 'security'); ?>
                         </form>
@@ -187,7 +187,7 @@ class Cinnamon_Frontend_User_Manager {
 
 		$message = 'Someone requested that your password be reset for the following account: ' . $key . "\r\n\r\n";
 		$message .= network_home_url('/') . "\r\n\r\n";
-		$message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
+		$message .= sprintf('Username: %s', $user_login) . "\r\n\r\n";
 		$message .= 'Your new password is ' . $password . "\r\n\r\n";
 
 		if (is_multisite()) {
@@ -196,7 +196,7 @@ class Cinnamon_Frontend_User_Manager {
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 		}
 
-		$title = sprintf(__('[%s] Password reset' ), $blogname);
+		$title = sprintf('[%s] Password reset', $blogname);
 		$title = apply_filters('retrieve_password_title', $title);
 		$message = apply_filters('retrieve_password_message', $message, $key);
 

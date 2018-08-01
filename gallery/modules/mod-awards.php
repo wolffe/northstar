@@ -1,23 +1,23 @@
 <?php
 function ip_awards_taxonomy() {
     $labels = [
-        'name'                       => _x( 'Awards', 'Taxonomy General Name', 'imagepress' ),
-		'singular_name'              => _x( 'Awards', 'Taxonomy Singular Name', 'imagepress' ),
-		'menu_name'                  => __( 'Awards', 'imagepress' ),
-		'all_items'                  => __( 'All Awards', 'imagepress' ),
-		'parent_item'                => __( 'Parent Award', 'imagepress' ),
-		'parent_item_colon'          => __( 'Parent Award:', 'imagepress' ),
-		'new_item_name'              => __( 'New Award Name', 'imagepress' ),
-		'add_new_item'               => __( 'Add New Award', 'imagepress' ),
-		'edit_item'                  => __( 'Edit Award', 'imagepress' ),
-		'update_item'                => __( 'Update Award', 'imagepress' ),
-		'view_item'                  => __( 'View Award', 'imagepress' ),
-		'separate_items_with_commas' => __( 'Separate awards with commas', 'imagepress' ),
-		'add_or_remove_items'        => __( 'Add or remove awards', 'imagepress' ),
-		'choose_from_most_used'      => __( 'Choose from the most used', 'imagepress' ),
-		'popular_items'              => __( 'Popular Awards', 'imagepress' ),
-		'search_items'               => __( 'Search Awards', 'imagepress' ),
-		'not_found'                  => __( 'Not Found', 'imagepress' ),
+        'name'                       => 'Awards',
+		'singular_name'              => 'Awards',
+		'menu_name'                  => 'Awards',
+		'all_items'                  => 'All Awards',
+		'parent_item'                => 'Parent Award',
+		'parent_item_colon'          => 'Parent Award:',
+		'new_item_name'              => 'New Award Name',
+		'add_new_item'               => 'Add New Award',
+		'edit_item'                  => 'Edit Award',
+		'update_item'                => 'Update Award',
+		'view_item'                  => 'View Award',
+		'separate_items_with_commas' => 'Separate awards with commas',
+		'add_or_remove_items'        => 'Add or remove awards',
+		'choose_from_most_used'      => 'Choose from the most used',
+		'popular_items'              => 'Popular Awards',
+		'search_items'               => 'Search Awards',
+		'not_found'                  => 'Not Found',
 	];
 	$args = [
 		'labels'                     => $labels,
@@ -63,7 +63,7 @@ function my_add_award_admin_page() {
 add_filter('manage_edit-award_columns', 'my_manage_award_user_column');
 function my_manage_award_user_column($columns) {
     unset($columns['posts']);
-	$columns['users'] = __('Users', 'imagepress');
+	$columns['users'] = 'Users';
 	return $columns;
 }
 
@@ -86,10 +86,10 @@ function my_edit_user_award_section($user) {
 	$terms = get_terms('award', ['hide_empty' => false]);
 
 	if(is_admin()) { ?>
-		<h3><?php _e('Status and awards', 'imagepress'); ?></h3>
+		<h3>Status and awards</h3>
 		<table class="form-table">
 			<tr>
-				<th><label for="user_title"><?php _e('Status', 'imagepress'); ?></label></th>
+				<th><label for="user_title">Status</label></th>
 				<td>
 					<select name="user_title" id="user_title">
 						<option selected><?php echo esc_attr(get_the_author_meta('user_title', $user->ID)); ?></option>
@@ -97,19 +97,18 @@ function my_edit_user_award_section($user) {
 						<option>Regular</option>
 						<option value="seller">Seller</option>
 					</select>
-					<span class="description"><?php _e('Select user verification status', 'imagepress'); ?></span>
+					<span class="description">Select user verification status</span>
 				</td>
 			</tr>
 			<tr>
-				<th><label for="award"><?php _e('Select award(s)', 'imagepress'); ?></label></th>
+				<th><label for="award">Select award(s)</label></th>
 				<td><?php
-				if(!empty($terms)) {
-					foreach($terms as $term) { ?>
+				if (!empty($terms)) {
+					foreach ($terms as $term) { ?>
 						<input type="checkbox" name="award[]" id="award-<?php echo esc_attr($term->slug); ?>" value="<?php echo esc_attr($term->slug); ?>" <?php checked(true, is_object_in_term($user->ID, 'award', $term)); ?>> <label for="award-<?php echo esc_attr($term->slug); ?>"><?php echo $term->name; ?></label><br>
 					<?php }
-				}
-				else {
-					_e('There are no awards available.', 'imagepress');
+				} else {
+					echo 'There are no awards available.';
 				}
 				?></td>
 			</tr>
@@ -127,10 +126,10 @@ function extra_edit_tax_fields($tag) {
     $t_id = $tag->term_id;
     $term_meta = get_option("taxonomy_$t_id"); ?>
     <tr class="form-field">
-        <th scope="row" valign="top"><label for="cat_Image_url"><?php _e('Award Icon', 'imagepress'); ?></label></th>
+        <th scope="row" valign="top"><label for="cat_Image_url">Award Icon</label></th>
         <td>
             <input type="text" name="term_meta[img]" id="term_meta[img]" value="<?php echo esc_attr($term_meta['img']) ? esc_attr($term_meta['img']) : ''; ?>">
-            <p class="description"><?php _e('Enter the FontAwesome icon name (e.g. fa-trophy)', 'imagepress'); ?></p>
+            <p class="description">Enter the FontAwesome icon name (e.g. fa-trophy)</p>
         </td>
     </tr>
 <?php
@@ -141,9 +140,9 @@ function extra_add_tax_fields($tag) {
     $t_id = $tag->term_id;
     $term_meta = get_option("taxonomy_$t_id"); ?>
     <div class="form-field">
-        <label for="cat_Image_url"><?php _e('Award Icon', 'imagepress'); ?></label>
+        <label for="cat_Image_url">Award Icon</label>
         <input type="text" name="term_meta[img]" id="term_meta[img]" value="<?php echo esc_attr($term_meta['img']) ? esc_attr($term_meta['img']) : ''; ?>">
-        <p class="description"><?php _e('Enter the FontAwesome icon name (e.g. fa-trophy)', 'imagepress'); ?></p>
+        <p class="description">Enter the FontAwesome icon name (e.g. fa-trophy)</p>
     </div>
 <?php
 }

@@ -2,10 +2,10 @@
 <section id="content" role="main">
 <header class="header">
 <h1 class="entry-title"><?php 
-if ( is_day() ) { printf( __( 'Daily Archives: %s', 'blankslate' ), get_the_time( get_option( 'date_format' ) ) ); }
-elseif ( is_month() ) { printf( __( 'Monthly Archives: %s', 'blankslate' ), get_the_time( 'F Y' ) ); }
-elseif ( is_year() ) { printf( __( 'Yearly Archives: %s', 'blankslate' ), get_the_time( 'Y' ) ); }
-else { _e( 'Archives', 'blankslate' ); }
+if ( is_day() ) { printf( 'Daily Archives: %s', get_the_time( get_option( 'date_format' ) ) ); }
+elseif ( is_month() ) { printf( 'Monthly Archives: %s', get_the_time( 'F Y' ) ); }
+elseif ( is_year() ) { printf( 'Yearly Archives: %s', get_the_time( 'Y' ) ); }
+else { echo 'Archives'; }
 ?></h1>
 </header>
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
@@ -14,4 +14,4 @@ else { _e( 'Archives', 'blankslate' ); }
 <?php get_template_part( 'nav', 'below' ); ?>
 </section>
 <?php get_sidebar(); ?>
-<?php get_footer(); ?>
+<?php get_footer();

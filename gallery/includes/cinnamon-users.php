@@ -70,13 +70,13 @@ function cinnamon_get_portfolio_posts($author, $count, $size = 'thumbnail') {
     global $post;
 
     $ip_slug = get_option('ip_slug');
-    $authors_posts = get_posts(array(
+    $authors_posts = get_posts([
         'author' => $author,
         'post_type' => $ip_slug,
         'posts_per_page' => $count,
         'meta_key' => 'imagepress_sticky',
         'meta_value' => 1,
-    ));
+    ]);
 
     $output = '';
     if($authors_posts) {
@@ -100,11 +100,11 @@ function user_query_count_post_type($args) {
 
 /* CINNAMON CARD SHORTCODE */
 function cinnamon_card($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'author' => '',
         'count' => 99999,
         'sort' => 0
-    ), $atts));
+    ], $atts));
 
     global $post;
 
@@ -116,16 +116,16 @@ function cinnamon_card($atts, $content = null) {
     $display = '';
 
     add_action('pre_user_query', 'user_query_count_post_type', 1);
-    $hub_users = get_users(array('number' => $count, 'order' => 'DESC', 'orderby' => 'post_count'));
+    $hub_users = get_users(['number' => $count, 'order' => 'DESC', 'orderby' => 'post_count']);
 
     $display .= '<div id="author-cards">';
 
     $display .= '<div class="cinnamon-sortable">
         <div class="innersort">
-            <h4>' . __('Sort', 'imagepress') . '</h4>
-            <span class="sort" data-sort="name"><i class="fa fa-circle fa-fw"></i> ' . __('A-Z', 'imagepress') . '</span>
-            <span class="sort initial" data-sort="uploads" data-order="desc"><i class="fa fa-circle fa-fw"></i> ' . __('Most uploads', 'imagepress') . '</span>
-            <span class="sort" data-sort="followers" data-order="desc"><i class="fa fa-circle fa-fw"></i> ' . __('Most followers', 'imagepress') . '</span>
+            <h4>Sort</h4>
+            <span class="sort" data-sort="name"><i class="fa fa-circle fa-fw"></i> A-Z</span>
+            <span class="sort initial" data-sort="uploads" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most uploads</span>
+            <span class="sort" data-sort="followers" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most followers</span>
         </div>
         <div class="innersort">
 			<h4>' . get_option('ip_author_find_title') . '</h4>
@@ -142,11 +142,11 @@ function cinnamon_card($atts, $content = null) {
 		$hub_location = get_the_author_meta('hub_location', $author);
 
         $card = '<li class="cinnamon-card">';
-            $authors_posts = get_posts(array(
+            $authors_posts = get_posts([
                 'author' => $author,
                 'posts_per_page' => get_option('ip_cards_per_author'),
                 'post_type' => $ip_slug
-            ));
+            ]);
     
 			if($authors_posts) {
                 $card .= '<div class="mosaicflow">';
@@ -167,9 +167,9 @@ function cinnamon_card($atts, $content = null) {
 				$card .= '<div class="location-holder"><small><i class="fa fa-map-marker teal"></i> <span class="location">' . get_the_author_meta('hub_location', $author) . '</span></small></div>';
     
 			$card .= '<div class="cinnamon-stats">
-				<div class="cinnamon-meta"><span class="views">' . kformat(cinnamon_PostViews($author, false)) . '</span><br><small>' . __('views', 'imagepress') . '</small></div>
-				<div class="cinnamon-meta"><span class="followers">' . kformat(pwuf_get_follower_count($author)) . '</span><br><small>' . __('followers', 'imagepress') . '</small></div>
-				<div class="cinnamon-meta"><span class="uploads">' . kformat(cinnamon_count_user_posts_by_type($author, $ip_slug)) . '</span><br><small>' . __('uploads', 'imagepress') . '</small></div>
+				<div class="cinnamon-meta"><span class="views">' . kformat(cinnamon_PostViews($author, false)) . '</span><br><small>views</small></div>
+				<div class="cinnamon-meta"><span class="followers">' . kformat(pwuf_get_follower_count($author)) . '</span><br><small>followers</small></div>
+				<div class="cinnamon-meta"><span class="uploads">' . kformat(cinnamon_count_user_posts_by_type($author, $ip_slug)) . '</span><br><small>uploads</small></div>
 			</div>';
         $card .= '</li>';
 
@@ -192,7 +192,7 @@ function cinnamon_card($atts, $content = null) {
 
 /* CINNAMON PROFILE (BLANK) SHORTCODE */
 function cinnamon_profile_blank($atts, $content = null) {
-	extract(shortcode_atts(array('author' => ''), $atts));
+	extract(shortcode_atts(['author' => ''], $atts));
 
     $author = get_user_by('slug', get_query_var('author_name'));
     $author = $author->ID;
@@ -265,7 +265,7 @@ function cinnamon_profile_blank($atts, $content = null) {
 		</div>';
 
 			$display .= '<div class="ip_clear"></div><hr><div class="c-footer">&copy; ' . $hub_user_info->first_name . ' ' . $hub_user_info->last_name . ' ' . date('Y') . '</div>';
-			$display .= '<div class="c-footer">' . __('Portfolio provided by', 'imagepress') . ' ' . get_bloginfo('name') . '</div>';
+			$display .= '<div class="c-footer">Portfolio provided by ' . get_bloginfo('name') . '</div>';
     $display .= '</div>';
 
     return $display;
@@ -273,7 +273,7 @@ function cinnamon_profile_blank($atts, $content = null) {
 
 /* CINNAMON PROFILE SHORTCODE */
 function cinnamon_profile($atts, $content = null) {
-    extract(shortcode_atts(array('author' => ''), $atts));
+    extract(shortcode_atts(['author' => ''], $atts));
 
     global $post;
 
@@ -502,30 +502,30 @@ function cinnamon_profile($atts, $content = null) {
 }
 
 function cinnamon_profile_edit($atts, $content = null) {
-    extract(shortcode_atts(array('author' => ''), $atts));
+    extract(shortcode_atts(['author' => ''], $atts));
 
     global $wpdb, $current_user, $post;
     get_currentuserinfo();
 
-    $error = array();    
+    $error = [];
 
     if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST['action']) && $_POST['action'] == 'update-user') {
         if (!empty($_POST['pass1']) && !empty($_POST['pass2'])) {
             if ($_POST['pass1'] == $_POST['pass2'])
-                wp_update_user(array('ID' => $current_user->ID, 'user_pass' => esc_attr($_POST['pass1'])));
+                wp_update_user(['ID' => $current_user->ID, 'user_pass' => esc_attr($_POST['pass1'])]);
             else
-                $error[] = __('The passwords you entered do not match. Your password was not updated.', 'imagepress');
+                $error[] = 'The passwords you entered do not match. Your password was not updated.';
         }
 
         if (!empty($_POST['url']))
-            wp_update_user(array('ID' => $current_user->ID, 'user_url' => esc_url($_POST['url'])));
+            wp_update_user(['ID' => $current_user->ID, 'user_url' => esc_url($_POST['url'])]);
         if (!empty($_POST['email'])) {
             if (!is_email(esc_attr($_POST['email'])))
-                $error[] = __('The email you entered is not valid. Please try again.', 'imagepress');
+                $error[] = 'The email you entered is not valid. Please try again.';
             else if (email_exists(esc_attr($_POST['email'])) != $current_user->ID)
-                $error[] = __('This email is already used by another user. Try a different one.', 'imagepress');
+                $error[] = 'This email is already used by another user. Try a different one.';
             else {
-                wp_update_user(array('ID' => $current_user->ID, 'user_email' => esc_attr($_POST['email'])));
+                wp_update_user(['ID' => $current_user->ID, 'user_email' => esc_attr($_POST['email'])]);
             }
         }
 
@@ -536,7 +536,7 @@ function cinnamon_profile_edit($atts, $content = null) {
 
         if (!empty($_POST['nickname'])) {
             update_user_meta($current_user->ID, 'nickname', esc_attr($_POST['nickname']));
-            $wpdb->update($wpdb->users, array('display_name' => $_POST['nickname']), array('ID' => $current_user->ID), null, null);
+            $wpdb->update($wpdb->users, ['display_name' => $_POST['nickname']], ['ID' => $current_user->ID], null, null);
         }
 
         if (!empty($_POST['description']))
@@ -555,8 +555,8 @@ function cinnamon_profile_edit($atts, $content = null) {
         $old_featured = get_user_meta($current_user->ID, 'repeatable_fields_featured', true);
         $old_external = get_user_meta($current_user->ID, 'repeatable_fields_external', true);
 
-        $new_featured = array();
-        $new_external = array();
+        $new_featured = [];
+        $new_external = [];
 
         $names_featured = $_POST['repeatable_name_featured'];
         $names_external = $_POST['repeatable_name_external'];
@@ -615,7 +615,7 @@ function cinnamon_profile_edit($atts, $content = null) {
 
         if (count($error) == 0) {
             do_action('edit_user_profile_update', $current_user->ID);
-            echo '<p class="message noir-success">' . __('Profile updated successfully!', 'imagepress') . '</p>';
+            echo '<p class="message noir-success">Profile updated successfully!</p>';
         }
     }
     ?>
@@ -623,7 +623,7 @@ function cinnamon_profile_edit($atts, $content = null) {
     <div id="post-<?php the_ID(); ?>">
         <div class="entry-content entry cinnamon">
             <?php if (!is_user_logged_in()) : ?>
-                <p class="warning"><?php _e('You must be logged in to edit your profile.', 'imagepress'); ?></p>
+                <p class="warning">You must be logged in to edit your profile.</p>
             <?php else : ?>
                 <?php if (count($error) > 0) echo '<p class="error">' . implode('<br>', $error) . '</p>'; ?>
 
@@ -681,11 +681,11 @@ function cinnamon_profile_edit($atts, $content = null) {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label for="first-name"><?php _e('First name', 'imagepress'); ?></label>
+                                            <label for="first-name">First name</label>
                                             <input name="first-name" type="text" id="first-name" value="<?php the_author_meta('first_name', $current_user->ID); ?>">
                                         </td>
                                         <td>
-                                            <label for="last-name"><?php _e('Last name', 'imagepress'); ?></label>
+                                            <label for="last-name">Last name</label>
                                             <input name="last-name" type="text" id="last-name" value="<?php the_author_meta('last_name', $current_user->ID); ?>">
                                         </td>
                                     </tr>
@@ -697,23 +697,23 @@ function cinnamon_profile_edit($atts, $content = null) {
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <label for="nickname"><?php _e('Nickname', 'imagepress'); ?></label>
+                                            <label for="nickname">Nickname</label>
                                             <input name="nickname" type="text" id="nickname" value="<?php the_author_meta('nickname', $current_user->ID); ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label for="hub_location"><?php _e('Location', 'imagepress'); ?></label>
+                                            <label for="hub_location">Location</label>
                                             <input type="text" name="hub_location" id="hub_location" value="<?php echo esc_attr(get_the_author_meta('hub_location', $current_user->ID)); ?>" class="regular-text">
                                         </td>
                                         <td>
-                                            <label for="url"><?php _e('Website', 'imagepress'); ?></label>
+                                            <label for="url">Website</label>
                                             <input name="url" type="text" id="url" value="<?php the_author_meta('user_url', $current_user->ID); ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label for="hub_field"><?php _e('Occupational field', 'imagepress'); ?></label>
+                                            <label for="hub_field">Occupational field</label>
                                             <input type="text" name="hub_field" id="hub_field" value="<?php echo esc_attr(get_the_author_meta('hub_field', $current_user->ID)); ?>" class="regular-text">
                                         </td>
                                     </tr>
@@ -732,10 +732,10 @@ function cinnamon_profile_edit($atts, $content = null) {
                                             <input type="email" name="hub_email" id="hub_email" value="<?php echo esc_attr(get_the_author_meta('hub_email', $current_user->ID)); ?>" class="regular-text">
                                         </td>
                                         <td>
-                                            <label for="hub_status"><?php _e('Status', 'imagepress'); ?></label>
+                                            <label for="hub_status">Status</label>
                                             <select name="hub_status" id="hub_status">
-                                                <option value="1"<?php if(get_the_author_meta('hub_status', $current_user->ID) == 1) echo ' selected'; ?>><?php _e('Available for hire', 'imagepress'); ?></option>
-                                                <option value="0"<?php if(get_the_author_meta('hub_status', $current_user->ID) == 0) echo ' selected'; ?>><?php _e('Not available for hire', 'imagepress'); ?></option>
+                                                <option value="1"<?php if(get_the_author_meta('hub_status', $current_user->ID) == 1) echo ' selected'; ?>>Available for hire</option>
+                                                <option value="0"<?php if(get_the_author_meta('hub_status', $current_user->ID) == 0) echo ' selected'; ?>>Not available for hire</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -924,25 +924,25 @@ function cinnamon_profile_edit($atts, $content = null) {
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <label for="facebook"><?php _e('Facebook profile URL', 'imagepress'); ?></label>
+                                            <label for="facebook">Facebook profile URL</label>
                                             <input name="facebook" type="url" id="facebook" value="<?php the_author_meta('facebook', $current_user->ID); ?>" placeholder="https://">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <label for="twitter"><?php _e('Twitter username', 'imagepress'); ?></label>
+                                            <label for="twitter">Twitter username</label>
                                             <input name="twitter" type="text" id="twitter" value="<?php the_author_meta('twitter', $current_user->ID); ?>" placeholder="Username">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <label for="instagram"><?php _e('Instagram username', 'imagepress'); ?></label>
+                                            <label for="instagram">Instagram username</label>
                                             <input name="instagram" type="text" id="instagram" value="<?php the_author_meta('instagram', $current_user->ID); ?>" placeholder="Username">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <label for="linkedin"><?php _e('LinkedIn URL', 'imagepress'); ?></label>
+                                            <label for="linkedin">LinkedIn URL</label>
                                             <input name="linkedin" type="text" id="linkedin" value="<?php the_author_meta('linkedin', $current_user->ID); ?>" placeholder="https://">
                                         </td>
                                     </tr>
@@ -952,11 +952,11 @@ function cinnamon_profile_edit($atts, $content = null) {
                             <div class="ip-tabs-item" style="display: none;">
                                 <table class="form-table">
                                     <tr>
-                                        <th><label for="pass1"><?php _e('Password *', 'imagepress'); ?></label></th>
+                                        <th><label for="pass1">Password *</label></th>
                                         <td><input name="pass1" type="password" id="pass1"></td>
                                     </tr>
                                     <tr>
-                                        <th><label for="pass2"><?php _e('Repeat password *', 'imagepress'); ?></label></th>
+                                        <th><label for="pass2">Repeat password *</label></th>
                                         <td><input name="pass2" type="password" id="pass2"></td>
                                     </tr>
                                 </table>
@@ -965,8 +965,8 @@ function cinnamon_profile_edit($atts, $content = null) {
                             <div class="ip-tabs-item" style="display: none;">
                                 <p>
                                     <a href="#" class="toggleModal btn btn-primary"><i class="fa fa-plus"></i> Create new collection</a>
-                                    <span class="ip-loadingCollections"><i class="fa fa-cog fa-spin"></i> <?php echo __('Loading collections...', 'imagepress'); ?></span>
-                                    <span class="ip-loadingCollectionImages"><i class="fa fa-cog fa-spin"></i> <?php echo __('Loading collection images...', 'imagepress'); ?></span>
+                                    <span class="ip-loadingCollections"><i class="fa fa-cog fa-spin"></i> Loading collections...</span>
+                                    <span class="ip-loadingCollectionImages"><i class="fa fa-cog fa-spin"></i> Loading collection images...</span>
                                     <a href="#" class="imagepress-collections imagepress-float-right button"><i class="fa fa-refresh"></i></a>
                                 </p>
                                 <div class="modal">
@@ -1015,10 +1015,10 @@ function cinnamon_profile_edit($atts, $content = null) {
                     <table class="form-table">
                         <tr>
                             <td colspan="2">
-                                <input name="updateuser" type="submit" class="btn btn-primary" id="updateuser" value="<?php _e('Update', 'imagepress'); ?>">
+                                <input name="updateuser" type="submit" class="btn btn-primary" id="updateuser" value="Update">
                                 <?php wp_nonce_field('update-user'); ?>
                                 <input name="action" type="hidden" id="action" value="update-user">
-                                <i class="fa fa-share-square"></i> <a href="<?php echo get_author_posts_url($current_user->ID); ?>"><?php _e('View and share your profile', 'imagepress'); ?></a>
+                                <i class="fa fa-share-square"></i> <a href="<?php echo get_author_posts_url($current_user->ID); ?>">View and share your profile></a>
                             </td>
                         </tr>
                     </table>
@@ -1075,10 +1075,10 @@ function hub_gravatar_filter($avatar, $id_or_email, $size) {
 }
 
 function cinnamon_awards() {
-    $args = array(
+    $args = [
         'hide_empty' => false,
         'pad_counts' => true
-    );
+    ];
     $terms = get_terms('award', $args);
 
     if (!empty($terms) && !is_wp_error($terms)) {

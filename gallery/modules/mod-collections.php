@@ -91,23 +91,23 @@ function ip_collections_display() {
 			echo '<div class="collection_details">';
     			echo '<h3 class="collection-title" data-collection-id="' . $collection['collection_ID'] . '"><a href="#" class="editCollection" data-collection-id="' . $collection['collection_ID'] . '">' . $collection['collection_title'] . '</a></h3>';
 
-				echo '<div><a href="#" class="changeCollection btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-pencil"></i> ' . __('Edit', 'imagepress') . '</a></div>';
+				echo '<div><a href="#" class="changeCollection btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-pencil"></i> Edit</a></div>';
             echo '</div>';
 
 			echo '<div class="collection_details_edit cde' . $collection['collection_ID'] . '">
-				<h3>' . __('Edit collection', 'imagepress') . '</h3>
-				<p><label>' . __('Title', 'imagepress') . '</label><br><input class="collection-title ct' . $collection['collection_ID'] . '" type="text" data-collection-id="' . $collection['collection_ID'] . '" value="' . $collection['collection_title'] . '"><p>
-				<p><label>' . __('Visibility', 'imagepress') . '</label><br><select class="collection-status cs' . $collection['collection_ID'] . '" data-collection-id="' . $collection['collection_ID'] . '">';
+				<h3>Edit collection</h3>
+				<p><label>Title</label><br><input class="collection-title ct' . $collection['collection_ID'] . '" type="text" data-collection-id="' . $collection['collection_ID'] . '" value="' . $collection['collection_title'] . '"><p>
+				<p><label>Visibility</label><br><select class="collection-status cs' . $collection['collection_ID'] . '" data-collection-id="' . $collection['collection_ID'] . '">';
                     $selected = ($collection['collection_status'] == 0) ? 'selected' : '';
-                    echo '<option value="1" ' . $selected . '>' . __('Public', 'imagepress') . '</option>';
-                    echo '<option value="0" ' . $selected . '>' . __('Private', 'imagepress') . '</option>';
+                    echo '<option value="1" ' . $selected . '>Public</option>';
+                    echo '<option value="0" ' . $selected . '>Private</option>';
                 echo '</select></p>';
 
 				$ip_collections_page_id = get_option('ip_collections_page');
-    			echo '<p><label>' . __('Share your collection', 'imagepress') . '</label><br><input type="url" value="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '" readonly></p>';
+    			echo '<p><label>Share your collection</label><br><input type="url" value="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '" readonly></p>';
 
-				echo '<a href="#" class="saveCollection btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-check"></i> ' . __('Save', 'imagepress') . '</a>';
-				echo '<a href="#" class="closeCollectionEdit btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-times"></i> ' . __('Cancel', 'imagepress') . '</a>';
+				echo '<a href="#" class="saveCollection btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-check"></i> Save</a>';
+				echo '<a href="#" class="closeCollectionEdit btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-times"></i> Cancel</a>';
 				echo '<a href="#" class="deleteCollection button" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-trash"></i></a>';
 			echo '</div>';
 		echo '</div>';
@@ -137,7 +137,7 @@ function ip_collections_display_public($author_ID) {
 			$out .= '<div class="collection_details">';
 				$ip_collections_page_id = get_option('ip_collections_page');
     			$out .= '<h3><a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '/">' . $collection['collection_title'] . '</a></h3>';
-                $out .= '<div>' . __('By', 'imagepress') . ' <a href="' . get_author_posts_url($collection['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection['collection_author_ID']) . '</a></div>';
+                $out .= '<div>By <a href="' . get_author_posts_url($collection['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection['collection_author_ID']) . '</a></div>';
             $out .= '</div>';
 		$out .= '</div>';
 	}
@@ -194,7 +194,7 @@ function ip_collections_display_custom($atts) {
 					$out .= '<div class="collection_details">';
 						$ip_collections_page_id = get_option('ip_collections_page');
 						$out .= '<h3><a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '/">' . $collection['collection_title'] . '</a></h3>';
-						$out .= '<div>' . __('By', 'imagepress') . ' <a href="' . get_author_posts_url($collection['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection['collection_author_ID']) . '</a></div>';
+						$out .= '<div>By <a href="' . get_author_posts_url($collection['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection['collection_author_ID']) . '</a></div>';
 					$out .= '</div>';
 				$out .= '</div>';
 			}
@@ -236,11 +236,11 @@ function ip_frontend_add_collection($ip_id) {
 	}
 	if(is_user_logged_in()) {
 		?>
-		<a href="#" class="toggleFrontEndModal toggleFrontEndModalButton btn btn-primary"><i class="fa fa-plus"></i> <?php echo __('Collect', 'imagepress'); ?></a> <?php if(isset($_POST['collectme'])) { echo ' <i class="fa fa-check"></i>'; } ?>
+		<a href="#" class="toggleFrontEndModal toggleFrontEndModalButton btn btn-primary"><i class="fa fa-plus"></i> Collect</a> <?php if(isset($_POST['collectme'])) { echo ' <i class="fa fa-check"></i>'; } ?>
 
 		<div class="frontEndModal">
-            <h2><?php echo __('Add to collection', 'imagepress'); ?></h2>
-			<a href="#" class="close toggleFrontEndModal"><i class="fa fa-times"></i> <?php echo __('Close', 'imagepress'); ?></a>
+            <h2>Add to collection</h2>
+			<a href="#" class="close toggleFrontEndModal"><i class="fa fa-times"></i> Close</a>
 
 			<form method="post" class="imagepress-form">
 				<input type="hidden" id="collection_author_id" name="collection_author_id" value="<?php echo $current_user->ID; ?>">
@@ -252,7 +252,7 @@ function ip_frontend_add_collection($ip_id) {
 					$result = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ip_collections WHERE collection_author_ID = '" . get_current_user_id() . "'", ARRAY_A);
 
 					echo '<select name="ip_collections" id="ip_collections">
-						<option value="">' . __('Choose a collection...', 'imagepress') . '</option>';
+						<option value="">Choose a collection...</option>';
 						foreach($result as $collection) {
 							$disabled = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "ip_collectionmeta WHERE image_ID = '" . get_the_ID() . "' AND image_collection_ID = '" . $collection['collection_ID'] . "'", ARRAY_A);
 
@@ -266,12 +266,12 @@ function ip_frontend_add_collection($ip_id) {
 					?>
 				</p>
 				<p>or</p>
-				<p><input type="text" name="ip_collections_new" id="ip_collections_new" placeholder="<?php echo __('Create new collection...', 'imagepress'); ?>"></p>
-				<p><label><?php echo __('Make this collection', 'imagepress'); ?></label> <select id="collection_status" name="collection_status"><option value="1"><?php echo __('Public', 'imagepress'); ?></option><option value="0"><?php echo __('Private', 'imagepress'); ?></option></select> <label></label></p>
+				<p><input type="text" name="ip_collections_new" id="ip_collections_new" placeholder="Create new collection..."></p>
+				<p><label>Make this collection</label> <select id="collection_status" name="collection_status"><option value="1">Public</option><option value="0">Private</option></select> <label></label></p>
 				<p>
 					<input type="submit" name="collectme" class="imagepress-collect" value="Add" data-post-id="<?php echo $ip_id; ?>">
 					<label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
-					<label class="showme"> <i class="fa fa-check"></i> <?php echo __('Poster added to collection!', 'imagepress'); ?></label>
+					<label class="showme"> <i class="fa fa-check"></i> Poster added to collection!</label>
 				</p>
 			</form>
 		</div>
@@ -294,7 +294,7 @@ function ip_frontend_view_image_collection($ip_id) {
 				$featured = $wpdb->get_row("SELECT image_ID FROM " . $wpdb->prefix . "ip_collectionmeta WHERE image_collection_ID = '" . $collection['image_collection_ID'] . "' ORDER BY RAND()", ARRAY_A);
 				echo '<div class="ip-featured-collection">';
 					echo get_the_post_thumbnail($featured['image_ID'], 'thumbnail');
-					echo '<div class="ip-featured-collection-meta"><a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $which['collection_ID'] . '/">' . $which['collection_title'] . '</a><br><small>' . __('by', 'imagepress') . ' <a href="' . get_author_posts_url($which['collection_author_ID']) . '">' . get_the_author_meta('nickname', $which['collection_author_ID']) . '</a></small></div>';
+					echo '<div class="ip-featured-collection-meta"><a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $which['collection_ID'] . '/">' . $which['collection_title'] . '</a><br><small>by <a href="' . get_author_posts_url($which['collection_author_ID']) . '">' . get_the_author_meta('nickname', $which['collection_author_ID']) . '</a></small></div>';
 					echo '<div class="ip_clear"></div>';
 				echo '</div>';
 			}

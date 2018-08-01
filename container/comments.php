@@ -28,9 +28,9 @@ if ( ! empty( $comments_by_type['pings'] ) ) :
 $ping_count = count( $comments_by_type['pings'] ); 
 ?>
 <section id="trackbacks-list" class="comments">
-<h3 class="comments-title"><?php echo '<span class="ping-count">' . $ping_count . '</span> ' . ( $ping_count > 1 ? __( 'Trackbacks', 'blankslate' ) : __( 'Trackback', 'blankslate' ) ); ?></h3>
+<h3 class="comments-title"><?php echo '<span class="ping-count">' . $ping_count . '</span> ' . ((int) $ping_count > 1 ? 'Trackbacks' : 'Trackback'); ?></h3>
 <ul>
-<?php wp_list_comments( 'type=pings&callback=blankslate_custom_pings' ); ?>
+<?php wp_list_comments('type=pings&callback=blankslate_custom_pings'); ?>
 </ul>
 </section>
 <?php 
@@ -38,12 +38,12 @@ endif;
 endif;
 
 $args = [
-    'comment_field' =>  '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true">' . '</textarea></p>',
-    'must_log_in' => '<p class="must-log-in">' . sprintf(__('You must be <a href="%s">logged in</a> to post a comment.'), home_url() . '/login/') . '</p>',
+    'comment_field' => '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true">' . '</textarea></p>',
+    'must_log_in' => '<p class="must-log-in">' . sprintf('You must be <a href="%s">logged in</a> to post a comment.', home_url() . '/login/') . '</p>',
     'logged_in_as' => '',
     'comment_notes_after' => '',
-    'title_reply'       => __( '<i class="fa fa-comment"></i> Leave a comment' ),
-    'title_reply_to'    => __( 'Reply to %s' ),
+    'title_reply' => '<i class="fa fa-comment"></i> Leave a comment',
+    'title_reply_to' => 'Reply to %s',
 ];
 
 if ( comments_open() ) comment_form($args);

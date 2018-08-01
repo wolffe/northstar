@@ -5,7 +5,7 @@ $post_type = $_GET['post_type'];
 if ((string) $post_type !== 'poster') { ?>
     <section id="content-wide" role="main">
          <?php if (have_posts()) : ?>
-            <h1 class="entry-title"><?php printf(__('Search Results for: %s', 'noir'), get_search_query()); ?></h1>
+            <h1 class="entry-title"><?php printf('Search Results for: %s', get_search_query()); ?></h1>
             <?php while (have_posts()) : the_post(); ?>
                 <div class="noir-box">
                     <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('imagepress_sq_std'); ?></a>
@@ -17,7 +17,7 @@ if ((string) $post_type !== 'poster') { ?>
             <?php endwhile; ?>
             <?php get_template_part('nav', 'below'); ?>
         <?php else : ?>
-            <h2 class="entry-title"><?php _e('Nothing Found', 'noir'); ?></h2>
+            <h2 class="entry-title">Nothing Found</h2>
             <section class="entry-content">
                 <p>Sorry, nothing matched your search. Please try again.</p>
                 <?php get_search_form(); ?>
@@ -37,7 +37,7 @@ if ((string) $post_type !== 'poster') { ?>
     <div class="ip-search-page-header">
         <h3>Poster Search Results</h3>
         <p>
-            <?php printf(__('Results for "%s"', 'noir'), $s); ?>
+            <?php printf('Results for "%s"', $s); ?>
             <br><small><?php echo 'About ' . number_format($num) . ' results'; ?></small>
         </p>
     </div>
