@@ -16,9 +16,9 @@ function imagepress_admin_page() {
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=install_tab" class="nav-tab <?php echo $t == 'install_tab' ? 'nav-tab-active' : ''; ?>">Installation</a>
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=settings_tab" class="nav-tab <?php echo $t == 'settings_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Settings', 'imagepress'); ?></a>
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=configurator_tab" class="nav-tab <?php echo $t == 'configurator_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Configurator', 'imagepress'); ?></a>
-            <?php if(get_option('ip_mod_collections') == 1) { ?>
-                <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=collections_tab" class="nav-tab <?php echo $t == 'collections_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Collections', 'imagepress'); ?></a>
-            <?php } ?>
+
+            <a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=collections_tab" class="nav-tab <?php echo $t == 'collections_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Collections', 'imagepress'); ?></a>
+
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=label_tab" class="nav-tab <?php echo $t == 'label_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Labels', 'imagepress'); ?></a>
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=notifications_tab" class="nav-tab <?php echo $t == 'notifications_tab' ? 'nav-tab-active' : ''; ?>">Feed Ads &amp; Notifications</a>
 			<a href="edit.php?post_type=<?php echo $i; ?>&page=imagepress_admin_page&amp;tab=upload_tab" class="nav-tab <?php echo $t == 'upload_tab' ? 'nav-tab-active' : ''; ?>"><?php _e('Upload', 'imagepress'); ?></a>
@@ -256,7 +256,6 @@ RewriteRule ^(.*)$ ?author_name=%1
             				delete_option('ip_disqus');
                             delete_option('ip_upload_redirection');
                             delete_option('ip_delete_redirection');
-                            delete_option('ip_mod_login');
                             delete_option('ip_print_label');
                             delete_option('ip_tag_label');
                             delete_option('ip_allow_tags');
@@ -615,10 +614,7 @@ RewriteRule ^(.*)$ ?author_name=%1
 				update_option('ip_cat_moderation_include', $_POST['ip_cat_moderation_include']);
 
                 // modules
-                update_option('ip_mod_login', $_POST['ip_mod_login']);
                 update_option('cinnamon_mod_hub', $_POST['cinnamon_mod_hub']);
-
-                update_option('ip_mod_collections', $_POST['ip_mod_collections']);
 
 				update_option('ip_notification_email', $_POST['ip_notification_email']);
 
@@ -630,26 +626,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 				<p>Modules are separate functions which improve ImagePress functionality and extend its behaviour. Modules can be integrated or they can come as separate plugins. Read more about modules and how to extend ImagePress <a href="//getbutterfly.com/wordpress-plugins/imagepress/wiki/" rel="external">here</a>.</p>
 			    <table class="form-table">
 			        <tbody>
-			            <tr>
-			                <th scope="row"><label for="ip_mod_login">Native login/registration</label></th>
-			                <td>
-                                <select name="ip_mod_login" id="ip_mod_login">
-                                    <option value="1"<?php if(get_option('ip_mod_login') == 1) echo ' selected'; ?>>Enable native login/registration module</option>
-                                    <option value="0"<?php if(get_option('ip_mod_login') == 0) echo ' selected'; ?>>Disable native login/registration module</option>
-                                </select>
-                                <br><small>This module allows users to log in or register using the native WordPress login page (<code>/wp-login.php</code>).</small>
-                                <br><small>The login page can be styled and users redirected to their ImagePress profiles.</small>
-			                </td>
-			            </tr>
-			            <tr>
-			                <th scope="row"><label for="ip_mod_collections">Collections <sup><small>BETA</small></sup></label></th>
-			                <td>
-                                <select name="ip_mod_collections" id="ip_mod_collections">
-                                    <option value="1"<?php if(get_option('ip_mod_collections') == 1) echo ' selected'; ?>>Enable collections module</option>
-                                    <option value="0"<?php if(get_option('ip_mod_collections') == 0) echo ' selected'; ?>>Disable collections module</option>
-                                </select>
-			                </td>
-			            </tr>
 			            <tr>
 			                <th scope="row"><label for="cinnamon_mod_hub">User hub <sup><small>BETA|DEV</small></sup></label></th>
 			                <td>

@@ -173,7 +173,7 @@ function cinnamon_card($atts, $content = null) {
 			</div>';
         $card .= '</li>';
 
-        if(ip_getbaseuri() == 'posterspy.com') {
+        if(ipGetBaseUri() == 'posterspy.com') {
             if($hub_user_info->first_name != '' && !empty($hub_location) && cinnamon_count_user_posts_by_type($author, $ip_slug) > 0) {
                 $display .= $card;
             }
@@ -330,7 +330,7 @@ function cinnamon_profile($atts, $content = null) {
                     $display .= '<li><a href="#">Awards</a></li>';
                 }
 
-                if ((int) get_option('ip_mod_collections') === 1 && (int) ipCollectionCount($author) > 0) {
+                if ((int) ipCollectionCount($author) > 0) {
                     $display .= '<li><a href="#">Collections<span>' . kformat(ipCollectionCount($author)) . '</span></a></li>';
                 }
             $display .= '</ul>';
@@ -482,11 +482,9 @@ function cinnamon_profile($atts, $content = null) {
 					$display .= '</div>';
 				}
 
-				if(get_option('ip_mod_collections') == 1) {
-					$display .= '<div class="ip-tabs-item" style="display: none;">';
-						$display .= ip_collections_display_public($author);
-					$display .= '</div>';
-				}
+				$display .= '<div class="ip-tabs-item" style="display: none;">';
+					$display .= ip_collections_display_public($author);
+				$display .= '</div>';
 
 			$display .= '</div>
 		</div>';
@@ -634,9 +632,7 @@ function cinnamon_profile_edit($atts, $content = null) {
                         <ul class="ip-tabs ip-profile active" style="float: left; width: 200px; padding: 0;">
                             <li class="current" style="float: none;"><a href="#"><?php echo get_option('cinnamon_pt_account'); ?></a></li>
                             <li style="float: none;"><a href="#"><?php echo get_option('cinnamon_pt_author'); ?></a></li>
-                            <?php if ((int) get_option('ip_mod_collections') === 1) { ?>
-                                <li style="float: none;"><a href="#" class="imagepress-collections">Collections</a></li>
-                            <?php } ?>
+                            <li style="float: none;"><a href="#" class="imagepress-collections">Collections</a></li>
                             <?php if (isset($_GET['dev'])) { ?>
                                 <li style="float: none;"><a href="#">Linked Accounts</a></li>
                             <?php } ?>
@@ -966,32 +962,30 @@ function cinnamon_profile_edit($atts, $content = null) {
                                 </table>
                             </div>
 
-                            <?php if ((int) get_option('ip_mod_collections') === 1) { ?>
-                                <div class="ip-tabs-item" style="display: none;">
+                            <div class="ip-tabs-item" style="display: none;">
+                                <p>
+                                    <a href="#" class="toggleModal btn btn-primary"><i class="fa fa-plus"></i> Create new collection</a>
+                                    <span class="ip-loadingCollections"><i class="fa fa-cog fa-spin"></i> <?php echo __('Loading collections...', 'imagepress'); ?></span>
+                                    <span class="ip-loadingCollectionImages"><i class="fa fa-cog fa-spin"></i> <?php echo __('Loading collection images...', 'imagepress'); ?></span>
+                                    <a href="#" class="imagepress-collections imagepress-float-right button"><i class="fa fa-refresh"></i></a>
+                                </p>
+                                <div class="modal">
+                                    <h2>Create new collection</h2>
+                                    <a href="#" class="close toggleModal"><i class="fa fa-times"></i> Close</a>
+
+                                    <input type="hidden" id="collection_author_id" name="collection_author_id" value="<?php echo $current_user->ID; ?>">
+                                    <p><input type="text" id="collection_title" name="collection_title" placeholder="Collection title"></p>
+                                    <p><label>Make this collection</label> <select id="collection_status"><option value="1">Public</option><option value="0">Private</option></select></p>
+                                    <p class="ip-paragraph-gap-6"><small><a href="<?php echo get_option('ip_collections_read_more_link'); ?>" target="_blank"><i class="fa fa-question-circle"></i> <?php echo get_option('ip_collections_read_more'); ?></a></small></p>
                                     <p>
-                                        <a href="#" class="toggleModal btn btn-primary"><i class="fa fa-plus"></i> Create new collection</a>
-                                        <span class="ip-loadingCollections"><i class="fa fa-cog fa-spin"></i> <?php echo __('Loading collections...', 'imagepress'); ?></span>
-                                        <span class="ip-loadingCollectionImages"><i class="fa fa-cog fa-spin"></i> <?php echo __('Loading collection images...', 'imagepress'); ?></span>
-                                        <a href="#" class="imagepress-collections imagepress-float-right button"><i class="fa fa-refresh"></i></a>
+                                        <input type="submit" value="Create" class="addCollection">
+                                        <label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
+                                        <label class="showme"> <i class="fa fa-check"></i> Collection created!</label>
                                     </p>
-                                    <div class="modal">
-                                        <h2>Create new collection</h2>
-                                        <a href="#" class="close toggleModal"><i class="fa fa-times"></i> Close</a>
-
-                                        <input type="hidden" id="collection_author_id" name="collection_author_id" value="<?php echo $current_user->ID; ?>">
-                                        <p><input type="text" id="collection_title" name="collection_title" placeholder="Collection title"></p>
-                                        <p><label>Make this collection</label> <select id="collection_status"><option value="1">Public</option><option value="0">Private</option></select></p>
-                                        <p class="ip-paragraph-gap-6"><small><a href="<?php echo get_option('ip_collections_read_more_link'); ?>" target="_blank"><i class="fa fa-question-circle"></i> <?php echo get_option('ip_collections_read_more'); ?></a></small></p>
-                                        <p>
-                                            <input type="submit" value="Create" class="addCollection">
-                                            <label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
-                                            <label class="showme"> <i class="fa fa-check"></i> Collection created!</label>
-                                        </p>
-                                    </div>
-
-                                    <div class="collections-display"></div>
                                 </div>
-                            <?php } ?>
+
+                                <div class="collections-display"></div>
+                            </div>
 
                             <?php if (isset($_GET['dev'])) { ?>
                                 <div class="ip-tabs-item" style="display: none;">

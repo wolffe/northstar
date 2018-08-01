@@ -706,23 +706,20 @@ function imagepress_change_register_page_msg($message) {
 	return $message;
 }
 
-$ip_mod_login = get_option('ip_mod_login');
-if($ip_mod_login == 1) {
-    add_action('init', 'imagepress_login_checked_remember_me');
+add_action('init', 'imagepress_login_checked_remember_me');
     
-    add_action('login_head', 'imagepress_login_head');
-    add_action('login_footer','imagepress_login_footer');
+add_action('login_head', 'imagepress_login_head');
+add_action('login_footer','imagepress_login_footer');
     
-    add_filter('login_headerurl', 'imagepress_login_logo_url');
-    add_filter('login_headertitle', 'imagepress_login_logo_url_title');
-    add_filter('login_errors', 'imagepress_login_error_override');
-    add_filter('login_redirect', 'imagepress_admin_login_redirect', 10, 3);
-    add_filter('login_message', 'imagepress_change_register_page_msg');
-}
+add_filter('login_headerurl', 'imagepress_login_logo_url');
+add_filter('login_headertitle', 'imagepress_login_logo_url_title');
+add_filter('login_errors', 'imagepress_login_error_override');
+add_filter('login_redirect', 'imagepress_admin_login_redirect', 10, 3);
+add_filter('login_message', 'imagepress_change_register_page_msg');
 
 
 
-function ip_getbaseuri() {
+function ipGetBaseUri() {
     $currentPath = $_SERVER['PHP_SELF']; 
     $pathInfo = pathinfo($currentPath); 
     $hostName = $_SERVER['HTTP_HOST']; 
@@ -732,17 +729,15 @@ function ip_getbaseuri() {
 }
 
 function ip_custom_field($type, $label, $name, $show, $required = '') {
-    if($show == 'upload') {
-        if('' != get_option($label)) {
+    if ((string) $show === 'upload') {
+        if ((string) get_option($label) !== '') {
     		$out = '<p><input type="' . $type . '" id="' . $name . '" name="' . $name . '" placeholder="' . get_option($label) . '" ' . $required . '></p>';
 
 		    return $out;
         }
-    }
-    if($show == 'optionsave') {
+    } else if ((string) $show === 'optionsave') {
         update_option($label, $_POST[$label]);
-    }
-    if($show == 'optionview') {
+    } else if ((string) $show === 'optionview') {
         $out = '<p>
 			<input type="text" name="' . $label . '" id="' . $label . '" value="' . get_option($label) . '" class="regular-text">
 			<label for="' . $label . '">Custom field</label>
@@ -752,4 +747,3 @@ function ip_custom_field($type, $label, $name, $show, $required = '') {
 	    return $out;
     }
 }
-?>
