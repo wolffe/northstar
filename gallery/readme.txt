@@ -20,17 +20,18 @@ Create a user-powered image gallery or an image upload site, using nothing but W
 == Changelog ==
 
 = 6.3.0 =
+* FIX: Consolidated sidebar areas on widget_init only
 * UPDATE: Removed bulk uploader
 * UPDATE: Removed deprecated async loop
 * UPDATE: Removed several checks (already active by default)
 * UPDATE: Removed image behaviour check (always active)
 * UPDATE: Removed unused hook
 * UPDATE: Removed old Twitter OAuth assets
-* FIX: Consolidated sidebar areas on widget_init only
-* TODO: Remove keywords (+ post types)
-* TODO: Remove imagepress_meta_box_callback (Staff Comment section)
 * UPDATE: Implemented native PHP 7 arrays
 * UPDATE: Removed all translated strings
+
+* TODO: Remove keywords (+ post types)
+* TODO: Remove imagepress_meta_box_callback (Staff Comment section)
 * TODO: General syntax cleanup (spaces)
 * TODO: Strict comparison (INT and STRING)
 
