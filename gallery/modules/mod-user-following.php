@@ -27,9 +27,9 @@ add_action('wp_ajax_unfollow', 'pwuf_process_unfollow');
 
 // Shows the links to follow/unfollow a user
 function pwuf_follow_links_shortcode( $atts, $content = null ) {
-	extract( shortcode_atts( array(
+	extract( shortcode_atts([
 			'follow_id' => get_the_author_meta( 'ID' )
-		),
+		],
 		$atts, 'follow_links' )
 	);
 
@@ -44,11 +44,11 @@ function pwuf_following_posts_shortcode($atts, $content = null) {
 	if(empty($following))
 		return;
 
-	$items = new WP_Query(array(
+	$items = new WP_Query([
 		'post_type'      => 'any',
 		'posts_per_page' => 16,
 		'author__in'     => pwuf_get_following()
-	));
+	]);
 
 	ob_start(); ?>
 	<?php if($items->have_posts()) : ?>
@@ -100,7 +100,7 @@ function pwuf_follow_user( $user_id = 0, $user_to_follow = 0 ) {
 	if ( ! empty( $following ) && is_array( $following ) ) {
 		$following[] = $user_to_follow;
 	} else {
-		$following = array();
+		$following = [];
 		$following[] = $user_to_follow;
 	}
 
@@ -110,7 +110,7 @@ function pwuf_follow_user( $user_id = 0, $user_to_follow = 0 ) {
 	if ( ! empty( $followers ) && is_array( $followers ) ) {
 		$followers[] = $user_id;
 	} else {
-		$followers = array();
+		$followers = [];
 		$followers[] = $user_id;
 	}
 

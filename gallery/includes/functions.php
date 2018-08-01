@@ -394,16 +394,6 @@ function ip_main($i) {
         <?php next_post_link('%link', 'Next <i class="fa fa-fw fa-chevron-right"></i>'); ?>
     </section>
 
-    <div class="social-hub">
-        <?php
-        // hook_share_single
-		$hook = get_option('hook_share_single');
-		$hook = str_replace('#url#', get_permalink($i), $hook);
-		echo do_shortcode($hook);
-        ?>
-        <div class="clearfix"></div>
-    </div>
-
     <h1 class="ip-title">
         <?php
         if(has_term('featured', 'imagepress_image_category'))

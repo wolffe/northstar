@@ -4,8 +4,7 @@ function imagepress_feed() {
 
     $user_ID = get_current_user_id();
 
-    //$following = array(pwuf_get_followers($user_ID));
-    $myFollowing = array(pwuf_get_following($user_ID));
+    $myFollowing = [pwuf_get_following($user_ID)];
     $myFollowing = array_unique($myFollowing);
 
     $followers = implode(',', $myFollowing[0]);
@@ -29,15 +28,15 @@ function imagepress_feed() {
         <div id="feed-data">
             <?php
             // Sticky feed ads
-            $stickyFeedAdArgs = array(
-                'post_type' => array('feed-ad'),
+            $stickyFeedAdArgs = [
+                'post_type' => ['feed-ad'],
                 'posts_per_page' => 1,
                 'meta_key' => 'ad_type',
-                'meta_query' => array(
+                'meta_query' => [
                     'key' => 'ad_type',
                     'value' => 'sticky',
-                ),
-            );
+                ],
+            ];
             $stickyFeedAdQuery = get_posts($stickyFeedAdArgs);
             foreach ($stickyFeedAdQuery as $feedAd) {
                 // Check if post exists and is published
@@ -123,19 +122,19 @@ add_action( "pre_user_query", function( $query ) {
     }
 });
 function get_random_feed_authors($number, $currentUserId) {
-    $myFollowers = array(pwuf_get_following($currentUserId));
+    $myFollowers = [pwuf_get_following($currentUserId)];
     $myFollowers = array_unique($myFollowers);
     $myFollowersToString = implode(',', $myFollowers[0]);
 
-    $users = get_users(array(
-        'fields' => array('ID', 'display_name'),
+    $users = get_users([
+        'fields' => ['ID', 'display_name'],
         'orderby' => 'rand',
         'number' => $number,
         'who' => 'authors',
         'exclude' => $myFollowers[0],
-        'has_published_posts' => get_post_types(array('public' => true)),
+        'has_published_posts' => get_post_types(['public' => true]),
         // 'query_id' => 'authors_with_posts',
-    ));
+    ]);
     //shuffle($users);
 
 
@@ -147,23 +146,23 @@ function feed_most_viewed($count) {
     $is = get_transient('popular-posters');
 
     if (false === ($the_query = get_transient('popular-posters'))) {
-        $args = array(
-            'post_type'      => 'poster',
+        $args = [
+            'post_type' => 'poster',
             'posts_per_page' => $count,
-            'orderby'        => 'meta_value_num',
-            'meta_key'       => 'post_views_count',
-            'meta_query'     => array(
-                array(
-                    'key'    => 'post_views_count',
-                    'type'   => 'numeric'
-                )
-            ),
-            'date_query'     => array(
-                array(
-                    'after'  => '1 week ago'
-                )
-            ),
-        );
+            'orderby' => 'meta_value_num',
+            'meta_key' => 'post_views_count',
+            'meta_query' => [
+                [
+                    'key' => 'post_views_count',
+                    'type' => 'numeric'
+                ]
+            ],
+            'date_query' => [
+                [
+                    'after' => '1 week ago'
+                ]
+            ],
+        ];
 
         $is = get_posts($args);
 
@@ -195,10 +194,10 @@ function feed_most_viewed($count) {
 
 
 function get_creative_briefs() {
-    $args = array(
+    $args = [
         'post_type' => 'creative-brief',
         'posts_per_page' => 2,
-    );
+    ];
     $the_query = new WP_Query($args);
 
     if ($the_query->have_posts()) {

@@ -53,7 +53,7 @@
             <?php
             $terms = get_the_terms(get_the_ID(), 'imagepress_image_category');
             if ($terms) {
-                $terms_slugs = array();
+                $terms_slugs = [];
                 foreach ($terms as $term ) {
                     if ($term->slug == 'staffpicks') {
                         echo '<span class="hint hint--right yellow" data-hint="Staff Pick"><i class="fa fa-star"></i> </span>';
@@ -86,32 +86,32 @@
             </div>
             <div>
                 Category
-                <br><?php echo ip_get_the_term_list(get_the_ID(), 'imagepress_image_category', '', ', ', '', array()); ?>
+                <br><?php echo ip_get_the_term_list(get_the_ID(), 'imagepress_image_category', '', ', ', '', []); ?>
             </div>
         </div>
 
         <h3 class="details-box-title">Comments (<?php echo get_comments_number(get_the_ID()); ?>)</h3>
         <?php
-        $args = array(
+        $args = [
             'title_reply' => '',
             'logged_in_as' => '',
-        );
+        ];
         ?>
         <ol class="commentlist">
             <?php comment_form($args, get_the_ID()); ?>
 
             <?php    
             //Gather comments for a specific page/post 
-            $comments = get_comments(array(
+            $comments = get_comments([
                 'post_id' => get_the_ID(),
                 'status' => 'approve',
-            ));
+            ]);
 
             //Display the list of comments
-            wp_list_comments(array(
+            wp_list_comments([
                 'reverse_top_level' => false,
                 'callback' => 'noir_comments',
-            ), $comments);
+            ], $comments);
             ?>
         </ol>
 

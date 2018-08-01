@@ -609,8 +609,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 				update_option('ip_moderate', $_POST['ip_moderate']);
 				update_option('ip_registration', $_POST['ip_registration']);
 
-				update_option('ip_click_behaviour', $_POST['ip_click_behaviour']);
-
 				update_option('ip_cat_moderation_include', $_POST['ip_cat_moderation_include']);
 
                 // modules
@@ -623,7 +621,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 			?>
 			<form method="post" action="">
 				<h3 class="title">Modules</h3>
-				<p>Modules are separate functions which improve ImagePress functionality and extend its behaviour. Modules can be integrated or they can come as separate plugins. Read more about modules and how to extend ImagePress <a href="//getbutterfly.com/wordpress-plugins/imagepress/wiki/" rel="external">here</a>.</p>
 			    <table class="form-table">
 			        <tbody>
 			            <tr>
@@ -652,16 +649,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 									<option value="1"<?php if(get_option('ip_registration') == '1') echo ' selected'; ?>>Do not require user registration</option>
 								</select>
 								<br><small>Require users to be registered and logged in to upload images (recommended).</small>
-			                </td>
-			            </tr>
-			            <tr>
-			                <th scope="row"><label for="ip_click_behaviour">Image behaviour</label></th>
-			                <td>
-								<select name="ip_click_behaviour" id="ip_click_behaviour">
-									<option value="media"<?php if(get_option('ip_click_behaviour') == 'media') echo ' selected'; ?>>Open media (image)</option>
-									<option value="custom"<?php if(get_option('ip_click_behaviour') == 'custom') echo ' selected'; ?>>Open image page (requires custom post template)</option>
-								</select>
-								<br><small>What to open when clicking on an image (single image or custom post template).</small>
 			                </td>
 			            </tr>
 			            <tr>
@@ -1496,7 +1483,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 			<?php
 			if(isset($_POST['isGSSubmit'])) {
 				update_option('hook_upload_success', stripslashes_deep($_POST['hook_upload_success']));
-				update_option('hook_share_single', stripslashes_deep($_POST['hook_share_single']));
 
 				echo '<div class="updated notice is-dismissible"><p>Settings updated successfully!</p></div>';
 			}
@@ -1509,11 +1495,6 @@ RewriteRule ^(.*)$ ?author_name=%1
                             <p>
 								<label for="hook_upload_success">Upload Success (below)</label><br>
 								<textarea class="large-text code" rows="4" name="hook_upload_success" id="hook_upload_success"><?php echo get_option('hook_upload_success'); ?></textarea>
-                                <br><small>Example: a sharing shortcode. Use <code>#url#</code> to get the current permalink.</small>
-                            </p>
-                            <p>
-								<label for="hook_share_single">Social Sharing (single page)</label><br>
-								<textarea class="large-text code" rows="4" name="hook_share_single" id="hook_share_single"><?php echo get_option('hook_share_single'); ?></textarea>
                                 <br><small>Example: a sharing shortcode. Use <code>#url#</code> to get the current permalink.</small>
                             </p>
 							<p>

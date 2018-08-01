@@ -20,10 +20,10 @@
     </section>
 
     <?php
-    $args = array(
+    $args = [
         'post_type' => 'creative-brief',
         'posts_per_page' => 3,
-    );
+    ];
     $the_query = new WP_Query($args);
 
     if ($the_query->have_posts()) {

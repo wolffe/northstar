@@ -35,11 +35,11 @@ function cinnamon_get_related_author_posts($author) {
     global $post;
 
     $ip_slug = get_option('ip_slug');
-    $authors_posts = get_posts(array(
+    $authors_posts = get_posts([
         'author' => $author,
         'posts_per_page' => 9,
         'post_type' => $ip_slug
-    ));
+    ]);
 
     $output = '';
     if ($authors_posts) {

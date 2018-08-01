@@ -27,10 +27,10 @@
 						<div class="viewport">
 							<div class="list">
 								<?php
-								$args = array(
+								$args = [
 									'category_name' => 'magazine',
 									'posts_per_page' => 99
-								);
+								];
 								$the_query = new WP_Query($args);
 
 								if($the_query->have_posts()) {
@@ -67,10 +67,10 @@
 						<div class="viewport">
 							<div class="list">
 								<?php
-								$args = array(
+								$args = [
 									'category_name' => 'interviews',
 									'posts_per_page' => 99
-								);
+								];
 								$the_query = new WP_Query($args);
 
 								if($the_query->have_posts()) {
@@ -107,10 +107,10 @@
 						<div class="viewport">
 							<div class="list">
 								<?php
-								$args = array(
+								$args = [
 									'category_name' => 'qas',
 									'posts_per_page' => 99
-								);
+								];
 								$the_query = new WP_Query($args);
 
 								if($the_query->have_posts()) {

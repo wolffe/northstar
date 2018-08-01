@@ -2,7 +2,7 @@
 // Register Custom Post Type
 function moon_ui_cpt_creative_brief() {
 
-	$labels = array(
+	$labels = [
 		'name'                  => _x( 'Creative Briefs', 'Post Type General Name', 'moon-ui' ),
 		'singular_name'         => _x( 'Creative Brief', 'Post Type Singular Name', 'moon-ui' ),
 		'menu_name'             => __( 'Creative Briefs', 'moon-ui' ),
@@ -30,12 +30,12 @@ function moon_ui_cpt_creative_brief() {
 		'items_list'            => __( 'Creative briefs list', 'moon-ui' ),
 		'items_list_navigation' => __( 'Creative briefs list navigation', 'moon-ui' ),
 		'filter_items_list'     => __( 'Filter creative briefs list', 'moon-ui' ),
-	);
-	$args = array(
+	];
+	$args = [
 		'label'                 => __( 'Creative Brief', 'moon-ui' ),
 		'description'           => __( 'Creative Brief', 'moon-ui' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'page-attributes', 'post-formats', ),
+		'supports'              => ['title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'page-attributes', 'post-formats'],
 		'hierarchical'          => true,
 		'public'                => true,
 		'show_ui'               => true,
@@ -50,8 +50,8 @@ function moon_ui_cpt_creative_brief() {
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
-	);
+	];
 	register_post_type( 'creative-brief', $args );
 
 }
-add_action( 'init', 'moon_ui_cpt_creative_brief', 0 );
+add_action('init', 'moon_ui_cpt_creative_brief', 0);

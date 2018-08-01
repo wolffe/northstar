@@ -37,14 +37,14 @@ $ping_count = count( $comments_by_type['pings'] );
 endif; 
 endif;
 
-$args = array(
+$args = [
     'comment_field' =>  '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true">' . '</textarea></p>',
     'must_log_in' => '<p class="must-log-in">' . sprintf(__('You must be <a href="%s">logged in</a> to post a comment.'), home_url() . '/login/') . '</p>',
     'logged_in_as' => '',
     'comment_notes_after' => '',
     'title_reply'       => __( '<i class="fa fa-comment"></i> Leave a comment' ),
     'title_reply_to'    => __( 'Reply to %s' ),
-);
+];
 
 if ( comments_open() ) comment_form($args);
 ?>

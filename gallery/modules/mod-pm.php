@@ -4,7 +4,7 @@ add_shortcode('pm', 'pm_display');
 function pm_display() {
     global $wpdb;
 
-    $myFollowing = array(pwuf_get_following($user_ID));
+    $myFollowing = [pwuf_get_following($user_ID)];
     $myFollowing = array_unique($myFollowing);
     $followers = implode(',', $myFollowing[0]);
 
@@ -150,7 +150,7 @@ function ip_get_pm_thread() {
     $pm_limit = is_numeric($_POST['pm_message_limit']) ? $_POST['pm_message_limit'] : 5;
     $pm_limit = (int) $_POST['pm_message_limit'];
 
-    $myFollowing = array(pwuf_get_following($pm_user_id));
+    $myFollowing = [pwuf_get_following($pm_user_id)];
     $myFollowing = array_unique($myFollowing);
     $followers = implode(',', $myFollowing[0]);
 

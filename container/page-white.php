@@ -13,10 +13,10 @@ get_header(); ?>
 
             <div class="contests">
                 <?php
-                $args = array(
+                $args = [
                     'post_type' => 'creative-brief',
                     'posts_per_page' => 40,
-                );
+                ];
                 $the_query = new WP_Query($args);
 
                 if ($the_query->have_posts()) {
@@ -68,11 +68,11 @@ get_header(); ?>
 
 
                 <?php
-                $args = array(
+                $args = [
                     'post_type' => 'post',
                     'category_name' => 'contests',
                     'posts_per_page' => 40,
-                );
+                ];
                 $the_query = new WP_Query($args);
 
                 if ($the_query->have_posts()) {

@@ -1,6 +1,6 @@
 <?php
 function ip_awards_taxonomy() {
-    $labels = array(
+    $labels = [
         'name'                       => _x( 'Awards', 'Taxonomy General Name', 'imagepress' ),
 		'singular_name'              => _x( 'Awards', 'Taxonomy Singular Name', 'imagepress' ),
 		'menu_name'                  => __( 'Awards', 'imagepress' ),
@@ -18,8 +18,8 @@ function ip_awards_taxonomy() {
 		'popular_items'              => __( 'Popular Awards', 'imagepress' ),
 		'search_items'               => __( 'Search Awards', 'imagepress' ),
 		'not_found'                  => __( 'Not Found', 'imagepress' ),
-	);
-	$args = array(
+	];
+	$args = [
 		'labels'                     => $labels,
 		'hierarchical'               => false,
 		'public'                     => true,
@@ -29,19 +29,19 @@ function ip_awards_taxonomy() {
 		'show_tagcloud'              => false,
 		'rewrite'                    => false,
 		'update_count_callback'      => 'my_update_award_count',
-	);
-	register_taxonomy( 'award', array( 'user' ), $args );
+	];
+	register_taxonomy('award', ['user'], $args);
 }
 
 
 function my_update_award_count($terms, $taxonomy) {
 	global $wpdb;
 
-	foreach((array)$terms as $term) {
+	foreach((array) $terms as $term) {
 		$count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $wpdb->term_relationships WHERE term_taxonomy_id = %d", $term));
 
 		do_action('edit_term_taxonomy', $term, $taxonomy);
-		$wpdb->update($wpdb->term_taxonomy, compact('count'), array('term_taxonomy_id' => $term));
+		$wpdb->update($wpdb->term_taxonomy, compact('count'), ['term_taxonomy_id' => $term]);
 		do_action('edited_term_taxonomy', $term, $taxonomy);
 	}
 }
@@ -80,10 +80,10 @@ add_action('edit_user_profile', 'my_edit_user_award_section');
 
 function my_edit_user_award_section($user) {
 	$tax = get_taxonomy('award');
-    if(!current_user_can($tax->cap->assign_terms))
+    if (!current_user_can($tax->cap->assign_terms))
 		return;
 
-	$terms = get_terms('award', array('hide_empty' => false));
+	$terms = get_terms('award', ['hide_empty' => false]);
 
 	if(is_admin()) { ?>
 		<h3><?php _e('Status and awards', 'imagepress'); ?></h3>

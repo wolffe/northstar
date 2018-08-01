@@ -198,9 +198,9 @@ class TwitterOAuth {
     curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
     curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
     curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ci, CURLOPT_HTTPHEADER, array('Expect:'));
+    curl_setopt($ci, CURLOPT_HTTPHEADER, ['Expect:']);
     curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
-    curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
+    curl_setopt($ci, CURLOPT_HEADERFUNCTION, [$this, 'getHeader']);
     curl_setopt($ci, CURLOPT_HEADER, FALSE);
 
     switch ($method) {

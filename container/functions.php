@@ -34,29 +34,11 @@ function whiskey_load_assets() {
     wp_enqueue_style('sweetalert2', 'https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.15.1/sweetalert2.min.css');
 
     wp_enqueue_script('resize-sensor', 'https://posterspy.com/wp-content/themes/moon-ui-theme/js/resize-sensor.js', '', '3.3.1', true);
-    wp_enqueue_script('sticky-sidebar', 'https://posterspy.com/wp-content/themes/moon-ui-theme/js/sticky-sidebar.min.js', array('resize-sensor'), '3.3.1', true);
-    wp_enqueue_script('noir', 'https://posterspy.com/wp-content/themes/moon-ui-theme/js/engine-0.2.js', array('sticky-sidebar', 'jquery'), '0.2.0', true);
+    wp_enqueue_script('sticky-sidebar', 'https://posterspy.com/wp-content/themes/moon-ui-theme/js/sticky-sidebar.min.js', ['resize-sensor'], '3.3.1', true);
+    wp_enqueue_script('noir', 'https://posterspy.com/wp-content/themes/moon-ui-theme/js/engine-0.2.js', ['sticky-sidebar', 'jquery'], '0.2.0', true);
 }
 add_action('wp_enqueue_scripts', 'whiskey_load_assets');
 
-register_sidebar(array(
-    'name'          => 'Responsive Menu Widget 1',
-    'id'            => 'responsive-menu-widget-1',
-    'description'   => 'Appears in the responsive/mobile menu area, above the menu.',
-    'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-    'after_widget'  => '</aside>',
-    'before_title'  => '<h2 class="widget-title">',
-    'after_title'   => '</h2>',
-));
-register_sidebar(array(
-    'name'          => 'Responsive Menu Widget 2',
-    'id'            => 'responsive-menu-widget-2',
-    'description'   => 'Appears in the responsive/mobile menu area, below the menu.',
-    'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-    'after_widget'  => '</aside>',
-    'before_title'  => '<h2 class="widget-title">',
-    'after_title'   => '</h2>',
-));
 
 
 
@@ -68,18 +50,18 @@ function blankslate_setup() {
     add_theme_support('post-thumbnails');
     add_theme_support('advanced-image-compression');
 
-    add_theme_support('html5', array(
+    add_theme_support('html5', [
         'search-form', 'comment-form', 'comment-list', 'gallery', 'caption'
-    ));
+    ]);
 
     global $content_width;
     if (!isset($content_width)) $content_width = 920;
 
-    register_nav_menus(array(
+    register_nav_menus([
         'main-menu' => 'Main Menu',
         'footer-menu' => 'Footer Menu',
         'responsive-menu' => 'Responsive Menu',
-    ));
+    ]);
 }
 
 
@@ -94,14 +76,33 @@ function blankslate_enqueue_comment_reply_script() {
 add_action('widgets_init', 'blankslate_widgets_init');
 
 function blankslate_widgets_init() {
-    register_sidebar(array(
-        'name' => __( 'Sidebar Widget Area', 'blankslate' ),
+    register_sidebar([
+        'name' => 'Responsive Menu Widget 1',
+        'id' => 'responsive-menu-widget-1',
+        'description' => 'Appears in the responsive/mobile menu area, above the menu.',
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside>',
+        'before_title' => '<h2 class="widget-title">',
+        'after_title' => '</h2>',
+    ]);
+    register_sidebar([
+        'name' => 'Responsive Menu Widget 2',
+        'id' => 'responsive-menu-widget-2',
+        'description' => 'Appears in the responsive/mobile menu area, below the menu.',
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside>',
+        'before_title' => '<h2 class="widget-title">',
+        'after_title' => '</h2>',
+    ]);
+
+    register_sidebar([
+        'name' => 'Sidebar Widget Area',
         'id' => 'primary-widget-area',
         'before_widget' => '<div id="%1$s" class="widget-container %2$s">',
         'after_widget' => "</div>",
         'before_title' => '<h3 class="widget-title">',
         'after_title' => '</h3>',
-    ));
+    ]);
 }
 
 
@@ -154,7 +155,7 @@ function noir_comments($comment, $args, $depth) {
                     </div><!-- .comment-author -->
 
                     <?php if('0' == $comment->comment_approved) : ?>
-                    <p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'pietergoosen' ); ?></p>
+                    <p class="comment-awaiting-moderation">Your comment is awaiting moderation.</p>
                     <?php endif; ?>
                 </footer><!-- .comment-meta -->
 
@@ -162,7 +163,7 @@ function noir_comments($comment, $args, $depth) {
                     <?php comment_text(); ?>
                     <p>
                         <small>
-                            <?php comment_reply_link(array_merge($args, array('add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth']))); ?>
+                            <?php comment_reply_link(array_merge($args, ['add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth']])); ?>
                         </small>
                     </p>
                 </div><!-- .comment-content -->
@@ -177,7 +178,7 @@ function noir_comments($comment, $args, $depth) {
  * Adds a box to the main column on the Post and Page edit screens.
  */
 function imagepress_add_meta_box() {
-    $screens = array('poster');
+    $screens = ['poster'];
 
     foreach($screens as $screen) {
         add_meta_box('imagepress_sectionid', 'Staff Comment', 'imagepress_meta_box_callback', $screen);
@@ -226,48 +227,48 @@ add_action('save_post', 'imagepress_save_meta_box_data');
 
 // custom width box
 function box_ps($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'width' => 650,
-    ), $atts));
+    ], $atts));
     return '<div class="box-ps" style="width:' . $width . 'px; margin:0 auto;">' . do_shortcode($content) . '</div>';
 }
 add_shortcode('box', 'box_ps');
 
 // custom brief boxes
 function box_brief_title($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'width' => 650,
-    ), $atts));
+    ], $atts));
     return '<div class="box-brief-title">' . do_shortcode($content) . '<div style="float:right;">' . get_the_post_thumbnail() . '</div><div style="clear:both;"></div></div>';
 }
 function box_brief($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'background' => '#222222',
-    ), $atts));
+    ], $atts));
     return '<div class="box-brief" style="background-color: ' . $background . ';">' . do_shortcode($content) . '</div>';
 }
 function box_date($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'background' => '#333333',
-    ), $atts));
+    ], $atts));
     return '<div class="box-date" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="fa fa-calendar"></i></div><div style="clear:both;"></div></div>';
 }
 function box_submit($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'background' => '#444444',
-    ), $atts));
+    ], $atts));
     return '<div class="box-submit" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="fa fa-paper-plane"></i></div><div style="clear:both;"></div></div>';
 }
 function box_prizes($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'background' => '#555555',
-    ), $atts));
+    ], $atts));
     return '<div class="box-prizes" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="fa fa-trophy"></i></div><div style="clear:both;"></div></div>';
 }
 function box_about($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'background' => '#666666',
-    ), $atts));
+    ], $atts));
     return '<div class="box-about" style="background-color: ' . $background . ';">' . do_shortcode($content) . '<div style="clear:both;"></div></div>';
 }
 
@@ -279,10 +280,10 @@ add_shortcode('prizes', 'box_prizes');
 add_shortcode('about', 'box_about');
 
 function button_ps($atts, $content = null) {
-    extract(shortcode_atts(array(
+    extract(shortcode_atts([
         'type' => 'upload',
         'message' => 'UPLOAD YOUR ENTRY',
-    ), $atts));
+    ], $atts));
 
     if($type == 'upload') {
         return '<a class="button-ps" style="background-color: #0cb8fc; color: #ffffff; margin: 16px auto; padding: 16px; font-size: 24px; text-align: center; width: 356px; display: block; font-family: Montserrat;" href="//posterspy.com/upload/">' . $message . '</a>';
@@ -350,7 +351,7 @@ function the_about_the_author_box() {
 
 // Register Banners
 function carousel_ps() {
-    $labels = array(
+    $labels = [
         'name'                => _x( 'Banners', 'Post Type General Name', 'noir' ),
         'singular_name'       => _x( 'Banner', 'Post Type Singular Name', 'noir' ),
         'menu_name'           => __( 'Banners', 'noir' ),
@@ -364,12 +365,12 @@ function carousel_ps() {
         'search_items'        => __( 'Search Banner', 'noir' ),
         'not_found'           => __( 'Not found', 'noir' ),
         'not_found_in_trash'  => __( 'Not found in Trash', 'noir' ),
-    );
-    $args = array(
+    ];
+    $args = [
         'label'               => __( 'home_banner', 'noir' ),
         'description'         => __( 'Homepage static banner', 'noir' ),
         'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'thumbnail', ),
+        'supports'            => ['title', 'editor', 'thumbnail'],
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -384,8 +385,8 @@ function carousel_ps() {
         'publicly_queryable'  => true,
         'rewrite'             => false,
         'capability_type'     => 'post',
-    );
-    register_post_type( 'home_banner', $args );
+    ];
+    register_post_type('home_banner', $args);
 }
 
 // Hook into the 'init' action
@@ -442,36 +443,37 @@ function chip_pagination($pages = '', $range = 4) {
  * @since 6.0.0-posterspy
  */
 function customize_poster_taxonomy($query) {
-    if(get_post_type() == 'poster') {
-        if(isset($_GET['sort']) || isset($_GET['range'])) {
-            $sort = $_GET['sort'];
-            $range = $_GET['range'];
-            if($sort == 'likes') {
+    if (get_post_type() === 'poster') {
+        if (isset($_GET['sort']) || isset($_GET['range'])) {
+            $sort = trim($_GET['sort']);
+            $range = trim($_GET['range']);
+
+            if ((string) $sort === 'likes') {
                 $query->set('meta_key', 'votes_count');
                 $query->set('orderby', 'meta_value_num');
                 $query->set('order', 'DESC');
-            } else if($sort == 'views') {
-                $query->set('meta_query', array( 'key' => 'post_views_count') );
+            } else if ((string) $sort === 'views') {
+                $query->set('meta_query', ['key' => 'post_views_count']);
                 $query->set('meta_key', 'post_views_count');
                 $query->set('orderby', 'meta_value_num');
                 $query->set('order', 'DESC');
-            } else if($sort == 'comments') {
+            } else if ((string) $sort === 'comments') {
                 $query->set('orderby', 'comment_count');
                 $query->set('order', 'DESC');
-            } else if($sort == 'newest') {
+            } else if ((string) $sort === 'newest') {
                 $query->set('orderby', 'date');
                 $query->set('order', 'DESC');
-            } else if($sort == 'oldest') {
+            } else if ((string) $sort === 'oldest') {
                 $query->set('orderby', 'date');
                 $query->set('order', 'ASC');
-            } else if($sort == 'prints') {
-                $meta_query = array(
-                    array(
+            } else if ((string) $sort === 'prints') {
+                $meta_query = [
+                    [
                         'key' => 'imagepress_purchase',
                         'value' => '',
                         'compare' => '!='
-                    )
-                );
+                    ]
+                ];
                 $query->set('meta_query', $meta_query);
             } else {
                 // Sorting defaults to newest posters
@@ -480,77 +482,76 @@ function customize_poster_taxonomy($query) {
             }
 
             // Range filtering
-            if($range == 'lastmonth') {
-                $date_query = array(
-                    'date_query'    => array(
-                        'column'  => 'post_date',
-                        'after'   => '- 30 days'
-                    )
-                );
+            if ((string) $range === 'lastmonth') {
+                $date_query = [
+                    'date_query' => [
+                        'column' => 'post_date',
+                        'after' => '- 30 days'
+                    ]
+                ];
                 $query->set('date_query', $date_query);
-            } else if($range == 'lastweek') {
-                $date_query = array(
-                    'date_query'    => array(
-                        'column'  => 'post_date',
-                        'after'   => '- 7 days'
-                    )
-                );
+            } else if ((string) $range === 'lastweek') {
+                $date_query = [
+                    'date_query' => [
+                        'column' => 'post_date',
+                        'after' => '- 7 days'
+                    ]
+                ];
                 $query->set('date_query', $date_query);
-            } else if($range == 'lastday') {
-                $date_query = array(
-                    'date_query'    => array(
-                        'column'  => 'post_date',
-                        'after'   => '- 1 days'
-                    )
-                );
+            } else if ((string) $range === 'lastday') {
+                $date_query = [
+                    'date_query' => [
+                        'column' => 'post_date',
+                        'after' => '- 1 days'
+                    ]
+                ];
                 $query->set('date_query', $date_query);
-            } else if($range == 'alltime') {
+            } else if ((string) $range === 'alltime') {
             } else {
                 // Sorting defaults to newest posters
                 $query->set('orderby', 'date');
                 $query->set('order', 'DESC');
             }
             // Category filter
-            // $query->set( 'cat', '-4' );
+            // $query->set('cat', '-4');
         }
 
-        if(is_tax()) {
-            $query->set('tax_query', array(
-                array(
+        if (is_tax()) {
+            $query->set('tax_query', [
+                [
                     'taxonomy' => get_query_var('taxonomy'),
                     'field' => 'slug',
                     'terms' => get_query_var('term'),
-                )
-            ));
+                ]
+            ]);
         }
 
-        if(is_archive() || is_tax()) {
-            if(isset($_COOKIE['psppp'])) {
+        if (is_archive() || is_tax()) {
+            if (isset($_COOKIE['psppp'])) {
                 $posters = $_COOKIE['psppp'];
 
-                if($posters == 1) {
-                    $query->set( 'posts_per_page', '44' ); // 6x7=42, 7x9=63, 7x13=91
+                if ((int) $posters === 1) {
+                    $query->set('posts_per_page', 44); // 6x7=42, 7x9=63, 7x13=91
                 } else if($posters == 2) {
-                    $query->set( 'posts_per_page', '64' ); // 6x7=42, 7x9=63, 7x13=91
+                    $query->set('posts_per_page', 64); // 6x7=42, 7x9=63, 7x13=91
                 } else if($posters == 3) {
-                    $query->set( 'posts_per_page', '100' ); // 6x7=42, 7x9=63, 7x13=91
+                    $query->set('posts_per_page', 100); // 6x7=42, 7x9=63, 7x13=91
                 }
             } else {
-                $query->set( 'posts_per_page', '44' ); // 6x7=42, 7x9=63, 7x13=91
+                $query->set('posts_per_page', 44); // 6x7=42, 7x9=63, 7x13=91
             }
 
             // Checkboxes
-            if(isset($_COOKIE['pspurchase']) && $_COOKIE['pspurchase'] == 1) {
-                $meta_query = array(
-                    array(
+            if (isset($_COOKIE['pspurchase']) && (int) $_COOKIE['pspurchase'] === 1) {
+                $meta_query = [
+                    [
                         'key' => 'imagepress_purchase',
                         'value' => '',
                         'compare' => '!='
-                    )
-                );
-                $query->set( 'meta_query', $meta_query );
+                    ]
+                ];
+                $query->set('meta_query', $meta_query);
             }
-            //
         }
     }
 }

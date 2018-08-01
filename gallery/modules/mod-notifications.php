@@ -15,7 +15,7 @@ function notification_count() {
         $authorID = $postdata['post_author'];
         $action = $line->actionType;
 
-        $following = array(pwuf_get_following($user_ID));
+        $following = [pwuf_get_following($user_ID)];
 
         if(
             ($action == 'loved' && $user_ID == $authorID) || 
@@ -40,12 +40,12 @@ function notification_reset() {
 
     $sql = "SELECT ID, userID, postID, actionType FROM " . $wpdb->prefix . "notifications WHERE status = 0";
     $res = $wpdb->get_results($sql);
-    foreach($res as $line) {
+    foreach ($res as $line) {
         $postdata = get_post($line->postID, ARRAY_A);
         $authorID = $postdata['post_author'];
         $action = $line->actionType;
 
-        $following = array(pwuf_get_following($user_ID));
+        $following = [pwuf_get_following($user_ID)];
 
         if(
             ($action == 'loved' && $user_ID == $authorID) || 
@@ -68,7 +68,7 @@ function notification_reset() {
 function imagepress_notifications($atts, $content = null) {
     global $wpdb;
     $user_ID = get_current_user_id();
-    $following = array(pwuf_get_followers($user_ID));
+    $following = [pwuf_get_followers($user_ID)];
 
     $ip_slug = get_option('ip_slug');
     $display = '';
@@ -121,12 +121,12 @@ function imagepress_notifications($atts, $content = null) {
         }
 
         if($action == 'featured' && $user_ID == $authorID && $user_ID != $line->userID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_the_post_thumbnail($line->postID, array(48,48)) . '</div><i class="fa fa-fw fa-star"></i> Your <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a> ' . $ip_slug . ' was ' . $action . '<time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_the_post_thumbnail($line->postID, [48,48]) . '</div><i class="fa fa-fw fa-star"></i> Your <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a> ' . $ip_slug . ' was ' . $action . '<time>' . $time . '</time></div>';
 
         // custom
         if(0 == $line->postID || '-1' == $line->postID) {
             $attachment_id = 202;
-            $image_attributes = wp_get_attachment_image_src($attachment_id, array(48,48));
+            $image_attributes = wp_get_attachment_image_src($attachment_id, [48,48]);
 
             $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar"><img src="' .  $image_attributes[0] . '" width="' . $image_attributes[1] . '" height="' . $image_attributes[2] . '"></div><i class="fa fa-fw ' . $line->actionIcon . '"></i> ' . $line->actionType . '<time>' . $time . '</time></div>';
         }

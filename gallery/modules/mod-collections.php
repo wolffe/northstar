@@ -152,7 +152,7 @@ function ipCollectionCount($author_ID) {
 	$result = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ip_collections WHERE collection_status = 1 AND collection_author_ID = '" . $author_ID . "'", ARRAY_A);
 
     if (!is_array($result)) {
-        $result = array();
+        $result = [];
     }
 
     $count = count($result);
@@ -161,10 +161,10 @@ function ipCollectionCount($author_ID) {
 }
 
 function ip_collections_display_custom($atts) {
-	extract(shortcode_atts(array(
+	extract(shortcode_atts([
 		'mode' => 'random', // random, latest
         'count' => 4
-	), $atts));
+	], $atts));
 
 	global $wpdb;
 	$i = 0;

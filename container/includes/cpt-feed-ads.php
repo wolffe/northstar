@@ -2,7 +2,7 @@
 // Register Custom Post Type
 function moon_ui_cpt_feed_ad() {
 
-	$labels = array(
+	$labels = [
 		'name'                  => _x( 'Feed Ads', 'Post Type General Name', 'moon-ui' ),
 		'singular_name'         => _x( 'Feed Ad', 'Post Type Singular Name', 'moon-ui' ),
 		'menu_name'             => __( 'Feed Ads', 'moon-ui' ),
@@ -30,12 +30,12 @@ function moon_ui_cpt_feed_ad() {
 		'items_list'            => __( 'Feed ads list', 'moon-ui' ),
 		'items_list_navigation' => __( 'Feed ads list navigation', 'moon-ui' ),
 		'filter_items_list'     => __( 'Filter feed ads list', 'moon-ui' ),
-	);
-	$args = array(
+	];
+	$args = [
 		'label'                 => __( 'Feed Ad', 'moon-ui' ),
 		'description'           => __( 'Feed Ad', 'moon-ui' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', ),
+		'supports'              => ['title', 'editor', 'thumbnail', 'custom-fields'],
 		'hierarchical'          => true,
 		'public'                => true,
 		'show_ui'               => true,
@@ -50,7 +50,7 @@ function moon_ui_cpt_feed_ad() {
 		'publicly_queryable'    => true,
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
-	);
+	];
 	register_post_type( 'feed-ad', $args );
 
 }

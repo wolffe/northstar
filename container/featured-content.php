@@ -21,13 +21,13 @@
 	<div class="gallery">
 		<ul>
             <?php
-            $args = array(
+            $args = [
                 'posts_per_page' => 9999,
                 'offset'=> 0,
                 'post_type' => 'poster',
                 'imagepress_image_category' => 'featured',
                 'order' => 'DESC',
-            );
+            ];
 
             $myposts = get_posts($args);
             foreach($myposts as $post) : setup_postdata($post); ?>

@@ -24,10 +24,10 @@
 
     $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
-    $args1 = array(
+    $args1 = [
         'post_type' => 'poster',
         'paged' => $paged,
-    );
+    ];
     $wp_query = new WP_Query($args1);
     ?>
     <div id="ip-boxes">

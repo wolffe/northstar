@@ -230,7 +230,7 @@ function imagepress_add($atts, $content = null) {
 								'size' => $files['size'][$key]
 							];
 						}
-						$_FILES = array("attachment" => $file);
+						$_FILES = ['attachment' => $file];
 						foreach ($_FILES as $file => $array) {
 							$attach_id = media_handle_upload($file, $post_id);
 							if ($attach_id < 0) {
@@ -321,13 +321,13 @@ function imagepress_resize_default_images($data) {
 	$ip_quality = get_option('ip_max_quality');
 
 	// Return an implementation that extends WP_Image_Editor
-	$arguments = array(
+	$arguments = [
 		'mime_type' => 'image/jpeg',
-		'methods' => array(
+		'methods' => [
 			'resize',
 			'save'
-		)
-	);
+		]
+	];
 	$image = wp_get_image_editor($data['file'], $arguments);
 	if (is_wp_error($image)) {
 		return false;
@@ -445,39 +445,6 @@ function imagepress_get_upload_image_form($imagepress_image_caption = '', $image
             $out .= '<h3>Secondary Image(s)<br><small>Additional images (variants, making of, progress shots)</small></h3>';
             $out .= '<p><label for="imagepress_image_additional"><i class="fa fa-cloud-upload"></i> Select file(s) (' . $uploadsize . 'MB ' . __('maximum', 'imagepress') . ')...</label><br><input type="file" accept="image/*" name="imagepress_image_additional[]" id="imagepress_image_additional" multiple></p><hr>';
 
-
-
-            /*
-             * Social sharing
-             */
-            if (isset($_GET['dev'])) {
-                $out .= '<h3>Auto Share to</h3>';
-                $out .= '<p class="labelize">
-                    <input type="checkbox" name="asfb" id="asfb" value="1" class="checkbox"> <label for="asfb">Facebook</label>
-                    <input type="checkbox" name="asfb2" id="asfb2" value="1" class="checkbox"> <label for="asfb2">Twitter</label>
-                    <input type="checkbox" name="asfb3" id="asfb3" value="1" class="checkbox"> <label for="asfb3">Google+</label>
-                </p>
-                <hr>';
-                define("CONSUMER_KEY", "rAeZ3jhAmsyGO63aRjM4TCQ7l");
-                define("CONSUMER_SECRET","KnhyW2d5HOa1vZlQbPMFgzqiqhD4vJOhiINmgJJvO7f99rNDNA");
-                define("OAUTH_TOKEN", "1195176990-ffklW1EgKxUveYQ7TWe9e5Mewzq44TXkmfeq1qr");
-                define("OAUTH_SECRET", "ilK1mB1IqmgS4JD69WBZ303uWRR3tXbFvmIGvvTWmMlwF");
-                //include IP_PLUGIN_PATH . '/includes/OAuth.php';
-                //require_once 'includes/twitteroauth.php';
-                //$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_SECRET);
-                //$content = $connection->get('account/verify_credentials');
-                //$connection->post('statuses/update', array('status' => 'Hello world!'));
-
-            }
-            // https://www.jqueryscript.net/demo/iOS-Style-Checkbox-Plugin-with-jQuery-CSS3-iosCheckbox-js/
-            // https://codepen.io/hamper/pen/ZJKeRq
-
-            // Twitter
-            // http://www.walkswithme.net/post-to-twitter-using-php-oauth-api
-            // https://stackoverflow.com/questions/15607597/php-post-to-twitter-using-oauth <=========
-            // https://github.com/abraham/twitteroauth <======
-
-
             $out .= '<p style="padding: 16px 0; font-size: 13px;"><input type="checkbox" id="ip-agree"> <label for="ip-agree">By uploading my artwork to PosterSpy, I agree that the work is my own and complies with the website\'s <a href="https://posterspy.com/about/terms-of-use/" target="_blank">Terms of Service</a>.</label></p>';
 			$out .= '<p class="center">';
 				$out .= '<input type="submit" id="imagepress_submit" name="imagepress_submit" value="Upload Poster" class="button noir-secondary">';
@@ -521,8 +488,6 @@ function imagepress_activate() {
 
 	add_option('ip_order', 'DESC');
 	add_option('ip_orderby', 'date');
-
-	add_option('ip_click_behaviour', 'media'); // media, custom
 
 	add_option('approvednotification', 'yes');
 	add_option('declinednotification', 'yes');
@@ -623,7 +588,6 @@ function imagepress_activate() {
 	add_option('ip_upload_success', 'Click here to view your image.');
 
 	add_option('hook_upload_success', '');
-	add_option('hook_share_single', '');
 
     add_option('ip_dropbox_enable', 0);
     add_option('ip_dropbox_key', '');
@@ -634,6 +598,8 @@ function imagepress_activate() {
 	// New update
 	delete_option('ip_mod_collections');
 	delete_option('ip_mod_login');
+	delete_option('ip_click_behaviour');
+	delete_option('hook_share_single');
 
     global $wpdb;
 
@@ -708,8 +674,8 @@ function ip_enqueue_scripts() {
 
 	wp_enqueue_style('ip-bootstrap', plugins_url('css/ip.bootstrap.css', __FILE__));
 
-	wp_enqueue_script('ipjs-main', plugins_url('js/jquery.main.js', __FILE__), array('jquery'), '1.2', true);
-	wp_localize_script('ipjs-main', 'ip_ajax_var', array(
+	wp_enqueue_script('ipjs-main', plugins_url('js/jquery.main.js', __FILE__), ['jquery'], '1.2', true);
+	wp_localize_script('ipjs-main', 'ip_ajax_var', [
 		'imagesperpage'               => get_option('ip_ipp'),
 		'authorsperpage'              => get_option('ip_app'),
 		'likelabel'                   => get_option('ip_vote_like'),
@@ -726,7 +692,7 @@ function ip_enqueue_scripts() {
 
         'ajaxreloadurl'               => plugins_url('ajax/reload-like.php', __FILE__),
         'ajaxcollecturl'               => plugins_url('ajax/reload-collect.php', __FILE__),
-	));
+	]);
 }
 // end
 
@@ -1044,7 +1010,7 @@ function imagepress_widget($atts, $content = null) {
 	if ((string) $type === 'top')
 		$count = 1;
 
-    $args = array[
+    $args = [
         'post_type' 				=> get_option('ip_slug'),
         'posts_per_page' 			=> $count,
         'orderby' 					=> 'meta_value_num',
@@ -1086,10 +1052,7 @@ function imagepress_widget($atts, $content = null) {
 			$post_thumbnail_id = get_post_thumbnail_id($i->ID);   
 			$image_attributes = wp_get_attachment_image_src($post_thumbnail_id, 'full');
 
-			if(get_option('ip_click_behaviour') == 'media')
-				$ip_image_link = $image_attributes[0];
-			if(get_option('ip_click_behaviour') == 'custom')
-				$ip_image_link = get_permalink($i->ID);
+			$ip_image_link = get_permalink($i->ID);
 
 			$display .= '<div id="ip_container_2"><div class="ip_icon_hover">' . 
                     '<div><strong>' . get_the_title($i->ID) . '</strong></div>' . 

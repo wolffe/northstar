@@ -18,7 +18,7 @@
     <span class="mmenu-trigger montserrat-regular" style="padding: 4px 16px; cursor: pointer; color: #ffffff;"><i class="fa fa-times"></i> Close</span>
     <?php if(is_active_sidebar('responsive-menu-widget-1')) dynamic_sidebar('responsive-menu-widget-1'); ?>
     <form class="responsive-search" role="search" method="get" id="searchform" action="https://posterspy.com/"><input type="text" placeholder="Search posters..." name="s" id="s"></form>
-    <?php wp_nav_menu(array('theme_location' => 'responsive-menu', 'container' => false)); ?>
+    <?php wp_nav_menu(['theme_location' => 'responsive-menu', 'container' => false]); ?>
     <?php if(is_active_sidebar('responsive-menu-widget-2')) dynamic_sidebar('responsive-menu-widget-2'); ?>
 </div>
 <div class="overlay">
