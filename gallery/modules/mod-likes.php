@@ -7,8 +7,7 @@ function imagepress_like() {
 
     if (isset($_POST['imagepress_like'])) {
         $post_id = $_POST['post_id']; // post id
-		$ip_vote_meta = get_option('ip_vote_meta');
-		$like_count = get_post_meta($post_id, $ip_vote_meta, true); // post like count
+		$like_count = get_post_meta($post_id, 'votes_count', true); // post like count
 
 		if (function_exists('wp_cache_post_change')) { // invalidate WP Super Cache if exists
 			$GLOBALS['super_cache_enabled'] = 1;
@@ -42,7 +41,7 @@ function imagepress_like() {
 
 			if (!AlreadyLiked($post_id)) { // like the post
 				update_post_meta($post_id, '_user_liked', $liked_USERS); // add user ID to post meta
-				update_post_meta($post_id, $ip_vote_meta, ++$like_count); // +1 count post meta
+				update_post_meta($post_id, 'votes_count', ++$like_count); // +1 count post meta
 				update_user_option($user_id, '_liked_posts', $liked_POSTS); // add post ID to user meta
 				update_user_option($user_id, '_user_like_count', $user_likes); // +1 count user meta
 				echo $like_count; // update count on front end
@@ -59,7 +58,7 @@ function imagepress_like() {
 				unset($liked_USERS[$uid_key]); // remove from array
 				$user_likes = count($liked_POSTS); // recount user likes
 				update_post_meta($post_id, '_user_liked', $liked_USERS); // remove user ID from post meta
-				update_post_meta($post_id, $ip_vote_meta, --$like_count); // -1 count post meta
+				update_post_meta($post_id, 'votes_count', --$like_count); // -1 count post meta
 				update_user_option($user_id, '_liked_posts', $liked_POSTS); // remove post ID from user meta			
 				update_user_option($user_id, '_user_like_count', $user_likes); // -1 count user meta
 				echo 'already' . $like_count; // update count on front end
@@ -81,13 +80,13 @@ function imagepress_like() {
 
 			if (!AlreadyLiked($post_id)) { // like the post
 				update_post_meta($post_id, '_user_IP', $liked_IPS); // add user IP to post meta
-				update_post_meta($post_id, $ip_vote_meta, ++$like_count); // +1 count post meta
+				update_post_meta($post_id, 'votes_count', ++$like_count); // +1 count post meta
 				echo $like_count; // update count on front end
 			} else { // unlike the post
 				$ip_key = array_search( $ip, $liked_IPS ); // find the key
 				unset($liked_IPS[$ip_key]); // remove from array
 				update_post_meta($post_id, '_user_IP', $liked_IPS); // remove user IP from post meta
-				update_post_meta($post_id, $ip_vote_meta, --$like_count); // -1 count post meta
+				update_post_meta($post_id, 'votes_count', --$like_count); // -1 count post meta
 				echo "already".$like_count; // update count on front end
 			}
 		}
@@ -139,13 +138,12 @@ function AlreadyLiked($post_id) { // test if user liked before
  * Front end button
  */
 function ipGetPostLikeLink($post_id) {
-	$ip_vote_meta = get_option('ip_vote_meta');
 	$ip_vote_like = imagepress_get_like_count($post_id);
 	$ip_vote_unlike = imagepress_get_like_count($post_id);
 	$ip_vote_login = get_option('ip_vote_login');
 
 	if (is_user_logged_in()) {
-		$like_count = get_post_meta($post_id, $ip_vote_meta, true); // get post likes
+		$like_count = get_post_meta($post_id, 'votes_count', true); // get post likes
 		if (AlreadyLiked($post_id)) {
 			$class = esc_attr(' liked');
 			$like = '<i class="fa fa-fw fa-heart"></i> <span class="ip-count-value">' . $ip_vote_unlike . '</span>';
@@ -165,17 +163,17 @@ function ipGetPostLikeLink($post_id) {
  * Front end button
  */
 function ipGetFeedLikeLink($post_id) {
-	$ip_vote_meta = get_option('ip_vote_meta');
 	$ip_vote_like = imagepress_get_like_count($post_id);
-    $hidden = '';
-    if ($ip_vote_like == 0) {
-        $hidden = 'display: none;';
-    }
+	$hidden = '';
+
+	if ((int) $ip_vote_like == 0) {
+		$hidden = 'display: none;';
+	}
 	$ip_vote_unlike = imagepress_get_like_count($post_id);
 	$ip_vote_login = get_option('ip_vote_login');
 
 	if(is_user_logged_in()) {
-		$like_count = get_post_meta($post_id, $ip_vote_meta, true); // get post likes
+		$like_count = get_post_meta($post_id, 'votes_count', true); // get post likes
 		if (AlreadyLiked($post_id)) {
 			$class = esc_attr(' liked');
 			$like = '<i class="fa fa-fw fa-heart"></i> <span class="ip-count-value" style="' . $hidden . '">' . $ip_vote_unlike . '</span>';
@@ -195,29 +193,25 @@ function ipGetFeedLikeLink($post_id) {
  * If the user is logged in, output a list of posts that the user likes
  */
 function frontEndUserLikes($author) {
-    $like_list = '<div class="cinnamon-likes" id="cinnamon-love">';
     $user_likes = get_user_option('_liked_posts', $author);
-    if(!empty($user_likes) && count($user_likes) > 0)
+    $the_likes = '';
+    $ip_ipp = get_option('ip_ipp');
+
+    if (!empty($user_likes) && count($user_likes) > 0) {
         $the_likes = $user_likes;
-    else
-        $the_likes = '';
+    }
 
     if (!is_array($the_likes)) {
         $the_likes = [];
     }
     $the_likes = array_reverse($the_likes);
     $count = count($the_likes);
-    if($count > 0) {
-		/**
-        $limited_likes = array_slice($the_likes, 0, 12); // this will limit the number of posts returned to 12
-        foreach($limited_likes as $the_like) {
-            $like_list .= '<a href="' . esc_url(get_permalink($the_like)) . '"><!--' . get_the_title( $the_like ) . '-->' . get_the_post_thumbnail($the_like, 'thumbnail') . '</a>';
+
+    $like_list = '<div class="cinnamon-likes" id="cinnamon-love">';
+        if ($count > 0) {
+            $the_likes = implode(',', $the_likes);
+            $like_list .= do_shortcode('[imagepress-show meta="love" metaids="' . $the_likes . '" count="' . $ip_ipp . '" size="imagepress_pt_lrg"]');
         }
-		/**/
-		$the_likes = implode(',', $the_likes);
-		$ip_ipp = get_option('ip_ipp');
-		$like_list .= do_shortcode('[imagepress-show meta="love" metaids="' . $the_likes . '" count="' . $ip_ipp . '"]');
-    }
     $like_list .= '</div>';
 
     return $like_list;

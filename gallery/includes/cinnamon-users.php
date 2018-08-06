@@ -406,12 +406,12 @@ function cinnamon_profile($atts, $content = null) {
                 }
 
                 if (is_user_logged_in() && $author_rewrite == $logged_in_user->user_login) {
-                    $display .= '<div class="cinnamon-sidebar-content centre"><a href="' . get_option('cinnamon_edit_page') . '" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> ' . get_option('cinnamon_edit_label') . '</a></div>';
+                    $display .= '<div class="cinnamon-sidebar-content centre"><a href="' . get_option('cinnamon_edit_page') . '" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit Profile</a></div>';
                 }
 
             $display .= '</div>
             <div class="tab_content">
-                <div class="ip-tabs-item" style="display: block;">' . do_shortcode('[imagepress-show user="' . $author . '" sort="no"]') . '</div>';
+                <div class="ip-tabs-item" style="display: block;">' . do_shortcode('[imagepress-show user="' . $author . '" sort="no"  size="imagepress_pt_lrg"]') . '</div>';
 
 				if (get_option('cinnamon_show_followers') == 1) {
 					$display .= '<div class="ip-tabs-item" style="display: none;">';
@@ -587,9 +587,9 @@ function cinnamon_profile_edit($atts, $content = null) {
 
         // Avatar and cover upload
         if ($_FILES) {
-            require_once(ABSPATH . "wp-admin" . '/includes/image.php');
-            require_once(ABSPATH . "wp-admin" . '/includes/file.php');
-            require_once(ABSPATH . "wp-admin" . '/includes/media.php');
+            require_once ABSPATH . 'wp-admin/includes/image.php';
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            require_once ABSPATH . 'wp-admin/includes/media.php';
 
             foreach ($_FILES as $file => $array) {
                 if (!empty($_FILES[$file]['name'])) {
@@ -619,9 +619,11 @@ function cinnamon_profile_edit($atts, $content = null) {
                 <form method="post" id="adduser" action="<?php the_permalink(); ?>" enctype="multipart/form-data">
                     <div class="ip-tab" style="width: 1170px; margin: 0 auto;">
                         <ul class="ip-tabs ip-profile active" style="float: left; width: 200px; padding: 0;">
-                            <li class="current" style="float: none;"><a href="#"><?php echo get_option('cinnamon_pt_account'); ?></a></li>
-                            <li style="float: none;"><a href="#"><?php echo get_option('cinnamon_pt_author'); ?></a></li>
+                            <li class="current" style="float: none;"><a href="#">Profile</a></li>
+                            <li style="float: none;"><a href="#">Password</a></li>
+                            <?php /** ?>
                             <li style="float: none;"><a href="#" class="imagepress-collections">Collections</a></li>
+                            <?php /**/ ?>
                             <?php if (isset($_GET['dev'])) { ?>
                                 <li style="float: none;"><a href="#">Linked Accounts</a></li>
                             <?php } ?>
@@ -951,6 +953,7 @@ function cinnamon_profile_edit($atts, $content = null) {
                                 </table>
                             </div>
 
+                            <?php /** ?>
                             <div class="ip-tabs-item" style="display: none;">
                                 <p>
                                     <a href="#" class="toggleModal btn btn-primary"><i class="fa fa-plus"></i> Create new collection</a>
@@ -965,7 +968,6 @@ function cinnamon_profile_edit($atts, $content = null) {
                                     <input type="hidden" id="collection_author_id" name="collection_author_id" value="<?php echo $current_user->ID; ?>">
                                     <p><input type="text" id="collection_title" name="collection_title" placeholder="Collection title"></p>
                                     <p><label>Make this collection</label> <select id="collection_status"><option value="1">Public</option><option value="0">Private</option></select></p>
-                                    <p class="ip-paragraph-gap-6"><small><a href="<?php echo get_option('ip_collections_read_more_link'); ?>" target="_blank"><i class="fa fa-question-circle"></i> <?php echo get_option('ip_collections_read_more'); ?></a></small></p>
                                     <p>
                                         <input type="submit" value="Create" class="addCollection">
                                         <label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
@@ -975,6 +977,7 @@ function cinnamon_profile_edit($atts, $content = null) {
 
                                 <div class="collections-display"></div>
                             </div>
+                            <?php /**/ ?>
 
                             <?php if (isset($_GET['dev'])) { ?>
                                 <div class="ip-tabs-item" style="display: none;">
@@ -1017,6 +1020,81 @@ function cinnamon_profile_edit($atts, $content = null) {
     </div>
     <?php
 }
+
+
+
+
+
+
+
+
+
+function cinnamon_settings($atts, $content = null) {
+    extract(shortcode_atts(['author' => ''], $atts));
+
+    global $wpdb, $current_user, $post;
+    get_currentuserinfo();
+
+    $error = [];
+
+    if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST['action']) && $_POST['action'] == 'update-user') {
+        if (count($error) == 0) {
+            do_action('edit_user_profile_update', $current_user->ID);
+            echo '<p class="message noir-success">Profile updated successfully!</p>';
+        }
+    }
+    ?>
+
+    <div id="post-<?php the_ID(); ?>">
+        <div class="entry-content entry cinnamon">
+            <?php if (!is_user_logged_in()) : ?>
+                <p class="warning">You must be logged in to edit your profile.</p>
+            <?php else : ?>
+                <?php if (count($error) > 0) echo '<p class="error">' . implode('<br>', $error) . '</p>'; ?>
+
+                <form method="post" id="adduser" action="<?php the_permalink(); ?>" enctype="multipart/form-data">
+                    <p style="text-align: center;">
+                        <a href="#" class="toggleModal btn btn-primary"><i class="fa fa-fw fa-plus"></i> Create Collection</a>
+                        <a href="#" class="imagepress-collections btn btn-secondary"><i class="fa fa-fw fa-refresh"></i> Reload Collections</a>
+                    </p>
+
+                    <div class="ip-loadingCollections"><i class="fa fa-cog fa-spin"></i> Loading collections...</div>
+                    <div class="ip-loadingCollectionImages"><i class="fa fa-cog fa-spin"></i> Loading collection images...</div>
+
+                    <div class="modal">
+                        <h2>Create new collection</h2>
+                        <a href="#" class="close toggleModal"><i class="fa fa-times"></i></a>
+
+                        <input type="hidden" id="collection_author_id" name="collection_author_id" value="<?php echo $current_user->ID; ?>">
+                        <p><input type="text" id="collection_title" name="collection_title" placeholder="Collection title"></p>
+                        <p><label>Make this collection</label> <select id="collection_status"><option value="1">Public</option><option value="0">Private</option></select></p>
+                        <p>
+                            <input type="submit" value="Create" class="addCollection btn btn-primary">
+                            <a href="https://posterspy.com/settings/collections-manager/" class="btn btn-secondary">Collections Manager</a>
+                            <label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
+                            <label class="showme"> <i class="fa fa-check"></i> Collection created. You can now add posters or edit via Collections Manager.</label>
+                        </p>
+                    </div>
+
+                    <div class="collections-display"></div>
+
+                    <div style="clear: both;"></div>
+
+                    <?php do_action('edit_user_profile', $current_user); ?>
+                    <?php wp_nonce_field('update-user'); ?>
+                    <input name="action" type="hidden" id="action" value="update-user">
+                </form>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php
+}
+
+
+
+
+
+
 
 /* CINNAMON CUSTOM PROFILE FIELDS */
 function save_cinnamon_profile_fields($user_id) {

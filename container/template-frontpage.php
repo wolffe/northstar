@@ -89,23 +89,23 @@
 </center>
 
 <h1 class="homepage-heading"><small><i class="fa fa-star yellow"></i></small> Staff Picks</h1>
-<?php echo do_shortcode('[imagepress-show category="staffpicks" limit="12" count="12" type="random" size="imagepress_pt_std"]'); ?>
+<?php echo do_shortcode('[imagepress-show category="staffpicks" limit="12" count="12" type="random" size="imagepress_pt_lrg"]'); ?>
 <h4><p class="right"><a href="https://posterspy.com/genre/staffpicks/">Browse all Staff Picks</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
 
 <h1 class="homepage-heading"><small><i class="fa fa-film"></i></small> Movie Posters</h1>
-<?php echo do_shortcode('[imagepress-show category="movies" limit="8" count="8" type="random" size="imagepress_pt_std"]'); ?>
+<?php echo do_shortcode('[imagepress-show category="movies" limit="8" count="8" type="random" size="imagepress_pt_lrg"]'); ?>
 <h4><p class="right"><a href="https://posterspy.com/genre/movies/">Browse all Movie posters</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
 
 <h1 class="homepage-heading"><small><i class="fa fa-television"></i></small> TV Show Posters</h1>
-<?php echo do_shortcode('[imagepress-show category="tv-shows" limit="8" count="8" type="random" size="imagepress_pt_std"]'); ?>
+<?php echo do_shortcode('[imagepress-show category="tv-shows" limit="8" count="8" type="random" size="imagepress_pt_lrg"]'); ?>
 <h4><p class="right"><a href="https://posterspy.com/genre/tv-shows/">Browse all TV Show posters</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
 
 <h1 class="homepage-heading"><small><i class="fa fa-gamepad"></i></small> Video Game Posters</h1>
-<?php echo do_shortcode('[imagepress-show category="video-games" limit="8" count="8" type="random" size="imagepress_pt_std"]'); ?>
+<?php echo do_shortcode('[imagepress-show category="video-games" limit="8" count="8" type="random" size="imagepress_pt_lrg"]'); ?>
 <h4><p class="right"><a href="https://posterspy.com/genre/music/">Browse all Video Game posters</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
 
 <h1 class="homepage-heading"><small><i class="fa fa-headphones"></i></small> Music Posters</h1>
-<?php echo do_shortcode('[imagepress-show category="music" limit="8" count="8" type="random" size="imagepress_pt_std"]'); ?>
+<?php echo do_shortcode('[imagepress-show category="music" limit="8" count="8" type="random" size="imagepress_pt_lrg"]'); ?>
 <h4><p class="right"><a href="https://posterspy.com/genre/music/">Browse all Music posters</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
 
 

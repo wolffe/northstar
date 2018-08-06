@@ -1520,7 +1520,6 @@ footer[role="contentinfo"] .attribution ul li a { font-size: 90%; }
 
 
 .changeCollection { padding: 8px 32px; }
-.ip_collections_edit:hover { border: 1px solid rgba(0, 0, 0, 0) !important; }
 
 .collection_details_edit .deleteCollection.button:hover { background: none !important; }
 
@@ -1861,6 +1860,19 @@ footer[role="contentinfo"] .attribution ul li a { font-size: 90%; }
 
 .page-id-16 #wrap {
     width: 920px;
+}
+
+/*
+ * Collections page
+ * Collection manager page
+ */
+.page-id-8717 h1.entry-title,
+.page-id-88007 h1.entry-title {
+    text-align: center;
+}
+
+.page-id-12457 h1.entry-title {
+    display: none;
 }
 
 

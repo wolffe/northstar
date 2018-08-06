@@ -76,6 +76,7 @@
                 <ul>
                     <li><a href="<?php echo get_author_posts_url($cid); ?>" class="no-border"><i class="fa fa-fw fa-user"></i> My Profile</a></li>
                     <li><a href="https://posterspy.com/profile/" class="no-border"><i class="fa fa-fw fa-cog"></i> Profile Settings</a></li>
+                    <li><a href="https://posterspy.com/settings/collections-manager/" class="no-border"><i class="fa fa-fw fa-th-large"></i> Collections Manager</a></li>
                     <li><a href="<?php echo wp_logout_url('https://posterspy.com/'); ?>" class="no-border"><i class="fa fa-fw fa-sign-out"></i> Log Out</a></li>
                 </ul>
             </li>

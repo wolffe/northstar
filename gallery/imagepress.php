@@ -72,14 +72,13 @@ add_shortcode('imagepress', 'imagepress_widget');
 add_shortcode('imagepress-collections', 'ip_collections_display_custom');
 
 add_image_size('imagepress_feed', 800); // PosterSpy feed image size
-add_image_size('imagepress_pt_std', 250, 375, true);
 
 /*
  * New image size (4 posters per row)
  *
  * @since 6.2.0
  */
-add_image_size('imagepress_pt_lrg', 400, 600, true);
+add_image_size('imagepress_pt_lrg', 480);
 
 
 
@@ -109,6 +108,7 @@ add_shortcode('cinnamon-awards', 'cinnamon_awards');
 add_filter('get_avatar', 'hub_gravatar_filter', 10, 5);
 add_filter('user_contactmethods', 'cinnamon_extra_contact_info');
 
+add_shortcode('cinnamon-settings', 'cinnamon_settings');
 
 
 
@@ -342,9 +342,9 @@ if ((int) get_option('ip_resize') === 1)
 	add_action('wp_handle_upload', 'imagepress_resize_default_images');
 
 function imagepress_process_image($file, $post_id, $caption, $feature = 1) {
-	require_once ABSPATH . 'wp-admin' . '/includes/image.php');
-	require_once ABSPATH . 'wp-admin' . '/includes/file.php');
-	require_once ABSPATH . 'wp-admin' . '/includes/media.php');
+	require_once ABSPATH . 'wp-admin' . '/includes/image.php';
+	require_once ABSPATH . 'wp-admin' . '/includes/file.php';
+	require_once ABSPATH . 'wp-admin' . '/includes/media.php';
 
 	$attachment_id = media_handle_upload($file, $post_id);
 
@@ -527,7 +527,6 @@ function imagepress_activate() {
     add_option('cinnamon_show_following', 0);
     add_option('ip_cards_per_author', 9);
     add_option('ip_cards_image_size', 'thumbnail');
-    add_option('cinnamon_edit_label', 'Edit profile');
 
     add_option('cinnamon_edit_page', '');
 
@@ -561,7 +560,6 @@ function imagepress_activate() {
 	add_option('ip_vote_who_link', "who?");
 
     add_option('ip_likes', 'likes');
-    add_option('ip_vote_meta', '_like_count');
     add_option('ip_vote_login', 'You need to be logged in to like this');
 
 	add_option('ip_author_find_title', 'Find by name or location');
@@ -571,12 +569,6 @@ function imagepress_activate() {
 
 	add_option('ip_notifications_mark', 'Mark all as read');
 	add_option('ip_notifications_all', 'View all notifications');
-
-	add_option('cinnamon_pt_account', 'Account details');
-	add_option('cinnamon_pt_author', 'Author details');
-	add_option('cinnamon_pt_profile', 'Profile details');
-	add_option('cinnamon_pt_portfolio', 'Portfolio editor');
-	add_option('cinnamon_pt_collections', 'Collections');
 
 	add_option('ip_upload_success_title', 'Image uploaded!');
 	add_option('ip_upload_success', 'Click here to view your image.');
@@ -598,6 +590,15 @@ function imagepress_activate() {
 	delete_option('cinnamon_hide_admin');
 	delete_option('ip_slug');
 	delete_option('ip_show_single_image');
+	delete_option('ip_collections_read_more');
+	delete_option('ip_collections_read_more_link');
+	delete_option('cinnamon_pt_collections');
+	delete_option('cinnamon_pt_portfolio');
+	delete_option('cinnamon_pt_profile');
+	delete_option('cinnamon_pt_author');
+	delete_option('cinnamon_pt_account');
+	delete_option('cinnamon_edit_label');
+	delete_option('ip_vote_meta');
 
     global $wpdb;
 
@@ -749,7 +750,6 @@ function imagepress_show($atts, $content = null) {
 
     // defaults
     $ip_order_asc_desc = get_option('ip_order');
-	$ip_vote_meta = get_option('ip_vote_meta');
 
     // main images query
 	$out = '';
@@ -777,15 +777,11 @@ function imagepress_show($atts, $content = null) {
 
 		$collection_row = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "ip_collections WHERE collection_ID = '" . $collection_page . "'", ARRAY_A);
 
-		$out .= '<div class="ip-template-collection-meta">';
-			$last_image_row = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "ip_collectionmeta WHERE image_collection_ID = '" . $collection_row['collection_ID'] . "' ORDER BY image_meta_ID DESC LIMIT 1", ARRAY_A);
-
-			$out .= '<div class="imagepress-float-right">' . $collection_row['collection_views'] . ' views | ' . count($collectionables) . ' images</div>';
-			$out .= '<div class="imagepress-float-left"><a href="' . get_permalink($last_image_row['image_ID']) . '">' . get_the_post_thumbnail($last_image_row['image_ID'], 'thumbnail') . '</a></div>';
-			$out .= '<h3>' . $collection_row['collection_title'] . '</h3>';
-			$out .= 'By <a href="' . get_author_posts_url($collection_row['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection_row['collection_author_ID']) . '</a>';
-			$out .= '<div class="ipclear"></div>';
-		$out .= '</div>';
+        $out .= '<div class="ip-template-collection-meta">
+            <h3>' . $collection_row['collection_title'] . '</h3>
+			<div>Created by <a href="' . get_author_posts_url($collection_row['collection_author_ID']) . '">' . get_the_author_meta('nickname', $collection_row['collection_author_ID']) . '</a></div>
+            <div class="ip-template-collection-meta-stat">' . $collection_row['collection_views'] . '<br><span>views</span></div><div class="ip-template-collection-meta-stat">' . count($collectionables) . '<br><span>images</span></div>
+        </div>';
 
 		$hmc = count($collectionables);
 		if ((int) $hmc === 0 or empty($hmc)) {
@@ -869,7 +865,8 @@ function imagepress_show($atts, $content = null) {
             }
         }
 		
-		$out .= '<ul id="ip_container_' . $ip_unique_id . '" class="list" style="display: block;" data-imagepress-count="' . get_option('ip_ipp') . '" data-imagepress-id="' . $ip_unique_id . '">';
+		//$out .= '<ul id="ip_container_' . $ip_unique_id . '" class="list" style="display: block;" data-imagepress-count="' . get_option('ip_ipp') . '" data-imagepress-id="' . $ip_unique_id . '">';
+		$out .= '<div id="ip-boxes" data-imagepress-count="' . get_option('ip_ipp') . '">';
 
         // the configurator
         $ip_comments = '';
@@ -901,24 +898,15 @@ function imagepress_show($atts, $content = null) {
             $out .= '</div>';
 		}
 
-		$out .= '</ul>';
-		if ((int) $limit === 999999 or (int) $count === 0)
+		$out .= '</div>';
+		//$out .= '</ul>';
+		if ((int) $limit === 999999 or (int) $count === 0) {
 			$out .= '<ul class="pagination"></ul>';
-		$out .= '</div><div class="ip_clear"></div>';
+        }
 
-        /* TRANSIENTS */
-        // https://css-tricks.com/the-deal-with-wordpress-transients/#update-1457329554
-        //$transient = get_transient('ip_t_ip_box_all');
-        //if(!empty($transient)) {
-        //    return $transient;
-        //} else {
-            return $out;
-        //    set_transient( 'ip_t_ip_box_all', $out, DAY_IN_SECONDS ); // 4 * HOUR_IN_SECONDS
-        //}
-        /**/
+        $out .= '</div><div class="ip_clear"></div>';
 	} else {
 		$out .= 'No images found!';
-		return $out;
 	}
 
 	return $out;
@@ -999,11 +987,9 @@ function imagepress_widget($atts, $content = null) {
         'count' => 5
 	], $atts));
 
-	$ip_vote_meta = get_option('ip_vote_meta');
-
     $imagepress_meta_key = 'post_views_count';
     if ((string) $mode === 'likes')
-        $imagepress_meta_key = $ip_vote_meta;
+        $imagepress_meta_key = 'votes_count';
 
 	if ((string) $type === 'top')
 		$count = 1;

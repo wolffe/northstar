@@ -27,7 +27,6 @@ if (!ip_is_ajax()) {
                 <br>
                 <div class="poster-container-overlay">
                     <a href="<?php echo $full; ?>" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
-                    <a href="#" class="trigger-lens"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
                 </div>
 
                 <?php ip_setPostViews($i); ?>

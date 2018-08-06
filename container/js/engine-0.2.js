@@ -353,44 +353,6 @@ jQuery(document).ready(function(){
 
     jQuery("textarea#comment").attr("placeholder", "Add a comment...");
 
-    jQuery(document).on('click', '.trigger-lens', function(event) {
-        jQuery('.poster-container .wp-post-image').toggleClass('lensMe');
-
-        if(jQuery('.poster-container .wp-post-image').hasClass('lensMe')) {
-            jQuery('.trigger-lens').addClass('teal');
-            jQuery('.poster-container .lensMe').imageLens({ lensSize: 200 });
-        } else {
-            jQuery('.trigger-lens').removeClass('teal');
-            jQuery('.lensItem').remove();
-            jQuery('.lensMeHelper').remove();
-        }
-        event.preventDefault();
-    });
-
-    /*
-     * Pure JavaScript scroll-to-top
-     * A simple scroll-to-top feature which activates on scroll
-     *
-     * @url https://codepen.io/ciprian/pen/LjdgLz
-     */
-    /**
-    document.getElementById("stt").onclick = function () {
-        window.scrollTo(0, 0);
-    };
-
-    window.addEventListener("scroll", function(e) {
-        var position = window.scrollY;
-
-        window.requestAnimationFrame(function() {
-            document.getElementById("stt").className = "";
-
-            if (position > 100) {
-                document.getElementById("stt").className = " stt";
-            }
-        });
-    });
-    /**/
-
     /*
      * Sticky sidebar
      *

@@ -126,13 +126,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 					<h3>Installation</h3>
 					<div class="inside">
                         <?php
-            			if(isset($_POST['isResetSubmit'])) {
-                            global $wpdb;
-            				$ip_vote_meta = get_option('ip_vote_meta');
-            
-            				$wpdb->query("UPDATE " . $wpdb->prefix . "postmeta SET meta_value = '0' WHERE meta_key = '" . $ip_vote_meta . "'");
-                            echo '<div class="updated notice is-dismissible"><p>Action completed successfully!</p></div>';
-            			}
             			if(isset($_POST['isUpgrade'])) {
             				delete_option('ip_presstrends');
             				delete_option('ip_default_category');
@@ -221,10 +214,6 @@ RewriteRule ^(.*)$ ?author_name=%1
     					<h2>Maintenance</h2>
 						<form method="post" action="">
 							<p>
-								<input type="submit" name="isResetSubmit" value="Reset all likes" class="button-primary">
-                                <br><small>This option resets all image likes to 0. This action is irreversible.</small>
-							</p>
-							<p>
 								<input type="submit" name="isUpgrade" value="Clean up" class="button-primary">
                                 <br><small>This option cleans up old/orphaned settings. This action is irreversible.</small>
 							</p>
@@ -275,7 +264,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 
                                     <optgroup label="Standard">
                                         <option value="imagepress_sq_std"<?php if(get_option('ip_image_size') == 'imagepress_sq_std') echo ' selected'; ?>>Standard (Square) (ImagePress)</option>
-                                        <option value="imagepress_pt_std"<?php if(get_option('ip_image_size') == 'imagepress_pt_std') echo ' selected'; ?>>Standard (Portrait) (ImagePress)</option>
                                         <option value="imagepress_ls_std"<?php if(get_option('ip_image_size') == 'imagepress_ls_std') echo ' selected'; ?>>Standard (Landscape) (ImagePress)</option>
                                     </optgroup>
                                 </select> <label for="ip_image_size"><b>Image box</b> thumbnail size</label>
@@ -383,8 +371,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 
 			if(isset($_POST['isGSSubmit'])) {
 				update_option('ip_collections_page', $_POST['ip_collections_page']);
-				update_option('ip_collections_read_more_link', $_POST['ip_collections_read_more_link']);
-				update_option('ip_collections_read_more', $_POST['ip_collections_read_more']);
 
 				echo '<div class="updated notice is-dismissible"><p>Settings updated successfully!</p></div>';
 			}
@@ -411,14 +397,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 								?> <label for="ip_collections_page">Collections page</label>
                                 <br><small>This page should contain the collections shortcode (i.e. [imagepress-show collection="1"]</code>)</small>
                             </p>
-							<p>
-                                <input name="ip_collections_read_more_link" id="ip_collections_read_more_link" type="url" class="regular-text" placeholder="http://" value="<?php echo get_option('ip_collections_read_more_link'); ?>"> <label for="ip_collections_read_more_link">"Read more" link</label>
-                                <br><small>Add a link to your help page or a help document</small>
-							</p>
-							<p>
-                                <input name="ip_collections_read_more" id="ip_collections_read_more" type="text" class="regular-text" placeholder="Read more" value="<?php echo get_option('ip_collections_read_more'); ?>"> <label for="ip_collections_read_more">"Read more" label</label>
-                                <br><small>Label the link to your help page or a help document</small>
-							</p>
                             <p>
                                 <input type="submit" name="isGSSubmit" value="Save Changes" class="button-primary"> 
                                 <input type="submit" name="isCollectionCU" value="Remove <?php echo $orphan_count; ?> missing image references" class="button-secondary alignright"> 
@@ -693,7 +671,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 
                                     <optgroup label="Standard">
                                         <option value="imagepress_sq_std"<?php if(get_option('ip_cards_image_size') == 'imagepress_sq_std') echo ' selected'; ?>>Standard (Square) (ImagePress)</option>
-                                        <option value="imagepress_pt_std"<?php if(get_option('ip_cards_image_size') == 'imagepress_pt_std') echo ' selected'; ?>>Standard (Portrait) (ImagePress)</option>
                                         <option value="imagepress_ls_std"<?php if(get_option('ip_cards_image_size') == 'imagepress_ls_std') echo ' selected'; ?>>Standard (Landscape) (ImagePress)</option>
                                     </optgroup>
                                 </select>
@@ -876,7 +853,6 @@ RewriteRule ^(.*)$ ?author_name=%1
 				update_option('ip_upload_success', $_POST['ip_upload_success']);
 
                 update_option('ip_likes', $_POST['ip_likes']);
-                update_option('ip_vote_meta', $_POST['ip_vote_meta']);
                 update_option('ip_vote_like', stripslashes_deep($_POST['ip_vote_like']));
                 update_option('ip_vote_unlike', stripslashes_deep($_POST['ip_vote_unlike']));
                 update_option('ip_vote_nobody', stripslashes_deep($_POST['ip_vote_nobody']));
@@ -885,13 +861,6 @@ RewriteRule ^(.*)$ ?author_name=%1
                 update_option('ip_vote_who_plural', stripslashes_deep($_POST['ip_vote_who_plural']));
                 update_option('ip_vote_who_link', stripslashes_deep($_POST['ip_vote_who_link']));
                 update_option('ip_vote_login', stripslashes_deep($_POST['ip_vote_login']));
-
-                update_option('cinnamon_edit_label', $_POST['cinnamon_edit_label']);
-				update_option('cinnamon_pt_account', $_POST['cinnamon_pt_account']);
-				update_option('cinnamon_pt_author', $_POST['cinnamon_pt_author']);
-				update_option('cinnamon_pt_profile', $_POST['cinnamon_pt_profile']);
-				update_option('cinnamon_pt_portfolio', $_POST['cinnamon_pt_portfolio']);
-				update_option('cinnamon_pt_collections', $_POST['cinnamon_pt_collections']);
 
 				echo '<div class="updated notice is-dismissible"><p>Settings updated successfully!</p></div>';
 			}
@@ -1017,30 +986,11 @@ RewriteRule ^(.*)$ ?author_name=%1
                                 <br><small>Leave blank to disable</small>
                             </p>
 
-							<h3>Users</h3>
-                            <p>
-                                <input type="text" name="cinnamon_edit_label" id="cinnamon_edit_label" value="<?php echo get_option('cinnamon_edit_label'); ?>" class="text"> <label for="cinnamon_edit_label">Author profile edit label (try <b>Edit profile</b>)</label>
-                            </p>
-							<p>
-								<!-- pt = profile tab -->
-								<input type="text" name="cinnamon_pt_account" value="<?php echo get_option('cinnamon_pt_account'); ?>" size="16" placeholder="Account details"> 
-								<input type="text" name="cinnamon_pt_author" value="<?php echo get_option('cinnamon_pt_author'); ?>" size="16" placeholder="Author details"> 
-								<input type="text" name="cinnamon_pt_profile" value="<?php echo get_option('cinnamon_pt_profile'); ?>" size="16" placeholder="Profile details"> 
-								<input type="text" name="cinnamon_pt_portfolio" value="<?php echo get_option('cinnamon_pt_portfolio'); ?>" size="16" placeholder="Portfolio editor"> 
-								<input type="text" name="cinnamon_pt_collections" value="<?php echo get_option('cinnamon_pt_collections'); ?>" size="16" placeholder="Collections">
-								<label>Profile edit tab labels</label>
-							</p>
-
 							<h3>Like/Unlike</h3>
 							<p>
 								<input type="text" name="ip_likes" id="ip_likes" value="<?php echo get_option('ip_likes'); ?>">
 								<label for="ip_likes">General action name (plural)</label>
 								<br><small>The name of the vote action ("like", "love", "appreciate", "vote"). Use plural.</small>
-							</p>
-							<p>
-								<input type="text" name="ip_vote_meta" id="ip_vote_meta" value="<?php echo get_option('ip_vote_meta'); ?>">
-								<label for="ip_vote_meta">Vote meta name</label>
-								<br><small>The name of the vote meta field. Use this to migrate your old count.</small>
 							</p>
 							<p>
 								<input type="text" name="ip_vote_like" id="ip_vote_like" value="<?php echo get_option('ip_vote_like'); ?>" placeholder="I like this image" class="regular-text">
