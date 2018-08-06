@@ -672,7 +672,7 @@ function ip_enqueue_scripts() {
 
 	wp_enqueue_style('ip-bootstrap', plugins_url('css/ip.bootstrap.css', __FILE__));
 
-	wp_enqueue_script('ipjs-main', plugins_url('js/jquery.main.js', __FILE__), ['jquery'], '1.2', true);
+	wp_enqueue_script('ipjs-main', plugins_url('js/jquery.main.js', __FILE__), ['jquery', 'masonry'], '1.2', true);
 	wp_localize_script('ipjs-main', 'ip_ajax_var', [
 		'imagesperpage'               => get_option('ip_ipp'),
 		'authorsperpage'              => get_option('ip_app'),

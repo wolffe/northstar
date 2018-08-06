@@ -16,14 +16,14 @@
     <section class="contest-copy-box">
         <h2>Creative Briefs</h2>
         <p>We work with the world's leading studios to bring artists exclusive creative opportunities.</p>
-        <p><a class="btn btn-primary" href="https://posterspy.com/creative-briefs/">View all Creative Briefs</a></p>
+        <p><a class="btn btn-primary" href="https://posterspy.com/creative-briefs/">View Creative Briefs</a></p>
     </section>
 
     <?php
-    $args = [
+    $args = array(
         'post_type' => 'creative-brief',
         'posts_per_page' => 3,
-    ];
+    );
     $the_query = new WP_Query($args);
 
     if ($the_query->have_posts()) {
@@ -93,16 +93,22 @@
 <h4><p class="right"><a href="https://posterspy.com/genre/staffpicks/">Browse all Staff Picks</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
 
 <h1 class="homepage-heading"><small><i class="fa fa-film"></i></small> Movie Posters</h1>
-<?php echo do_shortcode('[imagepress-show category="movies" limit="12" count="12" type="random" size="imagepress_pt_std"]'); ?>
+<?php echo do_shortcode('[imagepress-show category="movies" limit="8" count="8" type="random" size="imagepress_pt_std"]'); ?>
 <h4><p class="right"><a href="https://posterspy.com/genre/movies/">Browse all Movie posters</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
 
 <h1 class="homepage-heading"><small><i class="fa fa-television"></i></small> TV Show Posters</h1>
-<?php echo do_shortcode('[imagepress-show category="tv-shows" limit="12" count="12" type="random" size="imagepress_pt_std"]'); ?>
+<?php echo do_shortcode('[imagepress-show category="tv-shows" limit="8" count="8" type="random" size="imagepress_pt_std"]'); ?>
 <h4><p class="right"><a href="https://posterspy.com/genre/tv-shows/">Browse all TV Show posters</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
 
-<h1 class="homepage-heading"><small><i class="fa fa-th-large"></i></small> Collections</h1>
-<?php echo do_shortcode('[imagepress-collections count="5"]'); ?>
-<h4><p class="right"><a href="https://posterspy.com/all-collections/">Browse all Collections</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
+<h1 class="homepage-heading"><small><i class="fa fa-gamepad"></i></small> Video Game Posters</h1>
+<?php echo do_shortcode('[imagepress-show category="video-games" limit="8" count="8" type="random" size="imagepress_pt_std"]'); ?>
+<h4><p class="right"><a href="https://posterspy.com/genre/music/">Browse all Video Game posters</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
+
+<h1 class="homepage-heading"><small><i class="fa fa-headphones"></i></small> Music Posters</h1>
+<?php echo do_shortcode('[imagepress-show category="music" limit="8" count="8" type="random" size="imagepress_pt_std"]'); ?>
+<h4><p class="right"><a href="https://posterspy.com/genre/music/">Browse all Music posters</a> <i class="fa fa-arrow-circle-right"></i></p></h4>
+
+
 
 <center>
     <div id="adsense">
