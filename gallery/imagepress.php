@@ -3,13 +3,13 @@
 Plugin Name: ImagePress
 Plugin URI: https://getbutterfly.com/wordpress-plugins/imagepress/
 Description: Create a user-powered image gallery or an image upload site, using nothing but WordPress custom posts. Moderate image submissions and integrate the plugin into any theme.
-Version: 6.3.0
+Version: 6.4.0
 License: GPLv3
 Author: Ciprian Popescu
 Author URI: https://getbutterfly.com/
 Text Domain: imagepress
 
-Copyright 2013-2017 Ciprian Popescu (email: getbutterfly@gmail.com)
+Copyright 2013-2018 Ciprian Popescu (email: getbutterfly@gmail.com)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 define('IP_PLUGIN_URL', WP_PLUGIN_URL . '/' . dirname(plugin_basename(__FILE__)));
 define('IP_PLUGIN_PATH', WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)));
 define('IP_PLUGIN_FILE_PATH', WP_PLUGIN_DIR . '/' . plugin_basename(__FILE__));
-define('IP_PLUGIN_VERSION', '6.3.0');
+define('IP_PLUGIN_VERSION', '6.4.0');
 
 include IP_PLUGIN_PATH . '/includes/functions.php';
 include IP_PLUGIN_PATH . '/includes/page-settings.php';
@@ -673,7 +673,7 @@ function ip_enqueue_scripts() {
 
 	wp_enqueue_style('ip-bootstrap', plugins_url('css/ip.bootstrap.css', __FILE__));
 
-	wp_enqueue_script('ipjs-main', plugins_url('js/jquery.main.js', __FILE__), ['jquery', 'masonry'], '1.2', true);
+	wp_enqueue_script('ipjs-main', plugins_url('js/jquery.main.js', __FILE__), ['jquery', 'masonry'], '6.4.0', true);
 	wp_localize_script('ipjs-main', 'ip_ajax_var', [
 		'imagesperpage'               => get_option('ip_ipp'),
 		'authorsperpage'              => get_option('ip_app'),

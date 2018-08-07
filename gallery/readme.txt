@@ -3,8 +3,9 @@ Contributors: butterflymedia
 Tags: image, user, upload, gallery, album, category, profile
 License: GPLv3
 Requires at least: 4.9
-Tested up to: 4.9.7
-Stable tag: 6.3.0
+Tested up to: 4.9.8
+Requires PHP: 7.2
+Stable tag: 6.4.0
 Text Domain: imagepress
 
 == Description ==
@@ -19,6 +20,14 @@ Create a user-powered image gallery or an image upload site, using nothing but W
 
 == Changelog ==
 
+= 6.4.0 =
+* UPDATE: Remove old ListJS script from profiles
+* UPDATE: Remove all text from posters (display only on hover)
+* UPDATE: Remove SpectrumJS
+* UPDATE: Add Masonry
+* UPDATE: Add Collections Manager
+* UPDATE: Fix Collections layout
+
 = 6.3.0 =
 * FIX: Consolidated sidebar areas on widget_init only
 * FIX: Removed unused function for non-admins
@@ -32,11 +41,6 @@ Create a user-powered image gallery or an image upload site, using nothing but W
 * UPDATE: Removed all translated strings
 * UPDATE: Hardcoded author slug
 * UPDATE: Hardcoded poster (CPT) slug
-
-* TODO: Remove keywords (+ post types)
-* TODO: Remove imagepress_meta_box_callback (Staff Comment section)
-* TODO: General syntax cleanup (spaces)
-* TODO: Strict comparison (INT and STRING)
 
 = 6.0.1-posterspy =
 * UPDATE: Removed Behance URL from posters
