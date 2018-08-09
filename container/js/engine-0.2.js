@@ -169,25 +169,25 @@ jQuery(document).ready(function() {
 
     if(sort !== undefined) {
         if(sort === 'comments')
-            jQuery('.dropsort').html('Most Commented <i class="fa fa-chevron-down"></i>');
+            jQuery('.dropsort').html('Most Commented <i class="fas fa-chevron-down"></i>');
         if(sort === 'views')
-            jQuery('.dropsort').html('Most Viewed <i class="fa fa-chevron-down"></i>');
+            jQuery('.dropsort').html('Most Viewed <i class="fas fa-chevron-down"></i>');
         if(sort === 'likes')
-            jQuery('.dropsort').html('Most Loved <i class="fa fa-chevron-down"></i>');
+            jQuery('.dropsort').html('Most Loved <i class="fas fa-chevron-down"></i>');
         if(sort === 'newest')
-            jQuery('.dropsort').html('Newest <i class="fa fa-chevron-down"></i>');
+            jQuery('.dropsort').html('Newest <i class="fas fa-chevron-down"></i>');
         if(sort === 'oldest')
-            jQuery('.dropsort').html('Oldest <i class="fa fa-chevron-down"></i>');
+            jQuery('.dropsort').html('Oldest <i class="fas fa-chevron-down"></i>');
     }
     if(range !== undefined ) {
         if(range === 'lastday')
-            jQuery('.droprange').html('Today <i class="fa fa-chevron-down"></i>');
+            jQuery('.droprange').html('Today <i class="fas fa-chevron-down"></i>');
         if(range === 'lastweek')
-            jQuery('.droprange').html('This week <i class="fa fa-chevron-down"></i>');
+            jQuery('.droprange').html('This week <i class="fas fa-chevron-down"></i>');
         if(range === 'lastmonth')
-            jQuery('.droprange').html('This month <i class="fa fa-chevron-down"></i>');
+            jQuery('.droprange').html('This month <i class="fas fa-chevron-down"></i>');
         if(range === 'alltime')
-            jQuery('.droprange').html('All time <i class="fa fa-chevron-down"></i>');
+            jQuery('.droprange').html('All time <i class="fas fa-chevron-down"></i>');
     }
 
     // Posters per page // Cookie crumble
@@ -282,7 +282,7 @@ jQuery(document).ready(function($){
     jQuery('.page-template-jobs h1.entry-title').empty();
     jQuery('.page-template-jobs h1.entry-title').prepend('<div class="jobs-splash"><div class="jobs-caption"><h2>FIND CREATIVE JOBS<br> <span style="font-weight: 700;">From companies across the world</span></h2><div class="jobs-caption-content"><p>We work closely with studios and agencies to bring you exciting new jobs, check back regularly for new opportunities.</p></div>');
 
-    jQuery('.single-job_listing h1.entry-title').append('<div class="jobs-back-link"><i class="fa fa-angle-double-left"></i> <a href="https://posterspy.com/jobs">Back to all jobs</a></div>');
+    jQuery('.single-job_listing h1.entry-title').append('<div class="jobs-back-link"><i class="fas fa-angle-double-left"></i> <a href="https://posterspy.com/jobs">Back to all jobs</a></div>');
 
     jQuery('.page-template-jobs div.job_listings').append('<p class="jobs-contact">Are you an agency or employer? <a href="mailto:contact@posterspy.com">Contact us</a> to list your job!</p>');
 });
@@ -342,7 +342,7 @@ jQuery(document).ready(function(){
 
         window.history.pushState("poster", "Poster", post_link);
 
-        jQuery("#single-post-container").html('<i class="fa fa-circle-o-notch fa-spin fa-fw"></i>');
+        jQuery("#single-post-container").html('<i class="fas fa-circle-notch fa-spin fa-fw"></i>');
         jQuery("#single-post-container").load(post_link);
         jQuery("#single-post-container").fadeIn();
 
@@ -471,28 +471,4 @@ window.onload = function () {
         jQuery('.pm-new').show();
     });
     /**/
-
-                    /**
-                    FB.login(function(){
-                        // Note: The call will only work if you accept the permission request
-                        FB.api("/me/feed", "post", {message: "Hello, world!"});
-                    }, {scope: "publish_actions"});
-
-                    swal({
-                        title: "Uploading poster",
-                        html: "<p><i class=\"fa fa-circle-o-notch fa-spin\"></i> Please wait...</p>",
-                        showConfirmButton: false,
-                        //timer: 5000,
-                        //onOpen: () => {
-                        //    swal.showLoading()
-                        //}
-                    }).then((result) => {
-                        if (
-                            // Read more about handling dismissals
-                            result.dismiss === swal.DismissReason.timer
-                        ) {
-                            console.log("I was closed by the timer");
-                        }
-                    });
-                    /**/
                 };

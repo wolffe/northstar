@@ -45,7 +45,7 @@ function imagepress_admin_page() {
 						<div class="inside">
 							<p>Thank you for using <b>Image</b>Press, a multi-purpose fully-featured and WordPress-integrated image gallery plugin.</p>
         					<p>
-								<small>You are using <b>Image</b>Press plugin version <strong>' . $ipdata['Version'] . '</strong> with <a href="//fontawesome.io/" rel="external">FontAwesome</a> 4.5.0 and jQuery ' . $wp_jquery_ver . '.</small><br>
+								<small>You are using <b>Image</b>Press plugin version <strong>' . $ipdata['Version'] . '</strong> with jQuery ' . $wp_jquery_ver . '.</small><br>
 								<small>You are using PHP version ' . PHP_VERSION . ' and MySQL server version ' . mysqli_get_client_info() . '.</small><br>
 							</p>
 
@@ -1031,9 +1031,7 @@ RewriteRule ^(.*)$ ?author_name=%1
 		<?php if($t == 'upload_tab') { ?>
 			<?php
 			if(isset($_POST['isGSSubmit'])) {
-				update_option('ip_request_user_details', $_POST['ip_request_user_details']);
 				update_option('ip_upload_secondary', $_POST['ip_upload_secondary']);
-				update_option('ip_require_description', $_POST['ip_require_description']);
 
 				update_option('ip_upload_size', $_POST['ip_upload_size']);
 				update_option('ip_cat_exclude', $_POST['ip_cat_exclude']);
@@ -1090,31 +1088,12 @@ RewriteRule ^(.*)$ ?author_name=%1
                             </td>
                         </tr>
                         <tr>
-    		                <th scope="row"><label>Upload details</label></th>
-    		                <td>
-                                <select name="ip_request_user_details" id="ip_request_user_details">
-                                    <option value="1"<?php if(get_option('ip_request_user_details') == 1) echo ' selected'; ?>>Request user name and email</option>
-                                    <option value="0"<?php if(get_option('ip_request_user_details') == 0) echo ' selected'; ?>>Do not request user name and email</option>
-                                </select>
-                                <br>
-                                <select name="ip_require_description" id="ip_require_description">
-                                    <option value="1"<?php if(get_option('ip_require_description') == 1) echo ' selected'; ?>>Require description</option>
-                                    <option value="0"<?php if(get_option('ip_require_description') == 0) echo ' selected'; ?>>Do not require description</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
     		                <th scope="row"><label>Upload features</label></th>
     		                <td>
                                 <select name="ip_upload_secondary" id="ip_upload_secondary">
                                     <option value="1"<?php if(get_option('ip_upload_secondary') == 1) echo ' selected'; ?>>Enable secondary upload button</option>
                                     <option value="0"<?php if(get_option('ip_upload_secondary') == 0) echo ' selected'; ?>>Disable secondary upload button</option>
                                 </select> <label for="ip_upload_secondary">Enable/disable additional images (variants, progress shots, making of, etc.)</label>
-                                <br>
-                                <select name="ip_allow_tags" id="ip_allow_tags">
-                                    <option value="1"<?php if(get_option('ip_allow_tags') == 1) echo ' selected'; ?>>Enable tags</option>
-                                    <option value="0"<?php if(get_option('ip_allow_tags') == 0) echo ' selected'; ?>>Disable tags</option>
-                                </select> <label for="ip_allow_tags">Enable/disable image tags dropdown.</label>
                             </td>
                         </tr>
                     </tbody>
@@ -1126,7 +1105,7 @@ RewriteRule ^(.*)$ ?author_name=%1
                 <table class="form-table">
                     <tbody>
     		            <tr>
-    		                <th scope="row"><label><i class="fa fa-dropbox"></i> Dropbox</label></th>
+    		                <th scope="row"><label><i class="fab fa-dropbox"></i> Dropbox</label></th>
     		                <td>
                                 <p>
                                     <input type="checkbox" name="ip_dropbox_enable" value="1" <?php if(get_option('ip_dropbox_enable') === '1') echo 'checked'; ?>> <label>Enable Dropbox upload</label>
@@ -1273,7 +1252,7 @@ RewriteRule ^(.*)$ ?author_name=%1
             $results = $wpdb->get_results($sql);
             foreach ($results as $result) { ?>
                 <div id="notification-<?php echo $result->ID; ?>">
-                    <a href="#" class="ajax_trash" data-post="<?php echo $result->ID; ?>"><i class="fa fa-fw fa-trash"></i></a>&nbsp;
+                    <a href="#" class="ajax_trash" data-post="<?php echo $result->ID; ?>"><i class="far fa-fw fa-trash-alt"></i></a>&nbsp;
                     <?php
                     $display = '';
                     $id = $result->ID;
@@ -1283,9 +1262,9 @@ RewriteRule ^(.*)$ ?author_name=%1
                     $ip_collections_page_id = get_option('ip_collections_page');
 
                     if ($result->status == 0) {
-                        $status = '<i class="fa fa-fw fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        $status = '<i class="fas fa-fw fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;';
                     } else if ($result->status == 1) {
-                        $status = '<i class="fa fa-fw fa-check-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        $status = '<i class="fas fa-fw fa-check-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;';
                     }
 
                     $display .= $status;
@@ -1293,30 +1272,30 @@ RewriteRule ^(.*)$ ?author_name=%1
                     $display .= ' [' . $result->ID . '] ';
 
                     if ($action == 'loved')
-                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fa fa-fw fa-heart"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $action . ' a poster <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> <time>' . $time . '</time>';
+                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fas fa-fw fa-heart"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $action . ' a poster <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> <time>' . $time . '</time>';
                     else if($action == 'collected')
-                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fa fa-fw fa-folder"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $action . ' a poster <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> into a <a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $result->postKeyID . '">collection</a> <time>' . $time . '</time>';
+                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fas fa-fw fa-folder"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $action . ' a poster <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> into a <a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $result->postKeyID . '">collection</a> <time>' . $time . '</time>';
                     else if($action == 'added')
-                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fa fa-fw fa-arrow-circle-up"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $action . ' <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> <time>' . $time . '</time>';
+                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fas fa-fw fa-arrow-circle-up"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $action . ' <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> <time>' . $time . '</time>';
                     else if($action == 'followed')
-                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fa fa-fw fa-plus-circle"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $result->actionType . ' you <time>' . $time . '</time>';
+                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fas fa-fw fa-plus-circle"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $result->actionType . ' you <time>' . $time . '</time>';
                     else if($action == 'commented on')
-                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fa fa-fw fa-comment"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $action . ' a poster <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> <time>' . $time . '</time>';
+                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fas fa-fw fa-comment"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> ' . $action . ' a poster <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> <time>' . $time . '</time>';
                     else if($action == 'replied to a comment on') {
                         $comment_id = get_comment($result->postID);
                         $comment_post_ID = $comment_id->comment_post_ID;
                         $b = $comment_id->user_id;
 
-                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fa fa-fw fa-comment"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> replied to a comment on <a href="' . get_permalink($comment_post_ID) . '">' . get_the_title($comment_post_ID) . '</a> <time>' . $time . '</time>';
+                        $display .= '' . get_avatar($result->userID, 16) . ' <i class="fas fa-fw fa-comment"></i> <a href="' . get_author_posts_url($result->userID) . '">' . $nickname . '</a> replied to a comment on <a href="' . get_permalink($comment_post_ID) . '">' . get_the_title($comment_post_ID) . '</a> <time>' . $time . '</time>';
                     }
                     else if($action == 'featured')
-									$display .= '' . get_the_post_thumbnail($result->postID, [16,16]) . ' <i class="fa fa-fw fa-star"></i> <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> poster was ' . $action . ' <time>' . $time . '</time>';
+									$display .= '' . get_the_post_thumbnail($result->postID, [16,16]) . ' <i class="fas fa-fw fa-star"></i> <a href="' . get_permalink($result->postID) . '">' . get_the_title($result->postID) . '</a> poster was ' . $action . ' <time>' . $time . '</time>';
                     // custom
                     else if(0 == $result->postID || '-1' == $result->postID) {
                         $attachment_id = 202;
                         $image_attributes = wp_get_attachment_image_src($attachment_id, [16,16]);
 
-                        $display .= '<img src="' .  $image_attributes[0] . '" width="' . $image_attributes[1] . '" height="' . $image_attributes[2] . '"> <i class="fa fa-fw ' . $result->actionIcon . '"></i> ' . $result->actionType . ' <time>' . $time . '</time>';
+                        $display .= '<img src="' .  $image_attributes[0] . '" width="' . $image_attributes[1] . '" height="' . $image_attributes[2] . '"> <i class="fas fa-fw ' . $result->actionIcon . '"></i> ' . $result->actionType . ' <time>' . $time . '</time>';
                     }
                     else {}
 

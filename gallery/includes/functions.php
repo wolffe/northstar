@@ -161,7 +161,7 @@ function ip_editor() {
 
     // check if user is author // show author tools
     if($post->post_author == $current_user->ID) { ?>
-        <a href="#" class="ip-editor-display btn btn-primary" id="ip-editor-open"><i class="fa fa-wrench"></i> Author tools</a>
+        <a href="#" class="ip-editor-display btn btn-primary" id="ip-editor-open"><i class="fas fa-wrench"></i> Author tools</a>
         <?php
         $edit_id = get_the_ID();
 
@@ -280,12 +280,12 @@ function ip_editor() {
                 $datauploadsize = $uploadsize * 1024000;
 				$ip_width = get_option('ip_max_width');
 				?>
-				<p><label for="imagepress_image_file"><i class="fa fa-cloud-upload"></i> Replace main image (<?php echo $uploadsize ; ?>MB maximum)...</label><br><input type="file" accept="image/*" data-max-size="<?php echo $datauploadsize; ?>" data-max-width="<?php echo $ip_width; ?>" name="imagepress_image_file" id="imagepress_image_file"></p>
+				<p><label for="imagepress_image_file"><i class="fas fa-cloud-upload"></i> Replace main image (<?php echo $uploadsize ; ?>MB maximum)...</label><br><input type="file" accept="image/*" data-max-size="<?php echo $datauploadsize; ?>" data-max-width="<?php echo $ip_width; ?>" name="imagepress_image_file" id="imagepress_image_file"></p>
 
                 <?php if(1 == get_option('ip_upload_secondary')) { ?>
                     <hr>
                     <p>
-                        Select <i class="fa fa-check-circle"></i> main image or <i class="fa fa-times-circle"></i> delete additional images
+                        Select <i class="fas fa-check-circle"></i> main image or <i class="fas fa-times"></i> delete additional images
                         <br><small>Main image will appear first in single image listing and as a thumbnail in gallery view</small>
                     </p>
                     <?php
@@ -312,8 +312,8 @@ function ip_editor() {
 							if($image->ID != $thumbnail_ID)
 								echo '<div class="ip-additional">';
 								echo '<div class="ip-toolbar">';
-									echo '<a href="#" data-id="' . $image->ID . '" data-nonce="' . wp_create_nonce('ip_delete_post_nonce') . '" class="delete-post ip-action-icon ip-floatright"><i class="fa fa-times-circle"></i></a>';
-									echo '<a href="#" data-pid="' . $edit_id . '" data-id="' . $image->ID . '" data-nonce="' . wp_create_nonce('ip_featured_post_nonce') . '" class="featured-post ip-action-icon ip-floatleft"><i class="fa fa-check-circle"></i></a>';
+									echo '<a href="#" data-id="' . $image->ID . '" data-nonce="' . wp_create_nonce('ip_delete_post_nonce') . '" class="delete-post ip-action-icon ip-floatright"><i class="fas fa-times"></i></a>';
+									echo '<a href="#" data-pid="' . $edit_id . '" data-id="' . $image->ID . '" data-nonce="' . wp_create_nonce('ip_featured_post_nonce') . '" class="featured-post ip-action-icon ip-floatleft"><i class="fas fa-check-circle"></i></a>';
 								echo '</div>';
 							echo '<img src="' . $small_array[0] . '" alt=""></div>';
 						}
@@ -322,13 +322,13 @@ function ip_editor() {
 					}
                     ?>
 
-                    <p><label for="imagepress_image_additional"><i class="fa fa-cloud-upload"></i> Add more images (<?php echo MAX_UPLOAD_SIZE/1024; ?>KB maximum)...</label><br><input type="file" accept="image/*" capture="camera" name="imagepress_image_additional[]" id="imagepress_image_additional" multiple></p>
+                    <p><label for="imagepress_image_additional"><i class="fas fa-cloud-upload"></i> Add more images (<?php echo MAX_UPLOAD_SIZE/1024; ?>KB maximum)...</label><br><input type="file" accept="image/*" capture="camera" name="imagepress_image_additional[]" id="imagepress_image_additional" multiple></p>
                 <?php } ?>
 
                 <hr>
                 <p>
                     <input type="submit" id="submit" value="Update image">
-                    <a href="?d=<?php echo get_the_ID(); ?>" class="ask button ip-floatright"><i class="fa fa-trash-o"></i></a>
+                    <a href="?d=<?php echo get_the_ID(); ?>" class="ask button ip-floatright"><i class="far fa-trash-alt"></i></a>
                 </p>
             </form>
         </div>
@@ -376,7 +376,7 @@ function ip_main($i) {
     $post_thumbnail_url = $image_attributes[0];
 
 	if(get_option('ip_comments') == 1)
-        $ip_comments = '<em> | </em><a href="' . get_permalink($i) . '"><i class="fa fa-comments"></i> ' . get_comments_number($i) . '</a> ';
+        $ip_comments = '<em> | </em><a href="' . get_permalink($i) . '"><i class="fas fa-comments"></i> ' . get_comments_number($i) . '</a> ';
     if(get_option('ip_comments') == 0)
         $ip_comments = '';
     ?>
@@ -398,14 +398,14 @@ function ip_main($i) {
     ?>
 
     <section role="navigation">
-        <?php previous_post_link('%link', '<i class="fa fa-fw fa-chevron-left"></i> Previous'); ?>
-        <?php next_post_link('%link', 'Next <i class="fa fa-fw fa-chevron-right"></i>'); ?>
+        <?php previous_post_link('%link', '<i class="fas fa-fw fa-chevron-left"></i> Previous'); ?>
+        <?php next_post_link('%link', 'Next <i class="fas fa-fw fa-chevron-right"></i>'); ?>
     </section>
 
     <h1 class="ip-title">
         <?php
         if(has_term('featured', 'imagepress_image_category'))
-            echo '<span class="hint hint--right" data-hint="' . get_option('cms_featured_tooltip') . '"><i class="fa fa-star"></i></span> ';
+            echo '<span class="hint hint--right" data-hint="' . get_option('cms_featured_tooltip') . '"><i class="fas fa-star"></i></span> ';
 
         echo get_the_title($i);
         ?>
@@ -413,10 +413,10 @@ function ip_main($i) {
 
     <div class="ip-bar">
         <div class="right">
-            <a href="<?php echo $post_thumbnail_url; ?>"><i class="fa fa-fw fa-arrows-alt"></i></a>
+            <a href="<?php echo $post_thumbnail_url; ?>"><i class="fas fa-fw fa-arrows-alt"></i></a>
         </div>
 
-        <?php echo ipGetPostLikeLink($i); ?><em> | </em><i class="fa fa-eye"></i> <?php echo ip_getPostViews($i); ?><?php echo $ip_comments; ?>
+        <?php echo ipGetPostLikeLink($i); ?><em> | </em><i class="fas fa-eye"></i> <?php echo ip_getPostViews($i); ?><?php echo $ip_comments; ?>
     </div>
 
     <p>
@@ -425,7 +425,7 @@ function ip_main($i) {
         </div>
         <?php
         if(get_the_author_meta('user_title', $post->post_author) == 'Verified')
-            $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fa fa-check-circle"></i></span>';
+            $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fas fa-check-circle"></i></span>';
         else
             $verified = '';
         ?>
@@ -507,9 +507,9 @@ function ip_related($i) {
 	$filesize .= ' KB';
 	?>
 
-	<p><?php previous_post_link('%link', '<i class="fa fa-fw fa-chevron-left"></i>'); ?> <?php next_post_link('%link', '<i class="fa fa-fw fa-chevron-right"></i>'); ?></p>
+	<p><?php previous_post_link('%link', '<i class="fas fa-fw fa-chevron-left"></i>'); ?> <?php next_post_link('%link', '<i class="fas fa-fw fa-chevron-right"></i>'); ?></p>
 
-	<h3 class="widget-title"><i class="fa fa-file-text-o"></i> Image Details</h3>
+	<h3 class="widget-title"><i class="fas fa-file-alt"></i> Image Details</h3>
 	<div class="textwidget">
 		<p><small>
 			&copy;<?php echo date('Y'); ?> <a href="<?php echo get_author_posts_url($post->post_author); ?>"><?php echo get_the_author_meta('user_nicename', $post->post_author); ?></a> | <b>Image size:</b> <?php echo $filesize; ?> | <b>Date uploaded:</b> <?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' ago'; ?> (<?php the_time(get_option('date_format')); ?>) | <b>Category:</b> <?php echo ip_get_the_term_list($i, 'imagepress_image_category', '', ', ', '', []); ?>
@@ -522,12 +522,12 @@ function ip_related($i) {
 		$hub_user_info = get_userdata($author_id);
 
 		if(get_post_meta($i, 'imagepress_purchase', true) != '') {
-			echo '<h3 class="widget-title"><i class="fa fa-external-link-square"></i> External Links</h3>';
+			echo '<h3 class="widget-title"><i class="fas fa-external-link-square-alt"></i> External Links</h3>';
 			echo '<p>';
 		}
 
 		if(get_post_meta($i, 'imagepress_purchase', true) != '')
-			echo '<a href="' . get_post_meta($i, 'imagepress_purchase', true) . '" target="_blank" rel="external"><i class="fa fa-shopping-cart"></i> Purchase Print</a>';
+			echo '<a href="' . get_post_meta($i, 'imagepress_purchase', true) . '" target="_blank" rel="external"><i class="fas fa-shopping-cart"></i> Purchase Print</a>';
 		if(get_post_meta($i, 'imagepress_purchase', true) != '')
 			echo '</p>';
 		?>
@@ -536,9 +536,9 @@ function ip_related($i) {
     <hr>
 
 	<div class="widget-container widget_text">
-		<h3 class="widget-title"><i class="fa fa-tags"></i> Related</h3>
+		<h3 class="widget-title"><i class="fas fa-tags"></i> Related</h3>
 		<div class="textwidget">
-			<p><i class="fa fa-user"></i> More by the same author (<a href="<?php echo get_author_posts_url($post->post_author); ?>">view all</a>)</p>
+			<p><i class="fas fa-user"></i> More by the same author (<a href="<?php echo get_author_posts_url($post->post_author); ?>">view all</a>)</p>
 			<?php echo cinnamon_get_related_author_posts($post->post_author); ?>
 		</div>
 	</div>

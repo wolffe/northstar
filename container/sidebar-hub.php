@@ -1,4 +1,4 @@
-<div class="moon-lightbox-close"><i class="fa fa-times" aria-hidden="true"></i></div>
+<div class="moon-lightbox-close"><i class="fas fa-times" aria-hidden="true"></i></div>
 
 <aside id="sidebar" class="sidebar-lightbox" role="complementary">
     <?php
@@ -7,7 +7,7 @@
     $author_id = $post->post_author;
 
     if (get_post_meta(get_the_ID(), 'imagepress_purchase', true) != '') {
-        echo '<div class="moon-lightbox-purchase">This poster is available to purchase. <a href="' . get_post_meta(get_the_ID(), 'imagepress_purchase', true) . '" class="btn btn-tertiary" target="_blank" rel="external"><i class="fa fa-shopping-cart"></i> Buy now</a></div>';
+        echo '<div class="moon-lightbox-purchase">This poster is available to purchase. <a href="' . get_post_meta(get_the_ID(), 'imagepress_purchase', true) . '" class="btn btn-tertiary" target="_blank" rel="external"><i class="fas fa-shopping-cart"></i> Buy now</a></div>';
     }
     ?>
 
@@ -19,7 +19,7 @@
             <div class="moon-lightbox-author-details">
                 <?php
                 if (get_the_author_meta('user_title', $post->post_author) == 'Verified') {
-                    $verified = ' <span class="teal hint hint--right" data-hint="Verified Profile"><i class="fa fa-check-circle"></i></span>';
+                    $verified = ' <span class="teal hint hint--right" data-hint="Verified Profile"><i class="fas fa-check-circle"></i></span>';
                 } else {
                     $verified = '';
                 }
@@ -32,16 +32,16 @@
         <div style="text-align: center">
             <?php echo ipGetPostLikeLink(get_the_ID()); ?>
             <?php ip_frontend_add_collection(get_the_ID()); ?>
-            <a href="#" id="lightbox-share" class="btn btn-primary"><i class="fa fa-share" aria-hidden="true"></i> Share</a>
+            <a href="#" id="lightbox-share" class="btn btn-primary"><i class="fas fa-share-alt" aria-hidden="true"></i> Share</a>
 
             <div class="social-hub">
-                <a style="background-color: #3B5998;" href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><i class="fa fa-facebook-square"></i></a>
+                <a style="background-color: #3B5998;" href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><i class="fab fa-facebook-square"></i></a>
                 <a style="background-color: #00ACED;" href="https://twitter.com/share" target="_blank" onclick="javascript:window.open(this.href,
-  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="twitter-share" data-via="getButterfly" data-related="getButterfly" data-count="none" data-hashtags="posterspy"><i class="fa fa-twitter-square"></i></a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                <a style="background-color: #CB2027;" href='javascript:void(run_pinmarklet1())'><i class="fa fa-pinterest-square"></i></a><script>function run_pinmarklet1() { var e=document.createElement('script'); e.setAttribute('type','text/javascript'); e.setAttribute('charset','UTF-8'); e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999); document.body.appendChild(e); }</script>
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="twitter-share" data-via="getButterfly" data-related="getButterfly" data-count="none" data-hashtags="posterspy"><i class="fab fa-twitter-square"></i></a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <a style="background-color: #CB2027;" href='javascript:void(run_pinmarklet1())'><i class="fab fa-pinterest-square"></i></a><script>function run_pinmarklet1() { var e=document.createElement('script'); e.setAttribute('type','text/javascript'); e.setAttribute('charset','UTF-8'); e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999); document.body.appendChild(e); }</script>
                 <a style="background-color: #2C4762;" href="http://www.tumblr.com/share"target="_blank" onclick="javascript:window.open(this.href,
-  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-tumblr-square"></i></a>
-                <a style="background-color: #d23e30;" href="#" onclick="javascript:window.open('https://plus.google.com/share?url='+encodeURIComponent(location.href),'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus-square"></i></a>
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fab fa-tumblr-square"></i></a>
+                <a style="background-color: #d23e30;" href="#" onclick="javascript:window.open('https://plus.google.com/share?url='+encodeURIComponent(location.href),'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fab fa-google-plus-square"></i></a>
                 <div class="clearfix"></div>
             </div>
 
@@ -56,7 +56,7 @@
                 $terms_slugs = [];
                 foreach ($terms as $term ) {
                     if ($term->slug == 'staffpicks') {
-                        echo '<span class="hint hint--right yellow" data-hint="Staff Pick"><i class="fa fa-star"></i> </span>';
+                        echo '<span class="hint hint--right yellow" data-hint="Staff Pick"><i class="fas fa-star"></i> </span>';
                     }
                     $terms_slugs[] = $term->slug;
                 }
@@ -69,15 +69,15 @@
 
         <div class="details-box">
             <div>
-                <i class="fa fa-eye" aria-hidden="true"></i>
+                <i class="fas fa-eye" aria-hidden="true"></i>
                 <br><?php echo ip_getPostViews(get_the_ID()); ?>
             </div>
             <div>
-                <i class="fa fa-heart" aria-hidden="true"></i>
+                <i class="fas fa-heart" aria-hidden="true"></i>
                 <br><?php echo imagepress_get_like_count(get_the_ID()); ?>
             </div>
             <div>
-                <i class="fa fa-comment" aria-hidden="true"></i>
+                <i class="fas fa-comment" aria-hidden="true"></i>
                 <br><?php echo get_comments_number(get_the_ID()); ?>
             </div>
             <div>

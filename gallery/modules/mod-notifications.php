@@ -95,19 +95,19 @@ function imagepress_notifications($atts, $content = null) {
             $class = 'read';
 
         if($action == 'loved' && $user_ID == $authorID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-heart"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fas fa-fw fa-heart"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
 
         if($action == 'collected' && $user_ID == $authorID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-folder"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fas fa-fw fa-folder"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
 
 		if($action == 'added' && pwuf_is_following($user_ID, $authorID))
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-arrow-circle-up"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fas fa-fw fa-arrow-circle-up"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
 
         if($action == 'followed' && $user_ID == $line->postID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-plus-circle"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $line->actionType . ' you<time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fas fa-fw fa-plus-circle"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $line->actionType . ' you<time>' . $time . '</time></div>';
 
         if($action == 'commented on' && $user_ID == $authorID && $user_ID != $line->userID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-comment"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fas fa-fw fa-comment"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
 
         if($action == 'replied to a comment on') {
             $comment_id = get_comment($line->postID);
@@ -115,23 +115,23 @@ function imagepress_notifications($atts, $content = null) {
             $b = $comment_id->user_id;
 
             if($user_ID == $b)
-                $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-comment"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> replied to your comment on <a href="' . get_permalink($comment_post_ID) . '">' . get_the_title($comment_post_ID) . '</a><time>' . $time . '</time></div>';
+                $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fas fa-fw fa-comment"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> replied to your comment on <a href="' . get_permalink($comment_post_ID) . '">' . get_the_title($comment_post_ID) . '</a><time>' . $time . '</time></div>';
         }
 
         if($action == 'featured' && $user_ID == $authorID && $user_ID != $line->userID)
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_the_post_thumbnail($line->postID, [48,48]) . '</div><i class="fa fa-fw fa-star"></i> Your <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a> poster was ' . $action . '<time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar">' . get_the_post_thumbnail($line->postID, [48,48]) . '</div><i class="fas fa-fw fa-star"></i> Your <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a> poster was ' . $action . '<time>' . $time . '</time></div>';
 
         // custom
         if(0 == $line->postID || '-1' == $line->postID) {
             $attachment_id = 202;
             $image_attributes = wp_get_attachment_image_src($attachment_id, [48,48]);
 
-            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar"><img src="' .  $image_attributes[0] . '" width="' . $image_attributes[1] . '" height="' . $image_attributes[2] . '"></div><i class="fa fa-fw ' . $line->actionIcon . '"></i> ' . $line->actionType . '<time>' . $time . '</time></div>';
+            $display .= '<div class="notification-item n' . $line->ID . ' ' . $class . '" data-id="' . $line->ID . '"><div class="navatar"><img src="' .  $image_attributes[0] . '" width="' . $image_attributes[1] . '" height="' . $image_attributes[2] . '"></div><i class="fas fa-fw ' . $line->actionIcon . '"></i> ' . $line->actionType . '<time>' . $time . '</time></div>';
         }
     }
 
 	$display .= '</div>';
-	$display .= '<div class="nall"><a href="' . home_url() . '/notifications/"><i class="fa fa-th-list"></i> ' . get_option('ip_notifications_all') . '</a></div>';
+	$display .= '<div class="nall"><a href="' . home_url() . '/notifications/"><i class="fas fa-th-list"></i> ' . get_option('ip_notifications_all') . '</a></div>';
     return $display;
 }
 
@@ -207,9 +207,9 @@ add_action('wp_ajax_ajax_trash_action', 'ajax_trash_action_callback');
  */
 function ip_notifications_menu_item() {
 	if(notification_count() > 0)
-		$item = '<a href="#" class="notifications-bell"><i class="fa fa-bell"></i><sup>' . notification_count() . '</sup></a><div class="notifications-container">' . do_shortcode('[notifications]') . '</div>';
+		$item = '<a href="#" class="notifications-bell"><i class="fas fa-bell"></i><sup>' . notification_count() . '</sup></a><div class="notifications-container">' . do_shortcode('[notifications]') . '</div>';
 	else
-		$item = '<a href="#" class="notifications-bell"><i class="fa fa-bell-o"></i></a><div class="notifications-container">' . do_shortcode('[notifications]') . '</div>';
+		$item = '<a href="#" class="notifications-bell"><i class="far fa-bell"></i></a><div class="notifications-container">' . do_shortcode('[notifications]') . '</div>';
 
 	return $item;
 }

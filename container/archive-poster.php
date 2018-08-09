@@ -30,7 +30,7 @@
     ];
     $wp_query = new WP_Query($args1);
     ?>
-    <div id="ip-boxes">
+    <div id="ip-boxes" class="ip-box-container">
         <?php if($wp_query->have_posts()) : ?>
             <?php while($wp_query->have_posts()) : $wp_query->the_post(); ?>
                 <?php

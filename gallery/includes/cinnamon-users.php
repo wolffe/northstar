@@ -74,7 +74,7 @@ function cinnamon_get_portfolio_posts($author, $count, $size = 'thumbnail') {
 
     $output = '';
     if($authors_posts) {
-        $output .= '<div id="cinnamon-index"><a href="#"><i class="fa fa-th-large"></i> ' . get_option('cinnamon_label_index') . '</a></div>
+        $output .= '<div id="cinnamon-index"><a href="#"><i class="fas fa-th-large"></i> ' . get_option('cinnamon_label_index') . '</a></div>
         <div id="cinnamon-feature"></div>
         <div class="cinnamon-grid-blank">';
             foreach ($authors_posts as $authors_post) {
@@ -115,9 +115,9 @@ function cinnamon_card($atts, $content = null) {
     $display .= '<div class="cinnamon-sortable">
         <div class="innersort">
             <h4>Sort</h4>
-            <span class="sort" data-sort="name"><i class="fa fa-circle fa-fw"></i> A-Z</span>
-            <span class="sort initial" data-sort="uploads" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most uploads</span>
-            <span class="sort" data-sort="followers" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most followers</span>
+            <span class="sort" data-sort="name"><i class="fas fa-circle fa-fw"></i> A-Z</span>
+            <span class="sort initial" data-sort="uploads" data-order="desc"><i class="fas fa-circle fa-fw"></i> Most uploads</span>
+            <span class="sort" data-sort="followers" data-order="desc"><i class="fas fa-circle fa-fw"></i> Most followers</span>
         </div>
         <div class="innersort">
 			<h4>' . get_option('ip_author_find_title') . '</h4>
@@ -151,12 +151,12 @@ function cinnamon_card($atts, $content = null) {
 			$card .= '<div class="avatar-holder"><a href="' . get_author_posts_url($author) . '">' . get_avatar($author, 104) . '</a></div>';
 
             if(get_the_author_meta('user_title', $author) == 'Verified')
-                $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fa fa-check-circle"></i></span>';
+                $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fas fa-check-circle"></i></span>';
             else
                 $verified = '';
             $card .= '<h3><a href="' . get_author_posts_url($author) . '" class="name">' . $hub_user_info->first_name . ' ' . $hub_user_info->last_name . '</a>' . $verified . '</h3>';
 			if(!empty($hub_location))
-				$card .= '<div class="location-holder"><small><i class="fa fa-map-marker teal"></i> <span class="location">' . get_the_author_meta('hub_location', $author) . '</span></small></div>';
+				$card .= '<div class="location-holder"><small><i class="fas fa-map-marker-alt teal"></i> <span class="location">' . get_the_author_meta('hub_location', $author) . '</span></small></div>';
     
 			$card .= '<div class="cinnamon-stats">
 				<div class="cinnamon-meta"><span class="views">' . kformat(cinnamon_PostViews($author, false)) . '</span><br><small>views</small></div>
@@ -199,13 +199,13 @@ function cinnamon_profile_blank($atts, $content = null) {
 
     $hub_googleplus = ''; $hub_facebook = ''; $hub_twitter = '';
     if($hub_user_info->googleplus != '')
-        $hub_googleplus = '<a href="' . $hub_user_info->googleplus . '" target="_blank"><i class="fa fa-google-plus-square"></i></a>';
+        $hub_googleplus = '<a href="' . $hub_user_info->googleplus . '" target="_blank"><i class="fab fa-google-plus-square"></i></a>';
     if($hub_user_info->facebook != '')
-        $hub_facebook = '<a href="' . $hub_user_info->facebook . '" target="_blank"><i class="fa fa-facebook-square"></i></a>';
+        $hub_facebook = '<a href="' . $hub_user_info->facebook . '" target="_blank"><i class="fab fa-facebook-square"></i></a>';
     if($hub_user_info->twitter != '')
-        $hub_twitter = '<a href="https://twitter.com/' . $hub_user_info->twitter . '" target="_blank"><i class="fa fa-twitter-square"></i></a>';
+        $hub_twitter = '<a href="https://twitter.com/' . $hub_user_info->twitter . '" target="_blank"><i class="fab fa-twitter-square"></i></a>';
 
-    $hub_email = '<a href="mailto:' . get_the_author_meta('email', $author) . '" target="_blank"><i class="fa fa-envelope-square"></i></a>';
+    $hub_email = '<a href="mailto:' . get_the_author_meta('email', $author) . '" target="_blank"><i class="fas fa-envelope-square"></i></a>';
 
 	$display = '';
 
@@ -235,7 +235,7 @@ function cinnamon_profile_blank($atts, $content = null) {
 			<div class="c-description"> ' . get_the_author_meta('hub_field', $author) . '<br><small>' . get_the_author_meta('hub_location', $author) . '</small></div>
 			<div class="c-social">' . $hub_facebook . ' ' . $hub_twitter . ' ' . $hub_googleplus . ' ' . $hub_email;
 				if($hub_user_info->user_url != '')
-					$display .= ' <a href="' . $hub_user_info->user_url . '" rel="external" target="_blank"><i class="fa fa-link"></i></a>';
+					$display .= ' <a href="' . $hub_user_info->user_url . '" rel="external" target="_blank"><i class="fas fa-link"></i></a>';
 			$display .= '</div>
 
 			<ul id="ip-tab">
@@ -282,13 +282,13 @@ function cinnamon_profile($atts, $content = null) {
     $display = $hub_facebook = $hub_twitter = $hub_instagram = $hub_linkedin = $hub_user_url = $verified = '';
 
     if ($hub_user_info->facebook != '')
-        $hub_facebook = ' <a href="' . $hub_user_info->facebook . '" target="_blank"><i class="fa fa-facebook"></i></a>';
+        $hub_facebook = ' <a href="' . $hub_user_info->facebook . '" target="_blank"><i class="fab fa-facebook-square"></i></a>';
     if ($hub_user_info->twitter != '')
-        $hub_twitter = ' <a href="https://twitter.com/' . $hub_user_info->twitter . '" target="_blank"><i class="fa fa-twitter"></i></a>';
+        $hub_twitter = ' <a href="https://twitter.com/' . $hub_user_info->twitter . '" target="_blank"><i class="fab fa-twitter-square"></i></a>';
     if ($hub_user_info->instagram != '')
-        $hub_instagram = ' <a href="https://instagram.com/' . $hub_user_info->instagram . '/" target="_blank"><i class="fa fa-instagram"></i></a>';
+        $hub_instagram = ' <a href="https://instagram.com/' . $hub_user_info->instagram . '/" target="_blank"><i class="fab fa-instagram"></i></a>';
     if ($hub_user_info->linkedin != '')
-        $hub_linkedin = ' <a href="' . $hub_user_info->linkedin . '" target="_blank"><i class="fa fa-linkedin"></i></a>';
+        $hub_linkedin = ' <a href="' . $hub_user_info->linkedin . '" target="_blank"><i class="fab fa-linkedin"></i></a>';
 
     $hca = get_the_author_meta('hub_custom_cover', $author);
     $hca = wp_get_attachment_url($hca);
@@ -325,7 +325,7 @@ function cinnamon_profile($atts, $content = null) {
             $display .= '</ul>';
 
             if ((string) get_the_author_meta('user_title', $author) === 'Verified')
-                $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fa fa-check-circle"></i></span>';
+                $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fas fa-check-circle"></i></span>';
 
             $hubuser = get_user_by('id', $author);
             $hubuser = sanitize_title($hubuser->user_login);
@@ -334,7 +334,7 @@ function cinnamon_profile($atts, $content = null) {
                 $hub_name = $hubuser;
 
             if ($hub_user_info->user_url != '')
-                $hub_user_url = ' <a href="' . $hub_user_info->user_url . '" rel="external" target="_blank"><i class="fa fa-link"></i></a>';
+                $hub_user_url = ' <a href="' . $hub_user_info->user_url . '" rel="external" target="_blank"><i class="fas fa-link"></i></a>';
 
             $display .= '<div class="cinnamon-profile-global-separator"></div>';
             $display .= '<div class="cinnamon-profile-sidebar">
@@ -356,7 +356,7 @@ function cinnamon_profile($atts, $content = null) {
                             $hub_email = get_the_author_meta('email', $author);
                         }
 
-                        $display .= ' <a href="mailto:' . $hub_email . '" class="btn btn-small btn-primary"><i class="fa fa-fw fa-envelope"></i> Contact</a>';
+                        $display .= ' <a href="mailto:' . $hub_email . '" class="btn btn-small btn-primary"><i class="fas fa-fw fa-envelope"></i> Contact</a>';
                     }
                 $display .= '</div>';
 
@@ -406,7 +406,7 @@ function cinnamon_profile($atts, $content = null) {
                 }
 
                 if (is_user_logged_in() && $author_rewrite == $logged_in_user->user_login) {
-                    $display .= '<div class="cinnamon-sidebar-content centre"><a href="' . get_option('cinnamon_edit_page') . '" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit Profile</a></div>';
+                    $display .= '<div class="cinnamon-sidebar-content centre"><a href="' . get_option('cinnamon_edit_page') . '" class="btn btn-primary"><i class="fas fa-pen-square"></i> Edit Profile</a></div>';
                 }
 
             $display .= '</div>
@@ -461,9 +461,9 @@ function cinnamon_profile($atts, $content = null) {
 
 									$display .= '<span class="cinnamon-award-list-item" title="' . $term->description . '">';
 										if(isset($term_data['img']))
-											$display .= '<i class="fa ' . $term_data['img'] . '"></i> ';
+											$display .= '<i class="fas ' . $term_data['img'] . '"></i> ';
 										else
-											$display .= '<i class="fa fa-trophy"></i> ';
+											$display .= '<i class="fas fa-trophy"></i> ';
 									$display .= $term->name . '</span>';
 								}
 							}
@@ -652,14 +652,14 @@ function cinnamon_profile_edit($atts, $content = null) {
                                         <td style="text-align: center;">
                                             <label for="hub_custom_avatar" class="hub_label_avatar">
                                                 <input type="file" name="hub_custom_avatar" id="hub_custom_avatar" value="<?php echo get_the_author_meta('hub_custom_avatar', $current_user->ID); ?>">
-                                                <div class="profile-mini-heading"><i class="fa fa-fw fa-upload" aria-hidden="true"></i> Change Avatar</div>
+                                                <div class="profile-mini-heading"><i class="fas fa-fw fa-upload" aria-hidden="true"></i> Change Avatar</div>
                                                 <small>Recommended size is 500x500.</small>
                                             </label>
                                         </td>
                                         <td style="text-align: center;">
                                             <label for="hub_custom_cover" class="hub_label_cover">
                                                 <input type="file" name="hub_custom_cover" id="hub_custom_cover" value="<?php echo get_the_author_meta('hub_custom_cover', $current_user->ID); ?>" class="regular-text">
-                                                <div class="profile-mini-heading"><i class="fa fa-fw fa-upload" aria-hidden="true"></i> Change Profile Banner</div>
+                                                <div class="profile-mini-heading"><i class="fas fa-fw fa-upload" aria-hidden="true"></i> Change Profile Banner</div>
                                                 <small>Recommended size is 1080x300.</small>
                                             </label>
                                         </td>
@@ -835,16 +835,16 @@ function cinnamon_profile_edit($atts, $content = null) {
                                                         <div class="repeatable-row-featured">
                                                             <span style="display: inline-block; width: 30%;"><input type="text" class="widefat" name="repeatable_name_featured[]" value="<?php if($field_featured['repeatable_name_featured'] != '') echo esc_attr( $field_featured['repeatable_name_featured'] ); ?>" placeholder="Title"></span>
                                                             <span style="display: inline-block; width: 60%;"><input type="url" class="widefat" name="repeatable_url_featured[]" value="<?php if ($field_featured['repeatable_url_featured'] != '') echo esc_attr( $field_featured['repeatable_url_featured'] ); ?>" placeholder="https://"></span>
-                                                            <span style="display: none; width: 2%;"><a class="sort"><i class="fa fa-arrows" aria-hidden="true"></i></a></span>
-                                                            <span style="display: inline-block; width: 2%;"><a class="button remove-row-featured" href="#"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+                                                            <span style="display: none; width: 2%;"><a class="sort"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a></span>
+                                                            <span style="display: inline-block; width: 2%;"><a class="button remove-row-featured" href="#"><i class="fas fa-times" aria-hidden="true"></i></a></span>
                                                         </div>
                                                     <?php } ?>
                                                 <?php } else { ?>
                                                     <div class="repeatable-row-featured">
                                                         <span style="display: inline-block; width: 30%;"><input type="text" class="widefat" name="repeatable_name_featured[]" placeholder="Title"></span>
                                                         <span style="display: inline-block; width: 60%;"><input type="url" class="widefat" name="repeatable_url_featured[]" placeholder="https://"></span>
-                                                        <span style="display: none; width: 2%;"><a class="sort"><i class="fa fa-arrows" aria-hidden="true"></i></a></span>
-                                                        <span style="display: inline-block; width: 2%;"><a class="button remove-row-featured" href="#"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+                                                        <span style="display: none; width: 2%;"><a class="sort"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a></span>
+                                                        <span style="display: inline-block; width: 2%;"><a class="button remove-row-featured" href="#"><i class="fas fa-times" aria-hidden="true"></i></a></span>
                                                     </div>
                                                 <?php } ?>
 
@@ -852,8 +852,8 @@ function cinnamon_profile_edit($atts, $content = null) {
                                                 <div class="repeatable-row-featured empty-row-featured">
                                                     <span style="display: inline-block; width: 30%;"><input type="text" class="widefat" name="repeatable_name_featured[]" placeholder="Title"></span>
                                                     <span style="display: inline-block; width: 60%;"><input type="url" class="widefat" name="repeatable_url_featured[]" placeholder="https://"></span>
-                                                    <span style="display: none; width: 2%;"><a class="sort"><i class="fa fa-arrows" aria-hidden="true"></i></a></span>
-                                                    <span style="display: inline-block; width: 2%;"><a class="button remove-row-featured" href="#"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+                                                    <span style="display: none; width: 2%;"><a class="sort"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a></span>
+                                                    <span style="display: inline-block; width: 2%;"><a class="button remove-row-featured" href="#"><i class="fas fa-times" aria-hidden="true"></i></a></span>
                                                 </div>
                                             </div>
                                         </td>
@@ -879,16 +879,16 @@ function cinnamon_profile_edit($atts, $content = null) {
                                                         <div class="repeatable-row">
                                                             <span style="display: inline-block; width: 30%;"><input type="text" class="widefat" name="repeatable_name_external[]" value="<?php if($field_external['repeatable_name_external'] != '') echo esc_attr( $field_external['repeatable_name_external'] ); ?>" placeholder="Title"></span>
                                                             <span style="display: inline-block; width: 60%;"><input type="url" class="widefat" name="repeatable_url_external[]" value="<?php if ($field_external['repeatable_url_external'] != '') echo esc_attr( $field_external['repeatable_url_external'] ); ?>" placeholder="https://"></span>
-                                                            <span style="display: none; width: 2%;"><a class="sort"><i class="fa fa-arrows" aria-hidden="true"></i></a></span>
-                                                            <span style="display: inline-block; width: 2%;"><a class="button remove-row" href="#"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+                                                            <span style="display: none; width: 2%;"><a class="sort"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a></span>
+                                                            <span style="display: inline-block; width: 2%;"><a class="button remove-row" href="#"><i class="fas fa-times" aria-hidden="true"></i></a></span>
                                                         </div>
                                                     <?php } ?>
                                                 <?php } else { ?>
                                                     <div class="repeatable-row">
                                                         <span style="display: inline-block; width: 30%;"><input type="text" class="widefat" name="repeatable_name_external[]" placeholder="Title"></span>
                                                         <span style="display: inline-block; width: 60%;"><input type="url" class="widefat" name="repeatable_url_external[]" placeholder="https://"></span>
-                                                        <span style="display: none; width: 2%;"><a class="sort"><i class="fa fa-arrows" aria-hidden="true"></i></a></span>
-                                                        <span style="display: inline-block; width: 2%;"><a class="button remove-row" href="#"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+                                                        <span style="display: none; width: 2%;"><a class="sort"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a></span>
+                                                        <span style="display: inline-block; width: 2%;"><a class="button remove-row" href="#"><i class="fas fa-times" aria-hidden="true"></i></a></span>
                                                     </div>
                                                 <?php } ?>
 
@@ -896,8 +896,8 @@ function cinnamon_profile_edit($atts, $content = null) {
                                                 <div class="repeatable-row empty-row">
                                                     <span style="display: inline-block; width: 30%;"><input type="text" class="widefat" name="repeatable_name_external[]" placeholder="Title"></span>
                                                     <span style="display: inline-block; width: 60%;"><input type="url" class="widefat" name="repeatable_url_external[]" placeholder="https://"></span>
-                                                    <span style="display: none; width: 2%;"><a class="sort"><i class="fa fa-arrows" aria-hidden="true"></i></a></span>
-                                                    <span style="display: inline-block; width: 2%;"><a class="button remove-row" href="#"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+                                                    <span style="display: none; width: 2%;"><a class="sort"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a></span>
+                                                    <span style="display: inline-block; width: 2%;"><a class="button remove-row" href="#"><i class="fas fa-times" aria-hidden="true"></i></a></span>
                                                 </div>
                                             </div>
                                         </td>
@@ -953,32 +953,6 @@ function cinnamon_profile_edit($atts, $content = null) {
                                 </table>
                             </div>
 
-                            <?php /** ?>
-                            <div class="ip-tabs-item" style="display: none;">
-                                <p>
-                                    <a href="#" class="toggleModal btn btn-primary"><i class="fa fa-plus"></i> Create new collection</a>
-                                    <span class="ip-loadingCollections"><i class="fa fa-cog fa-spin"></i> Loading collections...</span>
-                                    <span class="ip-loadingCollectionImages"><i class="fa fa-cog fa-spin"></i> Loading collection images...</span>
-                                    <a href="#" class="imagepress-collections imagepress-float-right button"><i class="fa fa-refresh"></i></a>
-                                </p>
-                                <div class="modal">
-                                    <h2>Create new collection</h2>
-                                    <a href="#" class="close toggleModal"><i class="fa fa-times"></i> Close</a>
-
-                                    <input type="hidden" id="collection_author_id" name="collection_author_id" value="<?php echo $current_user->ID; ?>">
-                                    <p><input type="text" id="collection_title" name="collection_title" placeholder="Collection title"></p>
-                                    <p><label>Make this collection</label> <select id="collection_status"><option value="1">Public</option><option value="0">Private</option></select></p>
-                                    <p>
-                                        <input type="submit" value="Create" class="addCollection">
-                                        <label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
-                                        <label class="showme"> <i class="fa fa-check"></i> Collection created!</label>
-                                    </p>
-                                </div>
-
-                                <div class="collections-display"></div>
-                            </div>
-                            <?php /**/ ?>
-
                             <?php if (isset($_GET['dev'])) { ?>
                                 <div class="ip-tabs-item" style="display: none;">
                                     <h3>Linked Accounts</h3>
@@ -1010,7 +984,7 @@ function cinnamon_profile_edit($atts, $content = null) {
                                 <input name="updateuser" type="submit" class="btn btn-primary" id="updateuser" value="Update">
                                 <?php wp_nonce_field('update-user'); ?>
                                 <input name="action" type="hidden" id="action" value="update-user">
-                                <i class="fa fa-share-square"></i> <a href="<?php echo get_author_posts_url($current_user->ID); ?>">View and share your profile></a>
+                                <i class="fas fa-share-alt-square"></i> <a href="<?php echo get_author_posts_url($current_user->ID); ?>">View and share your profile></a>
                             </td>
                         </tr>
                     </table>
@@ -1054,16 +1028,16 @@ function cinnamon_settings($atts, $content = null) {
 
                 <form method="post" id="adduser" action="<?php the_permalink(); ?>" enctype="multipart/form-data">
                     <p style="text-align: center;">
-                        <a href="#" class="toggleModal btn btn-primary"><i class="fa fa-fw fa-plus"></i> Create Collection</a>
-                        <a href="#" class="imagepress-collections btn btn-secondary"><i class="fa fa-fw fa-refresh"></i> Reload Collections</a>
+                        <a href="#" class="toggleModal btn btn-primary"><i class="fas fa-fw fa-plus"></i> Create Collection</a>
+                        <a href="#" class="imagepress-collections btn btn-secondary"><i class="fas fa-fw fa-sync-alt"></i> Reload Collections</a>
                     </p>
 
-                    <div class="ip-loadingCollections"><i class="fa fa-cog fa-spin"></i> Loading collections...</div>
-                    <div class="ip-loadingCollectionImages"><i class="fa fa-cog fa-spin"></i> Loading collection images...</div>
+                    <div class="ip-loadingCollections"><i class="fas fa-cog fa-spin"></i> Loading collections...</div>
+                    <div class="ip-loadingCollectionImages"><i class="fas fa-cog fa-spin"></i> Loading collection images...</div>
 
                     <div class="modal">
                         <h2>Create new collection</h2>
-                        <a href="#" class="close toggleModal"><i class="fa fa-times"></i></a>
+                        <a href="#" class="close toggleModal"><i class="fas fa-times"></i></a>
 
                         <input type="hidden" id="collection_author_id" name="collection_author_id" value="<?php echo $current_user->ID; ?>">
                         <p><input type="text" id="collection_title" name="collection_title" placeholder="Collection title"></p>
@@ -1071,8 +1045,8 @@ function cinnamon_settings($atts, $content = null) {
                         <p>
                             <input type="submit" value="Create" class="addCollection btn btn-primary">
                             <a href="https://posterspy.com/settings/collections-manager/" class="btn btn-secondary">Collections Manager</a>
-                            <label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
-                            <label class="showme"> <i class="fa fa-check"></i> Collection created. You can now add posters or edit via Collections Manager.</label>
+                            <label class="collection-progress"><i class="fas fa-cog fa-spin"></i></label>
+                            <label class="showme"> <i class="fas fa-check"></i> Collection created. You can now add posters or edit via Collections Manager.</label>
                         </p>
                     </div>
 
@@ -1156,9 +1130,9 @@ function cinnamon_awards() {
 
             echo '<p><span class="cinnamon-award-list-item" title="' . $term->description . '">';
                 if (isset($term_data['img'])) {
-                    echo '<i class="fa ' . $term_data['img'] . '"></i> ';
+                    echo '<i class="fas ' . $term_data['img'] . '"></i> ';
                 } else {
-                    echo '<i class="fa fa-trophy"></i> ';
+                    echo '<i class="fas fa-trophy"></i> ';
                 }
                 echo $term->name . '</span> <span>' . $term->description . '<br><small>(' . $term->count . ' author(s) received this award)</small></span>';
             echo '</p>';

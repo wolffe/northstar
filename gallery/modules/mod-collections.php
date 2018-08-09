@@ -89,7 +89,7 @@ function ip_collections_display() {
 
             <div class="collection_details">
                 <h3 class="collection-title" data-collection-id="' . $collection['collection_ID'] . '"><a href="#" class="editCollection" data-collection-id="' . $collection['collection_ID'] . '">' . $collection['collection_title'] . '</a><br><small>(' . count($postslistcount) . ' posters, ' . (($collection['collection_status'] == 0) ? 'private' : 'public') . ' collection)</small></h3>
-                <a href="#" class="changeCollection btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-fw fa-pencil"></i> Edit</a>
+                <a href="#" class="changeCollection btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '"><i class="fas fa-fw fa-pencil-alt"></i> Edit</a>
             </div>
 
             <div class="collection_details_edit cde' . $collection['collection_ID'] . '">
@@ -101,12 +101,12 @@ function ip_collections_display() {
                 echo '</select></p>';
 
 				$ip_collections_page_id = get_option('ip_collections_page');
-    			echo '<p><small>Share your collection</small><br><input class="collection-details-url" type="url" value="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '" readonly></p>';
+    			echo '<p class="ip-collection-clipboard"><small>Share your collection</small><br><input class="collection-details-url" type="url" value="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '" readonly></p>';
 
 				echo '<div style="text-align: center;">
                     <a href="#" class="saveCollection btn btn-primary" data-collection-id="' . $collection['collection_ID'] . '">Save</a>
                     <a href="#" class="closeCollectionEdit btn btn-secondary" data-collection-id="' . $collection['collection_ID'] . '">Cancel</a>
-                    <a href="#" class="deleteCollection btn btn-danger" data-collection-id="' . $collection['collection_ID'] . '"><i class="fa fa-trash"></i></a>
+                    <a href="#" class="deleteCollection btn btn-danger" data-collection-id="' . $collection['collection_ID'] . '"><i class="far fa-trash-alt"></i></a>
                 </div>
             </div>
         </div>';
@@ -134,7 +134,7 @@ function ip_collections_display_public($author_ID) {
                     foreach ($postslist as $collectable) {
                         $out .= '<a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '/">' . get_the_post_thumbnail($collectable['image_ID'], 'thumbnail') . '</a>';
                     }
-                    $out .= '<div class="ip_collections_overlay"><i class="fa fa-file"></i> ' . count($postslistcount) . '</div>
+                    $out .= '<div class="ip_collections_overlay"><i class="fas fa-file"></i> ' . count($postslistcount) . '</div>
                 </div>
 
                 <div class="collection_details">
@@ -175,7 +175,7 @@ function ip_collections_display_custom() {
 
         <div class="frontEndModal">
             <h2>Create new collection</h2>
-            <a href="#" class="close toggleFrontEndModal"><i class="fa fa-times"></i></a>
+            <a href="#" class="close toggleFrontEndModal"><i class="fas fa-times"></i></a>
 
             <input type="hidden" id="collection_author_id" name="collection_author_id" value="' . $current_user->ID . '">
             <p><input type="text" id="collection_title" name="collection_title" placeholder="Collection title"></p>
@@ -189,8 +189,8 @@ function ip_collections_display_custom() {
             <p style=" padding-top: 32px;">
                 <input type="submit" value="Create" class="addCollection btn btn-primary">
                 <a href="https://posterspy.com/settings/collections-manager/" class="btn btn-secondary">Collections Manager</a>
-                <label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
-                <div class="showme"> <i class="fa fa-check"></i> Collection created. You can now add posters or edit via Collections Manager.</div>
+                <label class="collection-progress"><i class="fas fa-cog fa-spin"></i></label>
+                <div class="showme"> <i class="fas fa-check"></i> Collection created. You can now add posters or edit via Collections Manager.</div>
             </p>
         </div>';
 
@@ -208,7 +208,7 @@ function ip_collections_display_custom() {
                         foreach ($postslist as $collectable) {
                             $out .= '<a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '/">' . get_the_post_thumbnail($collectable['image_ID'], 'thumbnail') . '</a>';
                         }
-                        $out .= '<div class="ip_collections_overlay"><i class="fa fa-file"></i> ' . count($postslistcount) . '</div>
+                        $out .= '<div class="ip_collections_overlay"><i class="fas fa-file"></i> ' . count($postslistcount) . '</div>
                     </div>
                     <div class="collection_details">
                         <h3><a href="' . home_url('/') . get_the_ip_slug($ip_collections_page_id) . '/' . $collection['collection_ID'] . '/">' . $collectionTitle . '</a></h3>
@@ -254,11 +254,11 @@ function ip_frontend_add_collection($ip_id) {
     }
 
     if (is_user_logged_in()) { ?>
-        <a href="#" class="toggleFrontEndModal toggleFrontEndModalButton btn btn-primary"><i class="fa fa-plus"></i> Collect</a> <?php if (isset($_POST['collectme'])) { echo ' <i class="fa fa-check"></i>'; } ?>
+        <a href="#" class="toggleFrontEndModal toggleFrontEndModalButton btn btn-primary"><i class="fas fa-plus"></i> Collect</a> <?php if (isset($_POST['collectme'])) { echo ' <i class="fas fa-check"></i>'; } ?>
 
         <div class="frontEndModal">
             <h2>Add to collection</h2>
-            <a href="#" class="close toggleFrontEndModal"><i class="fa fa-times"></i></a>
+            <a href="#" class="close toggleFrontEndModal"><i class="fas fa-times"></i></a>
 
             <form method="post" class="imagepress-form">
                 <input type="hidden" id="collection_author_id" name="collection_author_id" value="<?php echo $current_user->ID; ?>">
@@ -286,8 +286,8 @@ function ip_frontend_add_collection($ip_id) {
 				<p><label>Make this collection</label> <select id="collection_status" name="collection_status"><option value="1">Public</option><option value="0">Private</option></select> <label></label></p>
 				<p>
 					<input type="submit" name="collectme" class="imagepress-collect" value="Add" data-post-id="<?php echo $ip_id; ?>">
-					<label class="collection-progress"><i class="fa fa-cog fa-spin"></i></label>
-					<label class="showme"> <i class="fa fa-check"></i> Poster added to collection!</label>
+					<label class="collection-progress"><i class="fas fa-cog fa-spin"></i></label>
+					<label class="showme"> <i class="fas fa-check"></i> Poster added to collection!</label>
 				</p>
 			</form>
 		</div>

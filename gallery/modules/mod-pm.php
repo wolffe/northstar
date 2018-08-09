@@ -22,7 +22,7 @@ function pm_display() {
     $out = '<div class="pm-container">
         <div id="pm-message"></div>
         <div class="pm-left">
-            <span id="pm-settings"><i class="fa fa-cog" aria-hidden="true"></i></span>
+            <span id="pm-settings"><i class="fas fa-cog" aria-hidden="true"></i></span>
 
             <div class="pm-sidebar" id="pm-direct">';
 

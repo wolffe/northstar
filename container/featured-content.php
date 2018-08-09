@@ -8,12 +8,12 @@
 	<div class="logo">
         <?php if(is_user_logged_in()) { ?>
             <a href="<?php echo home_url(); ?>/upload/" class="button noir-secondary">
-                <span style="font-size: 24px; font-weight: 600;"><i class="fa fa-cloud-upload"></i> Upload</span>
+                <span style="font-size: 24px; font-weight: 600;"><i class="fas fa-cloud-upload-alt"></i> Upload</span>
                 <br><small style="font-weight: 600; font-size: 90%;">Explore and share great poster design</small>
             </a>
         <?php } else { ?>
             <a href="<?php echo home_url(); ?>/sign-up/" class="button noir-secondary">
-                <span style="font-size: 24px; font-weight: 600;"><i class="fa fa-pencil-square"></i> Sign up</span>
+                <span style="font-size: 24px; font-weight: 600;"><i class="fas fa-pen-square"></i> Sign up</span>
                 <br><small style="font-weight: 600; font-size: 90%;">Explore and share great poster design</small>
             </a>
         <?php } ?>

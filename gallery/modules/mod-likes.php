@@ -146,10 +146,10 @@ function ipGetPostLikeLink($post_id) {
 		$like_count = get_post_meta($post_id, 'votes_count', true); // get post likes
 		if (AlreadyLiked($post_id)) {
 			$class = esc_attr(' liked');
-			$like = '<i class="fa fa-fw fa-heart"></i> <span class="ip-count-value">' . $ip_vote_unlike . '</span>';
+			$like = '<i class="fas fa-fw fa-heart"></i> <span class="ip-count-value">' . $ip_vote_unlike . '</span>';
 		} else {
 			$class = esc_attr('');
-			$like = '<i class="fa fa-fw fa-heart-o"></i> <span class="ip-count-value">' . $ip_vote_like . '</span>';
+			$like = '<i class="far fa-fw fa-heart"></i> <span class="ip-count-value">' . $ip_vote_like . '</span>';
 		}
 		$output = '<a href="#" class="btn btn-primary imagepress-like' . $class . '" data-post_id="' . $post_id . '">' . $like . '</a>';
 	}
@@ -176,10 +176,10 @@ function ipGetFeedLikeLink($post_id) {
 		$like_count = get_post_meta($post_id, 'votes_count', true); // get post likes
 		if (AlreadyLiked($post_id)) {
 			$class = esc_attr(' liked');
-			$like = '<i class="fa fa-fw fa-heart"></i> <span class="ip-count-value" style="' . $hidden . '">' . $ip_vote_unlike . '</span>';
+			$like = '<i class="fas fa-fw fa-heart"></i> <span class="ip-count-value" style="' . $hidden . '">' . $ip_vote_unlike . '</span>';
 		} else {
 			$class = esc_attr('');
-			$like = '<i class="fa fa-fw fa-heart-o"></i> <span class="ip-count-value" style="' . $hidden . '">' . $ip_vote_like . '</span>';
+			$like = '<i class="far fa-fw fa-heart"></i> <span class="ip-count-value" style="' . $hidden . '">' . $ip_vote_like . '</span>';
 		}
 		$output = '<a href="#" class="feed-like' . $class . '" data-post_id="' . $post_id . '">' . $like . '</a>';
 	}
@@ -253,7 +253,7 @@ function imagepress_get_like_users($id) {
                 echo '<div><small>' . get_option('ip_vote_who') . '<br></small></div>';
                 foreach($meta_USERS as $users) {
                     foreach($users as $user) {
-                        echo '<small><i class="fa fa-user"></i></small> <a href="' . get_author_posts_url($user) . '">' . get_the_author_meta('nickname', $user) . '</a><br>';
+                        echo '<small><i class="fas fa-user"></i></small> <a href="' . get_author_posts_url($user) . '">' . get_the_author_meta('nickname', $user) . '</a><br>';
                     }
                 }
             }
@@ -279,17 +279,17 @@ function imagepress_get_users_love($id) {
 
     echo '<div style="position: relative;" id="ip-who-value">';
         if($totalUsers == 1 && $who == 'You') {
-            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> You love this poster</div>';
+            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> You love this poster</div>';
         } else if($totalUsers == 0) {
-            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> Be the first to love this poster</div>';
+            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> Be the first to love this poster</div>';
         } else if($totalUsers == 1) {
-            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> ' . $who . ' loves this</div>';
+            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> ' . $who . ' loves this</div>';
         } else if($totalUsers > 1 && $who == 'You') {
             $totalUsers--;
-            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
+            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
         } else if($totalUsers > 1 && $who != 'You') {
             $totalUsers--;
-            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
+            echo '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
         }
 
         echo '<div class="view" style="display: none; position: absolute; background-color: #111111; padding: 16px; max-height: 300px; overflow: auto; z-index: 100; text-align: left; width: 100%; border-radius: 2px;">';
@@ -303,7 +303,7 @@ function imagepress_get_users_love($id) {
                     } else {
                         $u = get_the_author_meta('username', $user);
                     }
-                    echo '<small><i class="fa fa-user"></i></small> <a href="' . get_author_posts_url($user) . '">' . $u . '</a><br>';
+                    echo '<small><i class="fas fa-user"></i></small> <a href="' . get_author_posts_url($user) . '">' . $u . '</a><br>';
                 }
             }
         }

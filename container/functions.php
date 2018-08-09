@@ -140,7 +140,7 @@ function noir_comments($comment, $args, $depth) {
                             $display_name = $user->display_name;
 
                             if(get_the_author_meta('user_title', $comment->user_id) == 'Verified')
-                                $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fa fa-check-circle"></i></span>';
+                                $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fas fa-check-circle"></i></span>';
                             else
                                 $verified = '';
 
@@ -253,19 +253,19 @@ function box_date($atts, $content = null) {
     extract(shortcode_atts([
         'background' => '#333333',
     ], $atts));
-    return '<div class="box-date" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="fa fa-calendar"></i></div><div style="clear:both;"></div></div>';
+    return '<div class="box-date" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="far fa-calendar-alt"></i></div><div style="clear:both;"></div></div>';
 }
 function box_submit($atts, $content = null) {
     extract(shortcode_atts([
         'background' => '#444444',
     ], $atts));
-    return '<div class="box-submit" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="fa fa-paper-plane"></i></div><div style="clear:both;"></div></div>';
+    return '<div class="box-submit" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="fas fa-paper-plane"></i></div><div style="clear:both;"></div></div>';
 }
 function box_prizes($atts, $content = null) {
     extract(shortcode_atts([
         'background' => '#555555',
     ], $atts));
-    return '<div class="box-prizes" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="fa fa-trophy"></i></div><div style="clear:both;"></div></div>';
+    return '<div class="box-prizes" style="background-color: ' . $background . ';"><div style="width: 75%; float: left;">' . do_shortcode($content) . '</div><div style="width: 25%; float: right; font-size: 90px; color: #249ee5; text-align: center;"><i class="fas fa-trophy"></i></div><div style="clear:both;"></div></div>';
 }
 function box_about($atts, $content = null) {
     extract(shortcode_atts([
@@ -330,13 +330,13 @@ function the_about_the_author_box() {
             <p class="aboutbox-bio">' . $bio . '</p>
             <p style="font-size: 160%;">';
                 if(!empty($user_url))
-                    $output .= '<a href="' . $user_url  . '"><i class="fa fa-fw fa-link"></i></a>';
+                    $output .= '<a href="' . $user_url  . '"><i class="fas fa-fw fa-link"></i></a>';
                 if(!empty($user_facebook))
-                    $output .= '<a href="' . $user_facebook  . '"><i class="fa fa-fw fa-facebook-square"></i></a>';
+                    $output .= '<a href="' . $user_facebook  . '"><i class="fab fa-fw fa-facebook-square"></i></a>';
                 if(!empty($user_twitter))
-                    $output .= '<a href="//twitter.com/' . $user_twitter  . '"><i class="fa fa-fw fa-twitter-square"></i></a>';
+                    $output .= '<a href="//twitter.com/' . $user_twitter  . '"><i class="fab fa-fw fa-twitter-square"></i></a>';
                 if(!empty($user_googleplus))
-                    $output .= '<a href="//plus.google.com/' . $user_googleplus  . '"><i class="fa fa-fw fa-google-plus-square"></i></a>';
+                    $output .= '<a href="//plus.google.com/' . $user_googleplus  . '"><i class="fab fa-fw fa-google-plus-square"></i></a>';
             $output .= '</p>
         </div>
         <div style="clear: both;"></div>
@@ -611,7 +611,7 @@ function getDiscoverFilters() {
     $out .= '<div class="poster-filters">
         <div class="ip-sorter-primary">
             <div class="cinnamon-dropdown">
-                <button class="dropbtn dropsort">Sort posters by <i class="fa fa-chevron-down"></i></button>
+                <button class="dropbtn dropsort">Sort posters by <i class="fas fa-chevron-down"></i></button>
                 <div class="cinnamon-dropdown-content">
                     <a href="' . build_sort_filters('comments') . '">Most Commented</a>
                     <a href="' . build_sort_filters('views') . '">Most Viewed</a>
@@ -622,7 +622,7 @@ function getDiscoverFilters() {
             </div>
 
             <div class="cinnamon-dropdown">
-                <button class="dropbtn droprange">All time <i class="fa fa-chevron-down"></i></button>
+                <button class="dropbtn droprange">All time <i class="fas fa-chevron-down"></i></button>
                 <div class="cinnamon-dropdown-content">
                     <a href="' . build_range_filters('lastday') . '">Today</a>
                     <a href="' . build_range_filters('lastweek') . '">This week</a>
@@ -647,12 +647,12 @@ function getDiscoverFilters() {
             <a href="https://posterspy.com/genre/staffpicks/" class="term-staffpicks">Staff Picks</a>
 
             <div class="cinnamon-dropdown-options">
-                <button class="dropbtn-options"><i class="fa fa-cog"></i></button>
+                <button class="dropbtn-options"><i class="fas fa-cog"></i></button>
                 <div class="cinnamon-dropdown-options-content">
                     <div class="cinnamon-dropdown-title">Posters per page</div>
-                    <a href="#" id="ppp1"><i class="fa fa-circle"></i><i class="fa fa-circle-o"></i><i class="fa fa-circle-o"></i></a>
-                    <a href="#" id="ppp2"><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle-o"></i></a>
-                    <a href="#" id="ppp3"><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i></a>
+                    <a href="#" id="ppp1"><i class="fas fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i></a>
+                    <a href="#" id="ppp2"><i class="fas fa-circle"></i><i class="fas fa-circle"></i><i class="far fa-circle"></i></a>
+                    <a href="#" id="ppp3"><i class="fas fa-circle"></i><i class="fas fa-circle"></i><i class="fas fa-circle"></i></a>
                 </div>
             </div>
         </div>

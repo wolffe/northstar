@@ -23,9 +23,9 @@ get_header(); ?>
             <h1 class="entry-title"><?php the_title(); ?></h1>
 
             <section class="entry-meta">
-                <span class="author vcard"><i class="fa fa-user"></i> <?php the_author_posts_link(); ?></span>
+                <span class="author vcard"><i class="fas fa-user"></i> <?php the_author_posts_link(); ?></span>
                 <span class="meta-sep"> | </span>
-                <span class="entry-date"><i class="fa fa-clock-o"></i> <?php the_time( get_option( 'date_format' ) ); ?></span>
+                <span class="entry-date"><i class="far fa-clock"></i> <?php the_time(get_option('date_format')); ?></span>
             </section>
 
             <section class="entry-content">
@@ -57,8 +57,8 @@ get_header(); ?>
 
     <nav id="nav-below" class="navigation" role="navigation">
         <ul>
-            <li><?php previous_post_link('%link', '<i class="fa fa-fw fa-chevron-left"></i> %title'); ?></li>
-            <li class="right"><?php next_post_link('%link', '%title <i class="fa fa-fw fa-chevron-right"></i>'); ?></li>
+            <li><?php previous_post_link('%link', '<i class="fas fa-fw fa-chevron-left"></i> %title'); ?></li>
+            <li class="right"><?php next_post_link('%link', '%title <i class="fas fa-fw fa-chevron-right"></i>'); ?></li>
         </ul>
     </nav>
 </section>

@@ -16,9 +16,9 @@ class Cinnamon_Frontend_User_Manager {
 	public function cinnamon_login_form() { ?>
         <div class="ip-tab">
             <ul class="ip-tabs active">
-                <li class="current"><a href="#"><i class="fa fa-sign-in"></i> Log in</a></li>
-                <li class=""><a href="#"><i class="fa fa-user"></i> Sign up</a></li>
-                <li class=""><a href="#"><i class="fa fa-question-circle"></i> Lost password</a></li>
+                <li class="current"><a href="#"><i class="fas fa-sign-in-alt"></i> Log in</a></li>
+                <li class=""><a href="#"><i class="fas fa-user"></i> Sign up</a></li>
+                <li class=""><a href="#"><i class="fas fa-question-circle"></i> Lost password</a></li>
             </ul>
             <div class="tab_content">
                 <div class="ip-tabs-item" style="display: block;">

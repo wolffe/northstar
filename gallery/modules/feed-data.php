@@ -9,10 +9,10 @@ foreach ($res as $line) {
 
     /**
     if($action == 'loved' && $user_ID == $authorID)
-        $display .= '<div class="notification-item n' . $line->ID . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-heart"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+        $display .= '<div class="notification-item n' . $line->ID . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fas fa-fw fa-heart"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
 
     if($action == 'collected' && $user_ID == $authorID)
-        $display .= '<div class="notification-item n' . $line->ID . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fa fa-fw fa-folder"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
+        $display .= '<div class="notification-item n' . $line->ID . '" data-id="' . $line->ID . '"><div class="navatar">' . get_avatar($line->userID, 48) . '</div><i class="fas fa-fw fa-folder"></i> <a href="' . get_author_posts_url($line->userID) . '">' . $nickname . '</a> ' . $action . ' your poster <a href="' . get_permalink($line->postID) . '">' . get_the_title($line->postID) . '</a><time>' . $time . '</time></div>';
     /**/
 
 
@@ -25,7 +25,7 @@ foreach ($res as $line) {
         if ('publish' === get_post_status($line->postID) && has_post_thumbnail($line->postID)) {
             $verified = '';
             if (get_the_author_meta('user_title', $line->userID) == 'Verified') {
-                $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fa fa-check-circle"></i></span>';
+                $verified = ' <span class="teal hint hint--right" data-hint="' . get_option('cms_verified_profile') . '"><i class="fas fa-check-circle"></i></span>';
             }
 
             echo '<div class="feed-item n' . $line->ID . '" data-id="' . $line->ID . '" id="item' . $line->ID . '">
@@ -38,7 +38,7 @@ foreach ($res as $line) {
                 </div>
                 <div class="feed-meta-tertiary">
                     <time>' . $time . '</time>
-                    <a href="' . get_permalink($line->postID) . '"><i class="fa fa-comment" aria-hidden="true"></i> ' . get_comments_number($line->postID) . '</a> <span class="feed-pipe">|</span> ' . ipGetFeedLikeLink($line->postID) . '
+                    <a href="' . get_permalink($line->postID) . '"><i class="fas fa-comment" aria-hidden="true"></i> ' . get_comments_number($line->postID) . '</a> <span class="feed-pipe">|</span> ' . ipGetFeedLikeLink($line->postID) . '
                 </div>
             </div>';
         }

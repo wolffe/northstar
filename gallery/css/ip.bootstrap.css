@@ -524,17 +524,16 @@ section[role="navigation"] a { display: inline; }
 }
 .cinnamon .form-table .hub-skills input[type=checkbox] + label:before,
 .cinnamon .form-table .hub-proficiencies input[type=checkbox] + label:before {
-    font-family: 'FontAwesome';
     display: inline-block;
     width: 16px;
 }
 .cinnamon .form-table .hub-skills input[type=checkbox] + label:before,
 .cinnamon .form-table .hub-proficiencies input[type=checkbox] + label:before {
-    content: "\f096";
+    content: "&#9634;";
 }
 .cinnamon .form-table .hub-skills input[type=checkbox]:checked + label:before,
 .cinnamon .form-table .hub-proficiencies input[type=checkbox]:checked + label:before {
-    content: "\f046";
+    content: "&#9635;";
 }
 
 
@@ -929,18 +928,7 @@ ul, li {padding: 0; margin: 0; list-style: none}
 
 
 
-span.imageviews:before {
-	content: "\f06e\0020";
-	font-family: "fontawesome";
-}
-span.imagecomments:before {
-	content: "\f086\0020";
-	font-family: "fontawesome";
-}
-span.imagelikes:before {
-	content: "\f004\0020";
-	font-family: "fontawesome";
-}
+
 .imagetitle {
 	font-weight: 400;
     display: block;
@@ -1081,7 +1069,7 @@ span.imagelikes:before {
         width: 100% !important;
     }
 
-    .ip_box { width: 50%; height: 50%; }
+    .ip_box { width: 100%; }
 
     .ip-tabs li a {
         margin: 0 6px;
@@ -1099,15 +1087,15 @@ span.imagelikes:before {
 }
 @media only screen and (max-width : 650px) and (min-width : 481px) {
     /* Tablet view: 2 tiles */
-    .ip_box { width: 33.3%; height: 33.3%; }
+    .ip_box { width: 33.3%; }
 }
 @media only screen and (max-width : 1050px) and (min-width : 651px) {
     /* Small desktop / ipad view: 3 tiles */
-    .ip_box { width: 25%; height: 25%; }
+    .ip_box { width: 25%; }
 }
 @media only screen and (max-width : 1290px) and (min-width : 1051px) {
     /* Medium desktop: 4 tiles */
-    .ip_box { width: 20%; height: 20%; }
+    .ip_box { width: 20%; }
 }
 
 

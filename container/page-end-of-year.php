@@ -113,7 +113,7 @@ get_header(); ?>
                 }
 
                 if (isset($_GET['contact-form-id']) && isset($_GET['contact-form-sent'])) {
-                    echo '<p><i class="fa fa-check" aria-hidden="true"></i> Thank you for your submission!</p>';
+                    echo '<p><i class="fas fa-check" aria-hidden="true"></i> Thank you for your submission!</p>';
                 }
 
                 echo do_shortcode('[contact-form to="portfolioreview@posterspy.com" subject="New End of Year Portfolio Review Submission" submit_button_text="Submit"][contact-field label="Full Name" type="name" required="1"][contact-field label="Email Address" type="email" required="1"][contact-field label="PosterSpy Profile URL" type="text" default="' . $profile_uri . '" required="1"][/contact-form]');

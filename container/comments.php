@@ -42,7 +42,7 @@ $args = [
     'must_log_in' => '<p class="must-log-in">' . sprintf('You must be <a href="%s">logged in</a> to post a comment.', home_url() . '/login/') . '</p>',
     'logged_in_as' => '',
     'comment_notes_after' => '',
-    'title_reply' => '<i class="fa fa-comment"></i> Leave a comment',
+    'title_reply' => '<i class="fas fa-comment"></i> Leave a comment',
     'title_reply_to' => 'Reply to %s',
 ];
 

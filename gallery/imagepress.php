@@ -63,6 +63,7 @@ function imagepress_menu() {
 }
 
 add_shortcode('imagepress-add', 'imagepress_add');
+add_shortcode('imagepress-add-beta', 'imagepress_add_beta');
 add_shortcode('imagepress-show', 'imagepress_show');
 add_shortcode('imagepress-search', 'imagepress_search');
 add_shortcode('imagepress-top', 'imagepress_top');
@@ -314,6 +315,443 @@ function imagepress_add($atts, $content = null) {
 
 
 
+
+
+
+// Main upload function
+function imagepress_add_beta($atts, $content = null) {
+	extract(shortcode_atts([
+		'category' => ''
+	], $atts));
+
+	global $current_user;
+	$out = '';
+
+	if (isset($_POST['imagepress_upload_image_form_submitted']) && wp_verify_nonce($_POST['imagepress_upload_image_form_submitted'], 'imagepress_upload_image_form')) {
+		$ip_status = 'publish';
+
+		if ((int) get_option('ip_moderate') === 0) {
+			$ip_status = 'pending';
+		}
+
+		$ip_image_author = $current_user->ID;
+
+		if (!empty($_POST['imagepress_image_caption'])) {
+			$imagepress_image_caption = sanitize_text_field($_POST['imagepress_image_caption']);
+		} else {
+			$imagepress_image_caption = 'ImagePress Image' . uniqid();
+		}
+
+		$user_image_data = [
+			'post_title' => $imagepress_image_caption,
+			'post_content' => sanitize_text_field($_POST['imagepress_image_description']),
+			'post_status' => $ip_status,
+			'post_author' => $ip_image_author,
+			'post_type' => 'poster'
+		];
+
+		// send notification email to administrator
+		$ip_notification_email = get_option('ip_notification_email');
+		$ip_notification_subject = 'New image uploaded! | ' . get_bloginfo('name');
+		$ip_notification_message = 'New image uploaded! | ' . get_bloginfo('name');
+
+		if ($post_id = wp_insert_post($user_image_data)) {
+            if (!empty($_POST['imagepress_dropbox_file'])) {
+                require_once ABSPATH . 'wp-admin' . '/includes/image.php';
+                require_once ABSPATH . 'wp-admin' . '/includes/file.php';
+                require_once ABSPATH . 'wp-admin' . '/includes/media.php';
+
+                $element = media_sideload_image($_POST['imagepress_dropbox_file'], $post_id);
+                $attachments = get_posts(
+                    [
+                        'post_type' => 'attachment',
+                        'numberposts' => 1,
+                        'order' => 'ASC',
+                        'post_parent' => $post_id
+                    ]
+                );
+                $attachment = $attachments[0];
+                set_post_thumbnail($post_id, $attachment->ID);
+            } else {
+                imagepress_process_image('imagepress_image_file', $post_id, $imagepress_image_caption);
+            }
+
+			// multiple images
+			if ((int) get_option('ip_upload_secondary') === 1) {
+				$files = $_FILES['imagepress_image_additional'];
+				if ($files) { 
+					foreach ($files['name'] as $key => $value) {
+						if ($files['name'][$key]) {
+							$file = [
+								'name' => $files['name'][$key],
+								'type' => $files['type'][$key],
+								'tmp_name' => $files['tmp_name'][$key],
+								'error' => $files['error'][$key],
+								'size' => $files['size'][$key]
+							];
+						}
+						$_FILES = ['attachment' => $file];
+						foreach ($_FILES as $file => $array) {
+							$attach_id = media_handle_upload($file, $post_id);
+							if ($attach_id < 0) {
+								$post_error = true;
+							}
+						}
+					}
+				}
+			}
+			// end multiple images
+
+            if (!empty($_POST['imagepress_image_category'])) {
+                wp_set_object_terms($post_id, (int)$_POST['imagepress_image_category'], 'imagepress_image_category');
+            }
+
+			// always moderate this category
+			$ip_cat_moderation_include = get_option('ip_cat_moderation_include');
+			if (!empty($ip_cat_moderation_include)) {
+				if ($_POST['imagepress_image_category'] == $ip_cat_moderation_include) {
+					$ip_post = [];
+					$ip_post['ID'] = $post_id;
+					$ip_post['post_status'] = 'pending';
+					wp_update_post($ip_post);
+				}
+			}
+			//
+
+            if (!empty($_POST['imagepress_image_keywords'])) {
+                $keywords = explode(',', $_POST['imagepress_image_keywords']);
+                wp_set_post_terms($post_id, $keywords, 'imagepress_image_keyword', false);
+            }
+
+			if (isset($_POST['imagepress_purchase']))
+				add_post_meta($post_id, 'imagepress_purchase', $_POST['imagepress_purchase'], true);
+			else
+				add_post_meta($post_id, 'imagepress_purchase', '', true);
+
+			if (isset($_POST['imagepress_video']))
+				add_post_meta($post_id, 'imagepress_video', $_POST['imagepress_video'], true);
+			else
+				add_post_meta($post_id, 'imagepress_video', '', true);
+
+			if (isset($_POST['imagepress_sticky']))
+				add_post_meta($post_id, 'imagepress_sticky', 1, true);
+			else
+				add_post_meta($post_id, 'imagepress_sticky', 0, true);
+
+            /**
+			if (isset($_POST['imagepress_image_wrb']))
+				add_post_meta($post_id, 'imagepress_image_wrb', $_POST['imagepress_image_wrb'], true);
+			else
+				add_post_meta($post_id, 'imagepress_image_wrb', '', true);
+            /**/
+
+			imagepress_post_add_custom($post_id, $ip_image_author);
+
+			$headers[] = "MIME-Version: 1.0\r\n";
+			$headers[] = "Content-Type: text/html; charset=\"" . get_option('blog_charset') . "\"\r\n";
+			wp_mail($ip_notification_email, $ip_notification_subject, $ip_notification_message, $headers);
+		}
+
+		$out .= '<p class="message noir-success">' . get_option('ip_upload_success_title') . '</p>';
+		$out .= '<p class="message noir-default"><a href="' . get_permalink($post_id) . '">' . get_option('ip_upload_success') . '</a></p>';
+
+		// hook_upload_success
+		$hook = get_option('hook_upload_success');
+		$hook = str_replace('#url#', get_permalink($post_id), $hook);
+		$out .= do_shortcode($hook);
+	}
+
+	if ((int) get_option('ip_registration') === 0 && !is_user_logged_in()) {
+		$out .= '<p>You need to be logged in to upload an image.</p>';
+	}
+	if (((int) get_option('ip_registration') === 0 && is_user_logged_in()) || (int) get_option('ip_registration') === 1) {
+		if (isset($_POST['imagepress_image_caption']) && isset($_POST['imagepress_image_category'])) {
+			//$out .= imagepress_get_upload_image_form($imagepress_image_caption = $_POST['imagepress_image_caption'], $imagepress_image_category = $_POST['imagepress_image_category'], $imagepress_image_description = $_POST['imagepress_image_description'], $category);
+        } else {
+			//$out .= imagepress_get_upload_image_form($imagepress_image_caption = '', $imagepress_image_category = '', $imagepress_image_description = '', $category);
+        }
+	}
+
+    $out .= '<style>
+    #ip-blocks li {
+        padding: 16px;
+        margin: 8px 0;
+        background-color: rgba(0, 0, 0, 0.25);
+        border-left: 3px dashed red;
+    }
+    .ip-block-container {
+        background-color: rgba(0, 0, 0, 0.25);
+        min-height: 128px;
+        padding: 24px;
+        margin: 16px 0;
+    }
+    .ip-block-content {
+        display: block; /* change back to none */
+    }
+    .ip-block-content-open {
+        display: block;
+    }
+
+    .ip-block-heading {
+        font-weight: 300;
+        font-size: 24px;
+    }
+    .ip-block-paragraph {
+        font-size: 16px;
+    }
+    .ip-block-caption {
+        font-size: 14px;
+    }
+    .ip-block-uploader {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: top;
+        -ms-flex-align: top;
+            align-items: top;
+}
+.ip-block-uploader > .ip-block-uploader-column {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+            padding: 24px;
+}
+.ip-block-uploader-element {
+    margin: 0 0 24px 0;
+}
+.ip-block-uploader-element label {
+    display: block;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 0 0 8px 0;
+}
+.ip-block-uploader-element input[type="text"],
+.ip-block-uploader-element input[type="url"],
+.ip-block-uploader-element textarea {
+    width: 100%;
+    border: 0 none;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 8px;
+    background-color: #333333;
+    color: #ffffff;
+}
+.ip-block-uploader-types a {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 2px;
+    background-color: #333333;
+}
+[contentEditable=true]:empty:not(:focus)::before{
+        content:attr(data-ph)
+    }
+    </style>';
+
+    $out .= '<div class="ip-block-uploader">
+        <div class="ip-block-uploader-column">
+            <div class="ip-block-uploader-element">
+                <label for="">Poster Title</label>
+                <input type="text" name="ip_block_title" id="ip-block-title">
+            </div>
+            <div class="ip-block-uploader-element">
+                <label for="">Poster Description</label>
+                <textarea name="ip_block_description" id="ip-block-description" rows="8"></textarea>
+            </div>
+            <div class="ip-block-uploader-element">
+                <label for="">Keywords</label>
+                <input type="text" name="ip_block_keywords" id="ip-block-keywords">
+            </div>
+            <div class="ip-block-uploader-element">
+                <label for="">Category</label>
+                ' . imagepress_get_image_categories_dropdown('imagepress_image_category', '') . '
+            </div>
+            <div class="ip-block-uploader-element">
+                <label for="">Video URL</label>
+                <input type="url" name="ip_block_video_url" id="ip-block-video-url" placeholder="https://">
+            </div>
+            <div class="ip-block-uploader-element">
+                <label for="">Purchase Link</label>
+                <input type="url" name="ip_block_purchase_link" id="ip-block-purchase-link" placeholder="https://">
+            </div>
+            <div class="ip-block-uploader-element">
+                <label for="">Project Thumbnail</label>
+                <div id="block-thumbnail-preview"></div>
+            </div>
+        </div>
+        <div class="ip-block-uploader-column">
+            <div class="ip-block-uploader-element">
+                <label>Drag and drop elements to your project</label>
+            </div>
+            <div class="ip-block-uploader-types">
+                <a href="#" id="ip-block-image">Add Image</a>
+                <a href="#" id="ip-block-heading">Add Heading</a>
+                <a href="#" id="ip-block-paragraph">Add Paragraph</a>
+                <a href="#" id="ip-block-caption">Add Caption</a>
+            </div>
+            <form method="post" name="form-blocks" id="form-blocks">
+                <ul id="ip-blocks" class="ip-block-container">
+                </ul>
+
+                <p><a href="#" name="form_block_submit" id="yay" class="btn btn-primary">Create Project</a></p>
+                <div id="block-status"></div>
+            </form>
+        </div>
+    </div>';
+    
+	return $out;
+}
+
+add_action('wp_ajax_ip_project_save', 'ip_project_save');
+add_action('wp_ajax_ip_project_save_image', 'ip_project_save_image');
+add_action('wp_ajax_ip_project_show_image', 'ip_project_show_image');
+add_action('wp_ajax_ip_project_delete_image', 'ip_project_delete_image');
+
+function ip_project_save() {
+    global $current_user;
+
+    // Initialise variables
+    $blockTitle = trim($_POST['blockTitle']);
+    $blockDescription = $_POST['blockDescription'];
+    $blockCategory = (int) $_POST['blockCategory'];
+    $blockKeywords = $_POST['blockKeywords'];
+    $blockVideoUri = $_POST['blockVideoUri'];
+    $blockPurchaseUri = $_POST['blockPurchaseUri'];
+    $blockContent = $_POST['blockContent'];
+    $blockThumbnail = $_POST['blockThumbnail'];
+
+    $ip_status = 'publish';
+
+    if ((int) get_option('ip_moderate') === 0) {
+        $ip_status = 'pending';
+    }
+
+    $ip_image_author = $current_user->ID;
+
+    $user_image_data = [
+        'post_title' => $blockTitle,
+        'post_content' => $blockDescription,
+        'post_status' => $ip_status,
+        'post_author' => $ip_image_author,
+        'post_type' => 'poster'
+    ];
+
+    // send notification email to administrator
+    $ip_notification_email = get_option('ip_notification_email');
+    $ip_notification_subject = 'New image uploaded! | ' . get_bloginfo('name');
+    $ip_notification_message = 'New image uploaded! | ' . get_bloginfo('name');
+
+    if ($post_id = wp_insert_post($user_image_data)) {
+        wp_set_object_terms($post_id, $blockCategory, 'imagepress_image_category');
+
+        // always moderate this category
+        $ip_cat_moderation_include = get_option('ip_cat_moderation_include');
+        if (!empty($ip_cat_moderation_include)) {
+            if ($_POST['imagepress_image_category'] == $ip_cat_moderation_include) {
+                $ip_post = [];
+                $ip_post['ID'] = $post_id;
+                $ip_post['post_status'] = 'pending';
+                wp_update_post($ip_post);
+            }
+        }
+        //
+
+        if (!empty($blockKeywords)) {
+            $keywords = explode(',', $blockKeywords);
+            wp_set_post_terms($post_id, $keywords, 'imagepress_image_keyword', false);
+        }
+
+        if (isset($blockPurchaseUri)) {
+            add_post_meta($post_id, 'imagepress_purchase', $blockPurchaseUri, true);
+        }
+
+        if (isset($blockVideoUri)) {
+            add_post_meta($post_id, 'imagepress_video', $blockVideoUri, true);
+        }
+
+        if (isset($blockContent)) {
+            add_post_meta($post_id, 'imagepress_project', $blockContent, true);
+        }
+
+        if (isset($_POST['imagepress_sticky'])) {
+            add_post_meta($post_id, 'imagepress_sticky', 1, true);
+        } else {
+            add_post_meta($post_id, 'imagepress_sticky', 0, true);
+        }
+
+        /**
+        if (isset($_POST['imagepress_image_wrb']))
+            add_post_meta($post_id, 'imagepress_image_wrb', $_POST['imagepress_image_wrb'], true);
+        else
+            add_post_meta($post_id, 'imagepress_image_wrb', '', true);
+        /**/
+
+        set_post_thumbnail($post_id, $blockThumbnail);
+
+        imagepress_post_add_custom($post_id, $ip_image_author);
+
+        $headers[] = "MIME-Version: 1.0\r\n";
+        $headers[] = "Content-Type: text/html; charset=\"" . get_option('blog_charset') . "\"\r\n";
+        wp_mail($ip_notification_email, $ip_notification_subject, $ip_notification_message, $headers);
+    }
+
+    exit;
+}
+
+function ip_project_save_image() {
+    $files = $_FILES['async-upload'];
+
+    if ($files) {
+        if ($files['name']) {
+            $file = [
+                'name' => $files['name'],
+                'type' => $files['type'],
+                'tmp_name' => $files['tmp_name'],
+                'error' => $files['error'],
+                'size' => $files['size']
+            ];
+        }
+        $_FILES = ['attachment' => $file];
+        foreach ($_FILES as $file => $array) {
+            $attach_id = media_handle_upload($file, 0); // not attached yet
+            if ($attach_id < 0) {
+                $post_error = true;
+            }
+        }
+    }
+    echo $attach_id;
+
+    exit;
+}
+
+function ip_project_show_image() {
+    $imageId= $_POST['imageId'];
+
+    $image_attributes = wp_get_attachment_image($imageId, 'imagepress_feed');
+    echo $image_attributes;
+
+    exit;
+}
+
+function ip_project_delete_image() {
+    $imageId = $_POST['imageId'];
+
+    $sizes = array_merge(array('full'), get_intermediate_image_sizes());
+    $uploads = wp_upload_dir();
+    foreach ($sizes as $imageSize) {
+        $image_object = wp_get_attachment_image_src($imageId, $imageSize);
+        $image_url = $image_object[0];
+        $image_path = str_replace($uploads['baseurl'], $uploads['basedir'], $image_url);
+
+        //unlink($image_path);
+        wp_delete_attachment($imageId, true);
+    }
+
+    exit;
+}
+
+
+
+
 function imagepress_resize_default_images($data) {
 	$ip_width = get_option('ip_max_width');
 	$ip_quality = get_option('ip_max_quality');
@@ -364,14 +802,8 @@ function imagepress_get_upload_image_form($imagepress_image_caption = '', $image
 		$out .= '<form id="imagepress_upload_image_form" method="post" action="" enctype="multipart/form-data" class="imagepress-form">';
 			$out .= wp_nonce_field('imagepress_upload_image_form', 'imagepress_upload_image_form_submitted');
             // name and email
-            $ip_request_user_details = get_option('ip_request_user_details');
-            if ((int) $ip_request_user_details === 1) {
-                $out .= '<p><input type="text" name="imagepress_author" value="' . $current_user->display_name . '" placeholder="' . get_option('ip_name_label') . '"></p>';
-                $out .= '<p><input type="email" name="imagepress_email" value="' . $current_user->user_email . '" placeholder="' . get_option('ip_email_label') . '"></p>';
-            } else {
-                $out .= '<input type="hidden" name="imagepress_author" value="' . $current_user->display_name . '">';
-                $out .= '<input type="hidden" name="imagepress_email" value="' . $current_user->user_email . '">';
-            }
+            $out .= '<input type="hidden" name="imagepress_author" value="' . $current_user->display_name . '">';
+            $out .= '<input type="hidden" name="imagepress_email" value="' . $current_user->user_email . '">';
 
 			$ip_caption_label = get_option('ip_caption_label');
 			if (!empty($ip_caption_label))
@@ -379,11 +811,7 @@ function imagepress_get_upload_image_form($imagepress_image_caption = '', $image
 
 			$ip_description_label = get_option('ip_description_label');
 			if (!empty($ip_description_label)) {
-				if ((int) get_option('ip_require_description') === 1)
-					$required = 'required';
-				else
-					$required = '';
-				$out .= '<p><textarea id="imagepress_image_description" name="imagepress_image_description" placeholder="' . get_option('ip_description_label') . '" rows="6" ' . $required . '></textarea></p>';
+				$out .= '<p><textarea id="imagepress_image_description" name="imagepress_image_description" placeholder="' . get_option('ip_description_label') . '" rows="6" required></textarea></p>';
 			}
 
 			$out .= '<p>';
@@ -419,7 +847,7 @@ function imagepress_get_upload_image_form($imagepress_image_caption = '', $image
             $out .= '<hr>';
             $out .= '<div id="imagepress-errors"></div>';
             $out .= '<h3>Primary Image</h3>';
-            $out .= '<p style="display: inline-block;"><label for="imagepress_image_file"><i class="fa fa-cloud-upload"></i> Select a file (' . $uploadsize . 'MB maximum)...</label><br><input type="file" accept="image/*" data-max-size="' . $datauploadsize . '" data-max-width="' . $ip_width . '" name="imagepress_image_file" id="imagepress_image_file"></p>';
+            $out .= '<p style="display: inline-block;"><label for="imagepress_image_file"><i class="fas fa-cloud-upload"></i> Select a file (' . $uploadsize . 'MB maximum)...</label><br><input type="file" accept="image/*" data-max-size="' . $datauploadsize . '" data-max-width="' . $ip_width . '" name="imagepress_image_file" id="imagepress_image_file"></p>';
 
             $out .= '<p style="display: inline-block; margin: 0 64px 0 8px;"><b><small>OR</small></b></p>';
 
@@ -441,7 +869,7 @@ function imagepress_get_upload_image_form($imagepress_image_caption = '', $image
 			$out .= '<hr>';
 
             $out .= '<h3>Secondary Image(s)<br><small>Additional images (variants, making of, progress shots)</small></h3>';
-            $out .= '<p><label for="imagepress_image_additional"><i class="fa fa-cloud-upload"></i> Select file(s) (' . $uploadsize . 'MB maximum)...</label><br><input type="file" accept="image/*" name="imagepress_image_additional[]" id="imagepress_image_additional" multiple></p><hr>';
+            $out .= '<p><label for="imagepress_image_additional"><i class="fas fa-cloud-upload"></i> Select file(s) (' . $uploadsize . 'MB maximum)...</label><br><input type="file" accept="image/*" name="imagepress_image_additional[]" id="imagepress_image_additional" multiple></p><hr>';
 
             $out .= '<p style="padding: 16px 0; font-size: 13px;"><input type="checkbox" id="ip-agree"> <label for="ip-agree">By uploading my artwork to PosterSpy, I agree that the work is my own and complies with the website\'s <a href="https://posterspy.com/about/terms-of-use/" target="_blank">Terms of Service</a>.</label></p>';
 			$out .= '<p class="center">';
@@ -539,9 +967,7 @@ function imagepress_activate() {
     add_option('cinnamon_account_page', 'http://yourdomain.com/login/');
 
     //
-    add_option('ip_request_user_details', 0);
     add_option('ip_upload_secondary', 0);
-    add_option('ip_require_description', 0);
     add_option('ip_override_email_notification', 1);
 
     //
@@ -599,6 +1025,8 @@ function imagepress_activate() {
 	delete_option('cinnamon_pt_account');
 	delete_option('cinnamon_edit_label');
 	delete_option('ip_vote_meta');
+	delete_option('ip_request_user_details');
+	delete_option('ip_require_description');
 
     global $wpdb;
 
@@ -669,11 +1097,12 @@ register_deactivation_hook(__FILE__, 'imagepress_deactivate');
 
 add_action('wp_enqueue_scripts', 'ip_enqueue_scripts');
 function ip_enqueue_scripts() {
-    wp_enqueue_style('fa', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+	wp_enqueue_script('fa5', 'https://use.fontawesome.com/releases/v5.2.0/js/all.js', [], '5.2.0', true);
 
 	wp_enqueue_style('ip-bootstrap', plugins_url('css/ip.bootstrap.css', __FILE__));
 
-	wp_enqueue_script('ipjs-main', plugins_url('js/jquery.main.js', __FILE__), ['jquery', 'masonry'], '6.4.0', true);
+	wp_enqueue_script('sortablejs', plugins_url('js/Sortable.min.js', __FILE__), [], '1.7.0', true);
+	wp_enqueue_script('ipjs-main', plugins_url('js/jquery.main.js', __FILE__), ['jquery', 'masonry', 'sortablejs'], '6.4.0', true);
 	wp_localize_script('ipjs-main', 'ip_ajax_var', [
 		'imagesperpage'               => get_option('ip_ipp'),
 		'authorsperpage'              => get_option('ip_app'),
@@ -838,9 +1267,9 @@ function imagepress_show($atts, $content = null) {
 			$out .= '<div class="cinnamon-sortable">
 				<div class="innersort">
 					<h4>Sort</h4>
-					<span class="sort initial" data-sort="imageviews" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most views</span>
-					<span class="sort" data-sort="imagecomments" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most comments</span>
-					<span class="sort" data-sort="imagelikes" data-order="desc"><i class="fa fa-circle fa-fw"></i> Most ' . get_option('ip_likes') . '</span>
+					<span class="sort initial" data-sort="imageviews" data-order="desc"><i class="fas fa-circle fa-fw"></i> Most views</span>
+					<span class="sort" data-sort="imagecomments" data-order="desc"><i class="fas fa-circle fa-fw"></i> Most comments</span>
+					<span class="sort" data-sort="imagelikes" data-order="desc"><i class="fas fa-circle fa-fw"></i> Most ' . get_option('ip_likes') . '</span>
 				</div>
 				<div class="innersort">
 					<h4>' . get_option('ip_image_find_title') . '</h4>
@@ -852,7 +1281,7 @@ function imagepress_show($atts, $content = null) {
 
         if (current_user_can('manage_options')) {
             if ((string) $filters === 'yes') {
-                $out .= '<div class="cinnamon-filters"><a href="#" class="sortByTaxonomyList" id="ip-taxonomy-filter-none"><i class="fa fa-times"></i> All</a>';
+                $out .= '<div class="cinnamon-filters"><a href="#" class="sortByTaxonomyList" id="ip-taxonomy-filter-none"><i class="fas fa-times"></i> All</a>';
                 $terms = get_terms('imagepress_image_category');
                 if (!empty($terms) && !is_wp_error($terms)) {
                     foreach ($terms as $term) {
@@ -865,20 +1294,16 @@ function imagepress_show($atts, $content = null) {
             }
         }
 		
-		//$out .= '<ul id="ip_container_' . $ip_unique_id . '" class="list" style="display: block;" data-imagepress-count="' . get_option('ip_ipp') . '" data-imagepress-id="' . $ip_unique_id . '">';
-		$out .= '<div id="ip-boxes" data-imagepress-count="' . get_option('ip_ipp') . '">';
+		$out .= '<div id="ip-boxes" class="ip-box-container" data-imagepress-count="' . get_option('ip_ipp') . '">';
 
         // the configurator
         $ip_comments = '';
 
         if (empty($size)) {
-            $size = get_option('ip_image_size');
-            $size = (string) $size;
+            $size = (string) 'imagepress_pt_lrg';
         }
 
         foreach ($posts as $user_image) {
-            //setup_postdata($user_image);
-
             $i = $user_image->ID;
 
             $user_info = get_userdata($user_image->post_author);
@@ -891,7 +1316,7 @@ function imagepress_show($atts, $content = null) {
             if (!empty($collection) && is_numeric($collection) && (int) $collection > 0) {
                 $logged_in_user = wp_get_current_user();
                 if ((int) $collection_row['collection_author_ID'] === (int) $logged_in_user->ID) {
-                    $out .= '<div class="ip_box_bottom"><a href="#" class="deleteCollectionImage" data-image-id="' . $i . '"><i class="fa fa-times"></i> Remove</a></div>';
+                    $out .= '<div class="ip_box_bottom"><a href="#" class="deleteCollectionImage" data-image-id="' . $i . '"><i class="fas fa-times"></i> Remove</a></div>';
                 }
             }
 
@@ -899,8 +1324,8 @@ function imagepress_show($atts, $content = null) {
 		}
 
 		$out .= '</div>';
-		//$out .= '</ul>';
-		if ((int) $limit === 999999 or (int) $count === 0) {
+
+        if ((int) $limit === 999999 or (int) $count === 0) {
 			$out .= '<ul class="pagination"></ul>';
         }
 
@@ -1029,7 +1454,7 @@ function imagepress_widget($atts, $content = null) {
     if($is && ($type == 'top')) {
         foreach($is as $i) {
 			if(get_option('ip_comments') == 1)
-				$ip_comments = '<i class="fa fa-comments"></i> ' . get_comments_number($user_image->ID) . '';
+				$ip_comments = '<i class="fas fa-comments"></i> ' . get_comments_number($user_image->ID) . '';
 			if(get_option('ip_comments') == 0)
 				$ip_comments = '';
 
@@ -1040,7 +1465,7 @@ function imagepress_widget($atts, $content = null) {
 
 			$display .= '<div id="ip_container_2"><div class="ip_icon_hover">' . 
                     '<div><strong>' . get_the_title($i->ID) . '</strong></div>' . 
-					'<div><small><i class="fa fa-eye"></i> ' . ip_getPostViews($i->ID) . ' ' . $ip_comments . ' <i class="fa fa-heart"></i> ' . imagepress_get_like_count($i->ID) . '</small></div>
+					'<div><small><i class="fas fa-eye"></i> ' . ip_getPostViews($i->ID) . ' ' . $ip_comments . ' <i class="fas fa-heart"></i> ' . imagepress_get_like_count($i->ID) . '</small></div>
 				</div><a href="' . $ip_image_link . '" class="ip-link">' . wp_get_attachment_image($post_thumbnail_id, 'full') . '</a></div>';
 		}
     }

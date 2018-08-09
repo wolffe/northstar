@@ -20,17 +20,17 @@ if(!empty($meta_USERS[0])) {
 
 $out = '<div style="position: relative;" id="ip-who-value">';
     if($totalUsers == 1 && $who == 'You') {
-        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> You love this poster</div>';
+        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> You love this poster</div>';
     } else if($totalUsers == 0) {
-        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> Be the first to love this poster</div>';
+        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> Be the first to love this poster</div>';
     } else if($totalUsers == 1) {
-        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> ' . $who . ' loves this</div>';
+        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> ' . $who . ' loves this</div>';
     } else if($totalUsers > 1 && $who == 'You') {
         $totalUsers--;
-        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
+        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
     } else if($totalUsers > 1 && $who != 'You') {
         $totalUsers--;
-        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fa fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
+        $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
     }
 
     $out .= '<div class="view" style="display: none; position: absolute; background-color: #111111; padding: 16px; max-height: 300px; overflow: auto; z-index: 100; text-align: left; width: 100%; border-radius: 2px;">';
@@ -44,7 +44,7 @@ $out = '<div style="position: relative;" id="ip-who-value">';
                 } else {
                     $u = get_the_author_meta('username', $user);
                 }
-                $out .= '<small><i class="fa fa-user"></i></small> <a href="' . get_author_posts_url($user) . '">' . $u . '</a><br>';
+                $out .= '<small><i class="fas fa-user"></i></small> <a href="' . get_author_posts_url($user) . '">' . $u . '</a><br>';
             }
         }
     }

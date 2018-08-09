@@ -16,8 +16,8 @@ if (!ip_is_ajax()) {
 
             <nav class="navigation" role="navigation">
                 <ul>
-                    <li class=""><?php next_post_link('%link', '<i class="fa fa-fw fa-chevron-left"></i>', true, '', 'imagepress_image_category'); ?></li>
-                    <li class="right"><?php previous_post_link('%link', '<i class="fa fa-fw fa-chevron-right"></i>', true, '', 'imagepress_image_category'); ?></li>
+                    <li class=""><?php next_post_link('%link', '<i class="fas fa-fw fa-chevron-left"></i>', true, '', 'imagepress_image_category'); ?></li>
+                    <li class="right"><?php previous_post_link('%link', '<i class="fas fa-fw fa-chevron-right"></i>', true, '', 'imagepress_image_category'); ?></li>
                 </ul>
             </nav>
 
@@ -26,11 +26,19 @@ if (!ip_is_ajax()) {
 
                 <br>
                 <div class="poster-container-overlay">
-                    <a href="<?php echo $full; ?>" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
+                    <a href="<?php echo $full; ?>" target="_blank"><i class="fas fa-expand" aria-hidden="true"></i></a>
                 </div>
 
                 <?php ip_setPostViews($i); ?>
                 <?php imagepress_get_images($i); ?>
+
+                <?php
+                $imagepressProject = get_post_meta($i, 'imagepress_project', true);
+
+                if ((string) $imagepressProject !== '') {
+                    echo $imagepressProject;
+                }
+                ?>
 
                 <?php
                 $imagepress_video = get_post_meta($i, 'imagepress_video', true);

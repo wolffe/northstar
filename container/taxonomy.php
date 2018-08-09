@@ -18,7 +18,7 @@
     ];
     $wp_query = new WP_Query($args1);
     ?>
-    <div id="ip-boxes">
+    <div id="ip-boxes" class="ip-box-container">
         <?php if ($wp_query->have_posts()) : ?>
             <?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
                 <?php
@@ -45,8 +45,8 @@
 
     <?php if ($wp_query->max_num_pages > 1) { ?>
         <nav id="nav-below" class="navigation" role="navigation">
-            <div class="nav-next"><?php previous_posts_link('<i class="fa fa-chevron-left"></i> Back'); ?></div>
-            <div class="nav-previous"><?php next_posts_link('Next <i class="fa fa-chevron-right"></i>'); ?></div>
+            <div class="nav-next"><?php previous_posts_link('<i class="fas fa-chevron-left"></i> Back'); ?></div>
+            <div class="nav-previous"><?php next_posts_link('Next <i class="fas fa-chevron-right"></i>'); ?></div>
         </nav>
         <div class="nav-below-stats">
             <?php

@@ -12,4 +12,4 @@
 
 <div style="clear:both"></div>
 
-<a id="stt"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+<a id="stt"><i class="fas fa-chevron-up" aria-hidden="true"></i></a>
