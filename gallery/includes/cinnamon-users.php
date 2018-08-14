@@ -282,13 +282,13 @@ function cinnamon_profile($atts, $content = null) {
     $display = $hub_facebook = $hub_twitter = $hub_instagram = $hub_linkedin = $hub_user_url = $verified = '';
 
     if ($hub_user_info->facebook != '')
-        $hub_facebook = ' <a href="' . $hub_user_info->facebook . '" target="_blank"><i class="fab fa-facebook-square"></i></a>';
+        $hub_facebook = ' <a href="' . $hub_user_info->facebook . '" target="_blank"><i class="fab fa-facebook-f"></i></a>';
     if ($hub_user_info->twitter != '')
-        $hub_twitter = ' <a href="https://twitter.com/' . $hub_user_info->twitter . '" target="_blank"><i class="fab fa-twitter-square"></i></a>';
+        $hub_twitter = ' <a href="https://twitter.com/' . $hub_user_info->twitter . '" target="_blank"><i class="fab fa-twitter"></i></a>';
     if ($hub_user_info->instagram != '')
         $hub_instagram = ' <a href="https://instagram.com/' . $hub_user_info->instagram . '/" target="_blank"><i class="fab fa-instagram"></i></a>';
     if ($hub_user_info->linkedin != '')
-        $hub_linkedin = ' <a href="' . $hub_user_info->linkedin . '" target="_blank"><i class="fab fa-linkedin"></i></a>';
+        $hub_linkedin = ' <a href="' . $hub_user_info->linkedin . '" target="_blank"><i class="fab fa-linkedin-in"></i></a>';
 
     $hca = get_the_author_meta('hub_custom_cover', $author);
     $hca = wp_get_attachment_url($hca);
@@ -984,7 +984,7 @@ function cinnamon_profile_edit($atts, $content = null) {
                                 <input name="updateuser" type="submit" class="btn btn-primary" id="updateuser" value="Update">
                                 <?php wp_nonce_field('update-user'); ?>
                                 <input name="action" type="hidden" id="action" value="update-user">
-                                <i class="fas fa-share-alt-square"></i> <a href="<?php echo get_author_posts_url($current_user->ID); ?>">View and share your profile></a>
+                                <i class="fas fa-share-alt-square"></i> <a href="<?php echo get_author_posts_url($current_user->ID); ?>">View and share your profile</a>
                             </td>
                         </tr>
                     </table>

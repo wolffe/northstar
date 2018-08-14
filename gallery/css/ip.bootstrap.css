@@ -204,7 +204,8 @@ a img { border: none; }
 .ip_box_img img { margin: 0; }
 .ip_box .fa-lg { float: left; margin: 4px 0 0 0; }
 
-.ip_box .avatar { width: 16px !important; height: auto !important; display: inline-block !important; }
+.ip_box .avatar { width: 16px !important; height: auto !important; display: inline-block !important; border-radius: 50%; }
+.avatar { border-radius: 50%; }
 
 .imagecategory { display: none; cursor: pointer; height: 18px; overflow: hidden; margin: 6px 0 0 0; font-size: 12px; }
 
@@ -256,7 +257,7 @@ a img { border: none; }
 }
 
 
-.ip-editor { display: none; background-color: rgba(255, 255, 255, 0.25); padding: 16px; text-align: left; }
+.ip-editor { display: none; }
 .ip-editor-display { text-align: left; display: block; }
 .ip-uploader { background-color: rgba(22, 30, 38, 1); padding: 16px; margin: 24px 0; }
 .ip-uploader h3 { font-weight: 300; font-size: 20px; margin: 24px 0 32px 0; }
@@ -357,6 +358,236 @@ a img { border: none; }
     padding: 8px;
     margin: 0 0 4px 0;
 }
+
+
+
+.poster-container {
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 2560px) {
+    .poster-container {
+        width: 800px;
+    }
+}
+@media screen and (max-width: 1920px) {
+    .poster-container {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 1366px) {
+    .poster-container {
+        width: 500px;
+    }
+}
+
+
+@media screen and (max-width: 1310px) {
+    .shiny-menu.shiny-menu-right li:first-child,
+    .search.menu-search {
+        display: none;
+    }
+}
+
+
+
+.poster-container .ip-block-content {
+    margin: 24px 0;
+}
+.poster-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.poster-container .ip-block-paragraph,
+.poster-container {
+    font-size: 16px;
+    line-height: 1.5;
+}
+.poster-container .ip-block-heading {
+    font-size: 20px;
+    font-weight: 400;
+}
+.poster-container .ip-block-caption {
+    font-size: 14px;
+    color: #9d9d9d;
+}
+
+
+
+
+
+/**
+ * Uploader
+ */
+.page-id-88154 .wrap {
+    width: 1280px;
+}
+.page-id-88154 h1.entry-title {
+    text-align: center;
+    border-bottom: 0 none;
+}
+#ip-blocks li {
+    position: relative;
+    padding: 16px 32px 16px 32px;
+    margin: 8px 0;
+    background: #121212 url(https://posterspy.com/wp-content/plugins/imagepress/img/grip.png) 8px center no-repeat;
+    border-radius: 3px;
+
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+}
+.ip-block-container {
+    border-radius: 3px;
+    min-height: 512px;
+    padding: 24px 0;
+    margin: 16px 0;
+}
+.ip-block-content {
+    display: block;
+}
+.ip-block-uploader .ip-block-content-collapsed img {
+    max-width: 240px !important;
+}
+
+.ip-block-content img {
+    max-width: 100%;
+    height: auto;
+}
+#ip-imagepress-project {
+    display: none;
+}
+
+
+.ip-block-heading {
+    font-weight: 300;
+    font-size: 24px;
+}
+.ip-block-paragraph {
+    font-size: 16px;
+    min-height: 92px;
+}
+.ip-block-caption {
+    font-size: 14px;
+}
+.ip-block-paragraph[contenteditable="true"],
+.ip-block-heading[contenteditable="true"],
+.ip-block-caption[contenteditable="true"] {
+    background-color: #303030;
+    padding: 8px;
+    cursor: text;
+}
+.ip-block-delete {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.ip-block-delete a {
+    padding: 8px;
+    color: #9d9d9d;
+    display: block;
+}
+.ip-block-delete a:hover {
+    color: #ffffff;
+}
+
+.ip-block-uploader {
+    background-color: #161616;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: top;
+    -ms-flex-align: top;
+    align-items: top;
+}
+.ip-block-uploader.ip-flex-fix {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+}
+.ip-block-uploader > .ip-block-uploader-column {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 24px;
+}
+.ip-block-uploader-element {
+    margin: 0 0 24px 0;
+}
+.ip-block-uploader-element label {
+    display: block;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 0 0 8px 0;
+}
+.ip-block-uploader-element input[type="text"],
+.ip-block-uploader-element input[type="url"],
+.ip-block-uploader-element textarea {
+    width: 100%;
+    border: 0 none;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 8px;
+    background-color: #303030;
+    color: #ffffff;
+}
+.ip-block-uploader-types a {
+    display: inline-block;
+    padding: 18px 12px;
+    margin: 0 1px 4px 0;
+    color: #ffffff;
+    background-color: #4b4b4b;
+    border-radius: 3px;
+}
+.ip-block-uploader-types a:hover {
+    background-color: #414141;
+    text-decoration: none;
+}
+.ip-block-description {
+    padding: 8px 0 4px 0;
+}
+.blockImageForm {
+    position: relative;
+}
+.blockImageForm:after {
+    position: absolute;
+    z-index: 1;
+    top: 24%;
+    content: "Drag an image here or select one";
+    color: #666666;
+    width: 100%;
+    text-align: center;
+    display: block;
+}
+#blockImageFile {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    padding: 84px 24px 48px 24px;
+    border: 1px dashed #666666;
+    border-radius: 3px;
+}
+
+#blockImageFile.dragged-over {
+    border: 1px dashed #ffffff;
+}
+[contentEditable=true]:empty:not(:focus)::before{
+    content:attr(data-ph)
+}
+/**/
+
+
+
+
+
+
+
+
 
 
 section[role="navigation"] a { display: inline; }
@@ -529,11 +760,11 @@ section[role="navigation"] a { display: inline; }
 }
 .cinnamon .form-table .hub-skills input[type=checkbox] + label:before,
 .cinnamon .form-table .hub-proficiencies input[type=checkbox] + label:before {
-    content: "&#9634;";
+    content: "\25a2";
 }
 .cinnamon .form-table .hub-skills input[type=checkbox]:checked + label:before,
 .cinnamon .form-table .hub-proficiencies input[type=checkbox]:checked + label:before {
-    content: "&#9635;";
+    content: "\2611";
 }
 
 
@@ -1203,7 +1434,7 @@ html.no-js .whiskey-tab-content {
     cursor: pointer;
 }
 .swal2-popup #swal2-content {
-    text-align: left;
+    text-align: center;
 }
 
 .pm-container {

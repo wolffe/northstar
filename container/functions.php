@@ -174,58 +174,6 @@ function noir_comments($comment, $args, $depth) {
 }
 
 
-/**
- * Adds a box to the main column on the Post and Page edit screens.
- * REMOVE THIS
- */
-function imagepress_add_meta_box() {
-    $screens = ['poster'];
-
-    foreach($screens as $screen) {
-        add_meta_box('imagepress_sectionid', 'Staff Comment', 'imagepress_meta_box_callback', $screen);
-    }
-}
-add_action('add_meta_boxes', 'imagepress_add_meta_box');
-
-function imagepress_meta_box_callback($post) {
-    wp_nonce_field('imagepress_meta_box', 'imagepress_meta_box_nonce');
-    $value = get_post_meta( $post->ID, '_comment_value_key', true );
-
-    echo '<label for="imagepress_new_field">Add a short staff comment</label><br>';
-    echo '<input type="text" id="imagepress_new_field" name="imagepress_new_field" value="' . esc_attr($value) . '" size="60">';
-}
-
-function imagepress_save_meta_box_data($post_id) {
-    if(!isset($_POST['imagepress_meta_box_nonce'])) {
-        return;
-    }
-    if(!wp_verify_nonce($_POST['imagepress_meta_box_nonce'], 'imagepress_meta_box')) {
-        return;
-    }
-    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return;
-    }
-    if(isset($_POST['post_type']) && 'page' == $_POST['post_type']) {
-        if(!current_user_can('edit_page', $post_id)) {
-            return;
-        }
-    }
-    else {
-        if(!current_user_can('edit_post', $post_id)) {
-            return;
-        }
-    }
-
-    if(!isset($_POST['imagepress_new_field'])) {
-        return;
-    }
-
-    $my_data = sanitize_text_field($_POST['imagepress_new_field']);
-
-    update_post_meta($post_id, '_comment_value_key', $my_data);
-}
-add_action('save_post', 'imagepress_save_meta_box_data');
-/////////////////////////////////////
 
 // custom width box
 function box_ps($atts, $content = null) {
@@ -394,12 +342,6 @@ function carousel_ps() {
 // Hook into the 'init' action
 add_action('init', 'carousel_ps', 0);
 
-add_filter('body_class','noir_body_classes');
-function noir_body_classes($c) {
-    wp_is_mobile() ? $c[] = 'mobile' : 'desktop';
-
-    return $c;
-}
 
 
 /**

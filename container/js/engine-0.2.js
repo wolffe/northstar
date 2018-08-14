@@ -1,70 +1,6 @@
-(function ($) {
-    $.fn.imageLens = function (options) {
-
-        var defaults = {
-            lensSize: 100,
-            borderSize: 4,
-            borderColor: "#888",
-            lensCss: "lensItem"
-        };
-        var options = $.extend(defaults, options);
-        var lensStyle = "background-position: 0px 0px;width: " + String(options.lensSize) + "px;height: " + String(options.lensSize)
-            + "px;float: left;display: none;border-radius: " + String(options.lensSize / 2 + options.borderSize)
-            + "px;border: " + String(options.borderSize) + "px solid " + options.borderColor 
-            + ";background-repeat: no-repeat;position: absolute;";
-
-        return this.each(function () {
-            obj = $(this);
-
-            var offset = $(this).offset();
-
-            // Creating lens
-            var target = $("<div style='" + lensStyle + "' class='" + options.lensCss + "'>&nbsp;</div>").appendTo($("body"));
-            var targetSize = target.size();
-
-            // Calculating actual size of image
-            var imageSrc = options.imageSrc ? options.imageSrc : $(this).attr("src");
-            var imageTag = "<img class='lensMeHelper' style='display: none;' src='" + imageSrc + "' />";
-
-            var widthRatio = 0;
-            var heightRatio = 0;
-
-            $(imageTag).load(function () {
-                widthRatio = $(this).width() / obj.width();
-                heightRatio = $(this).height() / obj.height();
-            }).appendTo($(this).parent());
-
-            target.css({ backgroundImage: "url('" + imageSrc + "')" });
-
-            target.mousemove(setPosition);
-            $(this).mousemove(setPosition);
-
-            function setPosition(e) {
-
-                var leftPos = parseInt(e.pageX - offset.left);
-                var topPos = parseInt(e.pageY - offset.top);
-
-                if (leftPos < 0 || topPos < 0 || leftPos > obj.width() || topPos > obj.height()) {
-                    target.hide();
-                }
-                else {
-                    target.show();
-
-                    leftPos = String(((e.pageX - offset.left) * widthRatio - target.width() / 2) * (-1));
-                    topPos = String(((e.pageY - offset.top) * heightRatio - target.height() / 2) * (-1));
-                    target.css({ backgroundPosition: leftPos + 'px ' + topPos + 'px' });
-
-                    leftPos = String(e.pageX - target.width() / 2);
-                    topPos = String(e.pageY - target.height() / 2);
-                    target.css({ left: leftPos + 'px', top: topPos + 'px' });
-                }
-            }
-        });
-    };
-})(jQuery);
-/**/
-
-
+/* eslint-env browser */
+/* jslint-env browser */
+/* global window, document console, jQuery, swal, ga */
 
 jQuery.fn.extend({
     greedyScroll: function(sensitivity) {
@@ -94,9 +30,10 @@ jQuery.fn.infiniteCarousel = function(config){
     }, config);
 
     var viewportEl = this.find('.viewport'), listEl = viewportEl.find('.list');
-    var first = listEl.children(":first"), last = listEl.children(":last");
+    var first = listEl.children(":first"),
+        last = listEl.children(":last"),
+        distance;
 
-    var distance, prevProp, nextProp;
     distance = Math.max(first.outerWidth(true), last.outerWidth(true));
 
     function move(config) {
@@ -272,10 +209,7 @@ jQuery(document).ready(function($){
 	jQuery('.infinite-carousel-new').infiniteCarousel();
 
 	jQuery('<div class="background-gradient"></div>').appendTo('.item');
-	jQuery('.item').each(function(){
-		var max = 20,
-			hue = Math.floor(Math.random() * max),
-			half = hue - 90;
+	jQuery('.item').each(function () {
 		jQuery(this).find('.background-gradient').css({ backgroundImage: 'linear-gradient(90deg, #0cb8fc 0%, #0cb8fc 100%)' });
 	});
 
@@ -290,8 +224,6 @@ jQuery(document).ready(function($){
 /**
 jQuery(window).load(function(){
     //jQuery('#hub-loading').fadeOut(100);
-    //jQuery('.poster-container .wp-post-image').addClass('lensMe');
-    //jQuery('.poster-container .lensMe').imageLens({ lensSize: 200 });
 });
 
 var num = 140; //number of pixels before modifying styles
@@ -332,19 +264,19 @@ jQuery(document).ready(function(){
 
     jQuery.ajaxSetup({cache:false});
 
-    jQuery(".desktop .ip_box > a").click(function(e) {
-        var post_link = jQuery(this).attr("href");
+    jQuery(document).on('click', '.ip_box > a', function (e) {
+        var post_link = jQuery(this).attr('href');
+
         ga('send', 'pageview', post_link);
 
         jQuery('#lightbox-original-url').val(location.href);
+        jQuery('html').css({'overflow': 'hidden'});
 
-        jQuery("html").css({'overflow': 'hidden'});
+        window.history.pushState('poster', 'Poster', post_link);
 
-        window.history.pushState("poster", "Poster", post_link);
-
-        jQuery("#single-post-container").html('<i class="fas fa-circle-notch fa-spin fa-fw"></i>');
-        jQuery("#single-post-container").load(post_link);
-        jQuery("#single-post-container").fadeIn();
+        jQuery('#single-post-container').html('<i class="fas fa-circle-notch fa-spin fa-fw"></i>');
+        jQuery('#single-post-container').load(post_link);
+        jQuery('#single-post-container').fadeIn();
 
         setTimeout(loadFitPoster, 1500);
 
@@ -471,4 +403,4 @@ window.onload = function () {
         jQuery('.pm-new').show();
     });
     /**/
-                };
+};

@@ -1,3 +1,7 @@
+/* eslint-env browser */
+/* jslint-env browser */
+/* global window, document console, jQuery, ip_ajax_var */
+
 (function($){
     jQuery.fn.jConfirmAction = function(options){
         var theOptions = jQuery.extend({
@@ -355,7 +359,7 @@ jQuery(document).ready(function($) {
             tab.find('.tab_content').find('.ip-tabs-item').not('.ip-tabs-item:eq(' + index + ')').slideUp();
             tab.find('.tab_content').find('.ip-tabs-item:eq(' + index + ')').slideDown();
 
-            runMasonry('#ip-boxes');
+            runMasonry();
 
             g.preventDefault();
         });
@@ -467,16 +471,16 @@ jQuery(document).ready(function($) {
 
 
 	jQuery('.initial i').addClass('teal');
-    jQuery(document).on('click', '.sort', function(e){
+    jQuery(document).on('click', '.sort', function () {
 		jQuery('.sort i').removeClass('teal');
 		jQuery('i', this).addClass('teal');
 	});
 
 
 
-    jQuery(document).on('click', '.imagecategory', function(e){
+    jQuery(document).on('click', '.imagecategory', function () {
 		var tag = jQuery(this).data('tag')
-        console.log('clicked on category ' + tag);
+        //console.log('clicked on category ' + tag);
 		jQuery('body').find('#ipsearch').val(tag);
 		jQuery('body').find('#ipsearch').focus();
 
@@ -523,7 +527,7 @@ jQuery(document).ready(function($) {
 				collection_title: jQuery('#collection_title').val(),
 				collection_status: jQuery('#collection_status').val()
 			}
-		}).done(function(msg) {
+		}).done(function () {
 			jQuery('.addCollection').val('Create another collection');
 			jQuery('.collection-progress').hide();
 			jQuery('.showme').fadeIn();
@@ -542,7 +546,7 @@ jQuery(document).ready(function($) {
 				action: 'deleteCollection',
 				collection_id: ipc,
 			}
-		}).done(function(msg) {
+		}).done(function () {
 			jQuery('.ipc' + ipc).fadeOut();
 			jQuery('.ip-loadingCollections').fadeOut();
 		});
@@ -558,7 +562,7 @@ jQuery(document).ready(function($) {
 				action: 'deleteCollectionImage',
 				image_id: ipc,
 			}
-		}).done(function(msg) {
+		}).done(function () {
 			jQuery('.ip_box_' + ipc).fadeOut();
 			jQuery('.ip-loadingCollections').fadeOut();
 		});
@@ -576,7 +580,7 @@ jQuery(document).ready(function($) {
 				collection_id: ipc,
 				collection_title: jQuery('.ct' + ipc).val(),
 			}
-		}).done(function(msg) {
+		}).done(function () {
 			jQuery('.collection_details_edit').removeClass('active');
 			jQuery('.imagepress-collections').trigger('click');
 		});
@@ -596,7 +600,7 @@ jQuery(document).ready(function($) {
 				collection_id: ipc,
 				collection_status: jQuery(option).val()
 			}
-		}).done(function(msg) {
+		}).done(function () {
 			jQuery('.cde' + ipc).fadeOut('fast');
 		});
 
@@ -657,7 +661,7 @@ jQuery(document).ready(function($) {
     jQuery('#imagepress_submit').attr('disabled', true);
 
     // Check if agreement has been checked
-    jQuery(document).on('click', '#ip-agree', function(e) {
+    jQuery(document).on('click', '#ip-agree', function () {
         if(jQuery('#ip-agree').is(':checked')) {
             jQuery('#imagepress_submit').css('opacity', '1');
             jQuery('#imagepress_submit').removeAttr('disabled');
@@ -686,7 +690,7 @@ function postPrivateMessage() {
                 message: message,
                 action: 'ip_post_pm_thread',
             },
-            success: function (data) {
+            success: function () {
                 jQuery('#pm_message').val('');
 
                 jQuery.ajax({
@@ -738,7 +742,7 @@ jQuery(document).ready(function () {
                 pm_value: pm_value,
                 action: 'ip_user_pm_enable',
             },
-            success: function (data) {
+            success: function () {
                 jQuery('#pm-message').html('<p>Settings saved.</p>');
             }
         });
@@ -786,7 +790,7 @@ jQuery(document).ready(function () {
 
 
 
-    jQuery(document).on('submit', 'form#pm_send_form', function (e) {
+    jQuery(document).on('submit', 'form#pm_send_form', function () {
         postPrivateMessage();
     });
 
@@ -804,7 +808,7 @@ jQuery(document).ready(function () {
             loadReceiver= jQuery(this).data('receiver');
 
         loadLimit = parseInt(loadLimit) + 5;
-        console.log('should set new limit for ' + loadLimit);
+        //console.log('should set new limit for ' + loadLimit);
         jQuery('#pm-load-limit').attr('data-limit', loadLimit);
 
         jQuery.ajax({
@@ -852,7 +856,7 @@ jQuery(document).ready(function () {
 
             return false;
         }
-    };
+    }
 });
 //To select country name
 function selectUser(id, val) {
@@ -969,29 +973,7 @@ $(function(){
 });
 /**/
 
-/**
- * Check when document is ready
- *
- * Checks when document is loaded and ready to accept changes
- */
-function onDOMReady(callback) {
-    if (document.readyState !== 'loading') {
-        callback();
-    } else if (document.addEventListener) {
-        document.addEventListener('DOMContentLoaded', callback);
-    } else { // IE <= 8
-        document.attachEvent('onreadystatechange', function() {
-            if (document.readyState === 'complete') {
-                callback();
-            }
-        });
-    }
-}
-
-onDOMReady(function () {
-});
-
-function runMasonry(element) {
+function runMasonry() {
     if (document.querySelector('.ip-box-container')) {
         var elements = document.getElementsByClassName('ip-box-container');
 
@@ -1004,36 +986,14 @@ function runMasonry(element) {
             });
         }
     }
-    /**
-    if (document.querySelector('#ip-boxes')) {
-        element = '#ip-boxes';
-
-        var container = document.querySelector(element);
-        var msnry = new Masonry(container, {
-            itemSelector: '.ip_box ',
-            columnWidth: '.ip_box',
-            gutter: 0,
-        });
-    }
-    if (document.querySelector('.cinnamon-likes div div')) {
-        element = '.cinnamon-likes div div';
-
-        var container = document.querySelector(element);
-        var msnry = new Masonry(container, {
-            itemSelector: '.ip_box ',
-            columnWidth: '.ip_box',
-            gutter: 0,
-        });
-    }
-    /**/
 }
 
 jQuery(window).on('load', function () {
     // Enable Masonry for poster images
-    runMasonry('#ip-boxes');
+    runMasonry();
 
     jQuery(document).on('click', '#moon-tabs a', function () {
-        runMasonry('#ip-boxes');
+        runMasonry();
     });
 
     // Load collections on settings/collection-manager page
@@ -1051,7 +1011,7 @@ jQuery(window).on('load', function () {
             jQuery('.ip-loadingCollections').fadeOut();
 
             // Collection link copy to clipboard
-            document.querySelector('.collection-details-url').addEventListener('click', function (event) {
+            document.querySelector('.collection-details-url').addEventListener('click', function () {
                 var copyTextarea = document.querySelector('.collection-details-url');
                 copyTextarea.select();
 
@@ -1069,233 +1029,4 @@ jQuery(window).on('load', function () {
             });
         });
     }
-
-    // Sortable
-    var blockContainer = document.getElementById('ip-blocks');
-    var sortable = Sortable.create(blockContainer, {
-        onUpdate: function (evt) {
-            console.log(sortable.toArray());
-            //sortable.sort(order.reverse()); // apply
-        },
-    });
-
-    // select the accordion
-    blockContainer.addEventListener('click', function (event) {
-        if (event.target.className === 'ip-block-title') {
-            var blockContent = event.target.nextElementSibling;
-            blockContent.classList.toggle('ip-block-content-open');
-        }
-    });
-
-    document.getElementById('ip-block-image').addEventListener('click', function (event) {
-        appendBlock('image');
-
-        event.preventDefault();
-    });
-    document.getElementById('ip-block-heading').addEventListener('click', function (event) {
-        appendBlock('heading');
-
-        event.preventDefault();
-    });
-    document.getElementById('ip-block-paragraph').addEventListener('click', function (event) {
-        appendBlock('paragraph');
-
-        event.preventDefault();
-    });
-    document.getElementById('ip-block-caption').addEventListener('click', function (event) {
-        appendBlock('caption');
-
-        event.preventDefault();
-    });
-
-
-
-
-    /**
-     * Create and save a block-based poster project
-     *
-     * @todo Remove all content editables
-     */
-    jQuery(document).on('click', '#yay', function (event) {
-        jQuery('#block-status').html('Creating your project...');
-
-        var title = jQuery('#ip-block-title').val(),
-            description = jQuery('#ip-block-description').val(),
-            category = jQuery('#imagepress_image_category').val(),
-            keywords = jQuery('#ip-block-keywords').val(),
-            videoUri = jQuery('#ip-block-video-url').val(),
-            purchaseUri = jQuery('#ip-block-purchase-link').val(),
-            thumbnail = '',
-            content = '';
-
-        jQuery('.block').each(function (index, value) {
-            jQuery(this).find('.ip-block-content').attr('contenteditable', false);
-            content += jQuery(this).find('.ip-block-content')[0].outerHTML;
-        });
-
-        jQuery('.block').each(function (index, value) {
-            if (jQuery(this).find('.blockImageFileType').is(':checked')) {
-                thumbnail = jQuery(this).find('.blockImageFileType').data('image-id');
-                console.log('thumbnail found: ' + thumbnail);
-            }
-        });
-
-        console.log(content);
-
-        jQuery.ajax({
-            method: 'post',
-            url: ip_ajax_var.ajaxurl,
-            data: {
-                blockTitle: title,
-                blockDescription: description,
-                blockCategory: category,
-                blockKeywords: keywords,
-                blockVideoUri: videoUri,
-                blockPurchaseUri: purchaseUri,
-                blockContent: content,
-                blockThumbnail: thumbnail,
-                action: 'ip_project_save',
-            },
-            success: function (data) {
-                jQuery('#block-status').html('Done! Page should be reloaded or something.');
-            }
-        });
-
-        event.preventDefault();
-    });
-
-
-
-    /**
-     * Upload image automatically, on selection
-     */
-    /*
-    This is due to element being dynamically created and event delegation should be used to handle event.
-    document.addEventListener('click',function(e){
-        if(e.target && e.target.id== 'brnPrepend'){//do something}
-    })
-    jQuery makes it easier:
-    $(document).on('click','#btnPrepend',function(){//do something})
-    */
-    jQuery(document).on('click', '#blockImageFile', function() {
-        jQuery(this).val(null);
-    });
-
-    jQuery(document).on('change', '#blockImageFile', function(event) {
-        var fileInputElement = document.getElementById('blockImageFile'),
-            files = event.target.files,
-            formData = new FormData(),
-            blockReference = jQuery(this).parent().parent(), // .ip-block-content-uploader
-            blockSiblingReference = jQuery(this).parent().parent().next(), // .ip-block-content
-            blockCheckboxReference = jQuery(this).parent().parent().next().next().find('.blockImageFileType'); // the checkbox
-
-        formData.append('action', 'ip_project_save_image');
-        formData.append('async-upload', fileInputElement.files[0]);
-        formData.append('name', fileInputElement.files[0].name);
-
-        jQuery.ajax({
-            method: 'post',
-            url: ip_ajax_var.ajaxurl,
-            data: formData,
-            contentType: false,
-            dataType: 'json',
-            cache: false,
-            processData: false, 
-            success: function (response) {
-                blockSiblingReference.attr('data-image-id', response);
-                blockCheckboxReference.attr('data-image-id', response) // .blockImageFileType
-                blockReference.remove();
-                showBlockImage(response, blockSiblingReference);
-            }
-        });
-    });
-
-
-
-    jQuery(document).on('click', '.block-delete', function (event) {
-        jQuery(this).parent().parent().remove();
-
-        var previousContentBlock = jQuery(this).parent().prev().prev().prev(),
-            dataImageId = jQuery(this).parent().prev().prev().data('image-id');
-
-        if (previousContentBlock.hasClass('ip-block-content-uploader')) {
-            console.log('image should also be deleted');
-        }
-        if (dataImageId !== undefined) {
-            console.log('image is ' + dataImageId);
-            deleteBlockImage(dataImageId);
-        }
-
-        event.preventDefault();
-    });
-
 });
-
-
-function showBlockImage(imageId, elementReference) {
-    jQuery.ajax({
-        method: 'post',
-        url: ip_ajax_var.ajaxurl,
-        data: {
-            imageId: imageId,
-            action: 'ip_project_show_image',
-        },
-        success: function (response) {
-            elementReference.html(response);
-        }
-    });
-}
-
-function deleteBlockImage(imageId) {
-    jQuery.ajax({
-        method: 'post',
-        url: ip_ajax_var.ajaxurl,
-        data: {
-            imageId: imageId,
-            action: 'ip_project_delete_image',
-        },
-        success: function (response) {
-            //
-        }
-    });
-}
-
-
-function appendBlock(blockType) {
-    var container = document.getElementById('ip-blocks'),
-        block = document.createElement('li'),
-        blockContent;
-
-    if (blockType === 'image') {
-        blockContent = '<div class="ip-block-content-uploader">' +
-            '<form enctype="multipart/form-data"><input type="file" name="blockImageFile" id="blockImageFile"></form>' +
-            '</div>' +
-            '<div class="ip-block-content">' +
-                '' +
-            '</div>' +
-            '<div><input type="checkbox" name="blockImageFileType" id="blockImageFileType" class="blockImageFileType"> <label for="blockImageFileType">Main Image (also cover image)</label></div>';
-    } else if (blockType === 'video') {
-        blockContent = '<div class="ip-block-title">Video Block</div>' +
-            '<div class="ip-block-content">' +
-                '<input type="url"> Youtube URL<br>' +
-                '<div>PRO only<br><input type="file" name="video[]"></div>' +
-            '</div>';
-    } else if (blockType === 'heading') {
-        blockContent = '<h3 class="ip-block-content ip-block-heading" contenteditable="true" data-ph="Click to edit"></h3>';
-    } else if (blockType === 'paragraph') {
-        blockContent = '<p class="ip-block-content ip-block-paragraph" contenteditable="true" data-ph="Click to edit"></p>';
-    } else if (blockType === 'caption') {
-        blockContent = '<p class="ip-block-content ip-block-caption" contenteditable="true" data-ph="Click to edit"></p>';
-    }
-
-    blockContent += '<div><a href="#" class="block-delete">Delete block</a></div>';
-
-    block.classList.add('block');
-    block.innerHTML = blockContent;
-
-    if (blockContent.indexOf('ip-block-heading') > 0) {
-        block.classList.add('heading');
-    }
-
-    container.appendChild(block);
-}
