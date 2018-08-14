@@ -839,7 +839,7 @@ span.infinite-loader {
     width: 100%;
     height: 16px;
 
-    background-color: #f4f4f4;
+    background-color: #ffffff;
 }
 .progress {
     width: 100%;
@@ -1050,9 +1050,9 @@ article.poster .navigation ul li a:hover {
 }
 
 h1.entry-title {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     padding-bottom: 24px;
     line-height: 1;
+    text-align: center;
 }
 h1.entry-title small {
     font-size: 14px;
@@ -1236,7 +1236,7 @@ footer[role="contentinfo"] .attribution ul li a { font-size: 90%; }
     display: inline-block;
     padding: 12px 16px;
     margin: 0 2px 2px 0;
-    color: #fff;
+    color: #ffffff;
     border-radius: 3px;
     text-decoration: none;
     font-size: 16px;
@@ -1403,90 +1403,6 @@ footer[role="contentinfo"] .attribution ul li a { font-size: 90%; }
 	background: none !important;
 }
 
-/* notifications
-.notifications-container {
-    display: none;
-    position: absolute;
-    width: 360px;
-    z-index: 99999999999;
-    background-color: #2d3137;
-    padding: 8px;
-}
-.notifications-container .navatar { display: none; }
-.navatar { float: left; margin: 0 8px 8px 0; }
-.notifications-container .nall {
-    text-align: center;
-    margin: 16px 0 0 0;
-}
-.notifications-container .notifications-inner {
-    height: 360px;
-    overflow: auto;
-}
-.notifications-bell.on {
-    background-color: #2d3137 !important;
-}
-.notifications-bell {
-    font-size: 18px;
-}
-.notifications-bell sup {
-    background-color: #249ee5;
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    text-align: center;
-    border-radius: 100%;
-    font-size: 10px;
-    margin-left: -10px;
-    vertical-align: super;
-}
-.notifications-container a {
-    font-family: "Open Sans";
-    text-transform: none;
-    display: inline;
-    padding: 0;
-    line-height: 1;
-    color: #039cf7;
-    border: 0;
-}
-.notifications-container a:hover {
-    background: none;
-    box-shadow: none;
-}
-.notification-item { border-bottom: 1px solid rgba(0, 0, 0, 0.35); padding: 0 8px 20px 8px; margin: 0 0 8px 0; font-size: 14px; }
-.notification-item time { display: block; font-size: 12px; }
-
-.notifications-container .notification-item { border-bottom: 1px solid rgba(0, 0, 0, 0.35); padding: 8px; margin: 0 0 8px 0; font-size: 12px; }
-.notifications-container .notification-item time { display: block; font-size: 10px; }
-
-.notifications-inner::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
-}
-
-.notifications-inner::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: #F5F5F5;
-}
-
-.notifications-inner::-webkit-scrollbar-thumb
-{
-	background-color: #000000;
-}
-.notifications-title { display: none; }
-.notifications-container .notifications-title {
-    display: block;
-    margin: 16px 0 16px 0;
-    text-transform: uppercase;
-    border-bottom: 1px solid #0093e0;
-    font-size: 12px;
-    font-weight: 700;
-    color: #0093e0;
-}
-*/
-
 
 
 
@@ -1627,13 +1543,13 @@ footer[role="contentinfo"] .attribution ul li a { font-size: 90%; }
 .mmenu::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
+	background-color: #ffffff;
 }
 
 .mmenu::-webkit-scrollbar
 {
 	width: 6px;
-	background-color: #F5F5F5;
+	background-color: #ffffff;
 }
 
 .mmenu::-webkit-scrollbar-thumb
@@ -1922,7 +1838,7 @@ footer[role="contentinfo"] .attribution ul li a { font-size: 90%; }
 .page-id-8717 .browse-collections,
 .page-id-12202 .browse-jobs,
 .page-id-13962 .browse-buy {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .page-id-16 #wrap {
@@ -1933,11 +1849,6 @@ footer[role="contentinfo"] .attribution ul li a { font-size: 90%; }
  * Collections page
  * Collection manager page
  */
-.page-id-8717 h1.entry-title,
-.page-id-88007 h1.entry-title {
-    text-align: center;
-}
-
 .page-id-12457 h1.entry-title {
     display: none;
 }
@@ -2393,7 +2304,7 @@ a:hover { color: #ffffff; }
 .notifications-container{background-color:#121212;}.notifications-bell.on{background-color:#121212!important;}.notifications-bell sup{background-color:#005ffb;}.notifications-container a{color:#005ffb;}.notifications-container .notifications-title{border-bottom:1px solid #005ffb;color:#005ffb;}
 
 .single-post {
-	background-color: #fcfcfc;
+	background-color: #ffffff;
 	color: #333333;
 }
 .single-post a:hover {
@@ -2456,7 +2367,6 @@ a:hover { color: #ffffff; }
 }
 .page-template-jobs h1.entry-title {
     margin: 0 !important;
-    border-bottom: 0 none !important;
     padding-bottom: 0 !important;
 }
 .page-template-jobs .jobs-contact {
@@ -2485,10 +2395,6 @@ a:hover { color: #ffffff; }
 .single-job_listing .search_jobs #search_keywords,
 .single-job_listing .search_jobs #search_location {
     background-color: #ffffff !important;
-}
-.single-job_listing h1.entry-title,
-.single-job_listing #breadcrumbs {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25) !important;
 }
 .single-job_listing .job_filters .job_types {
     border-top: 0 none !important;
@@ -2678,7 +2584,7 @@ a:hover { color: #ffffff; }
 .contest-status {
     background-color: #005ffb;
     border-radius: 0 0 2px 2px;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 12px;
     padding: 4px 8px;
 }
@@ -2692,7 +2598,7 @@ a:hover { color: #ffffff; }
 
 /* WHITE PAGE TEMPLATE */
 .page-template-page-white {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 }
 .page-template-page-white h1.entry-title,
 .page-template-page-white h2,
@@ -2751,47 +2657,7 @@ a:hover { color: #ffffff; }
 
 
 
-html.magnifying > body {
-    overflow-x: hidden !important;
-}
-.magnify {
-    position: relative;
-    display: inline-block;
-}
-.magnify .magnify-lens {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    border-radius: 3px;
-    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85),
-                0 0 7px 7px rgba(0, 0, 0, 0.25),
-                inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
-    cursor: none;
-    display: none;
-    z-index: 100;
-}
-.magnify .magnify-lens.loading {
-    background: #333 !important;
-    opacity: 0.75;
-}
-.magnify .magnify-lens.loading:after {
-    position: absolute;
-    top: 45%;
-    left: 0;
-    width: 100%;
-    color: #fff;
-    content: 'Loading...';
-    font: italic normal 16px/1 Calibri, sans-serif;
-    text-align: center;
-    text-shadow: 0 0 2px rgba(51, 51, 51, 0.8);
-    text-transform: none;
-}
-.magnify-toggle {
-    max-width: 80%;
-    width: auto;
-    height: 80vh;
-    object-fit: contain;
-}
+
 .hm {
     display: none !important;
 }
@@ -2830,7 +2696,7 @@ html.magnifying > body {
     max-width: 90%;
     height: 800px;
     margin: 0 auto;
-    color: #FFFFFF;
+    color: #ffffff;
 
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2867,7 +2733,7 @@ html.magnifying > body {
 }
 
 .cb-featured-image-inner a {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 .cb-featured-image-inner a:hover {
     text-decoration: none;
@@ -2898,7 +2764,7 @@ html.magnifying > body {
 .cb-social .fab {
     font-size: 16px;
     color: #000000;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     line-height: 24px;
     height: 24px;
     width: 24px;
@@ -2912,7 +2778,7 @@ html.magnifying > body {
     margin: 0 auto 64px auto;
     padding: 0 0 16px 0;
     border-bottom: 2px solid #00abf4;
-    color: #FFFFFF;
+    color: #ffffff;
 
     display: -webkit-box;
     display: -ms-flexbox;
@@ -3046,7 +2912,7 @@ html.magnifying > body {
     font-family: "FuturaBook", "Open Sans", sans-serif;
 }
 .postid-40292 {
-    background-color: #f8f8f8;
+    background-color: #ffffff;
     color: #333333;
 }
 .postid-40292 .teal,
@@ -3083,7 +2949,7 @@ html.magnifying > body {
 .postid-40292 .button-red {
     text-transform: uppercase;
     background-color: #d10107;
-    color: #FFFFFF;
+    color: #ffffff;
     padding: 4px 16px;
     border: 1px solid #ffffff;
 }
@@ -3120,7 +2986,7 @@ html.magnifying > body {
 }
 
 .postid-40292 .ip_box a {
-    color: #FFFFFF !important;
+    color: #ffffff !important;
 }
 
 
@@ -3237,8 +3103,6 @@ html.magnifying > body {
 }
 
 .content-1170 h1.entry-title {
-    text-align: center;
-    border-bottom: 0;
     text-transform: uppercase;
     font-size: 36px;
     font-weight: 500;

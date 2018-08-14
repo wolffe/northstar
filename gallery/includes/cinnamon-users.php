@@ -407,6 +407,7 @@ function cinnamon_profile($atts, $content = null) {
 
                 if (is_user_logged_in() && $author_rewrite == $logged_in_user->user_login) {
                     $display .= '<div class="cinnamon-sidebar-content centre"><a href="' . get_option('cinnamon_edit_page') . '" class="btn btn-primary"><i class="fas fa-pen-square"></i> Edit Profile</a></div>';
+                    $display .= '<div class="cinnamon-sidebar-content centre">' . kformat(cinnamon_PostViews($author, false)) . ' profile views</a></div>';
                 }
 
             $display .= '</div>

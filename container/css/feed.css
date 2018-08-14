@@ -296,15 +296,6 @@
     }
 }
 
-/**
-.follow.imagepress-button,
-.unfollow.followed.imagepress-button {
-    -webkit-transition: all 0.25s ease-out;
-    -o-transition: all 0.25s ease-out;
-    transition: all 0.25s ease-out;
-}
-/**/
-
 .sidebar-feed {
     will-change: min-height;
 }
