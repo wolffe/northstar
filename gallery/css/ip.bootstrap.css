@@ -296,7 +296,6 @@ a img { border: none; }
 
 
 .pie_progress {
-	font-family: "Montserrat";
 	width: 120px;
 	margin: 16px;
 	text-align: center;
@@ -1063,8 +1062,7 @@ ul, li {padding: 0; margin: 0; list-style: none}
 	padding: 10px;
 }
 .ip-template-collection-meta h3 {
-	font-family: "Montserrat";
-    font-weight: 300;
+    font-weight: 500;
 	font-size: 24px;
 	margin: 0 0 4px 0;
 	padding: 0;

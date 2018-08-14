@@ -21,7 +21,7 @@ require get_template_directory() . '/includes/cpt-feed-ads.php';
 require get_template_directory() . '/includes/functions.php';
 
 function whiskey_load_assets() {
-    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Montserrat:400,500,700');
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700');
 
     wp_enqueue_style('posterspy', 'https://posterspy.com/wp-content/themes/moon-ui-theme/css/main.css');
     wp_enqueue_style('posterspy-lightbox', 'https://posterspy.com/wp-content/themes/moon-ui-theme/css/lightbox.css');
@@ -236,7 +236,7 @@ function button_ps($atts, $content = null) {
     ], $atts));
 
     if($type == 'upload') {
-        return '<a class="button-ps" style="background-color: #0cb8fc; color: #ffffff; margin: 16px auto; padding: 16px; font-size: 24px; text-align: center; width: 356px; display: block; font-family: Montserrat;" href="//posterspy.com/upload/">' . $message . '</a>';
+        return '<a class="button-ps" style="background-color: #0cb8fc; color: #ffffff; margin: 16px auto; padding: 16px; font-size: 24px; text-align: center; width: 356px; display: block;" href="https://posterspy.com/upload/">' . $message . '</a>';
     }
 }
 

@@ -3,11 +3,11 @@
 <!--// HOME /-->
 <section id="content-wide" role="main">
 	<div style="margin: 32px 0;">
-		<h1 style="text-transform: uppercase; font-family: 'Montserrat'; font-weight: 300; font-size: 44px; text-align: center; margin: 0;">Welcome to <span style="font-weight: 700;" class="teal">PosterSpy</span></h1>
-		<h2 style="text-transform: uppercase; font-family: 'Montserrat'; text-align: center; font-weight: 300; font-size: 14px;">A global community for poster artists and poster art lovers. <b>Upload and Explore.</b></h2>
+		<h1 style="text-transform: uppercase; font-weight: 300; font-size: 44px; text-align: center; margin: 0;">Welcome to <span style="font-weight: 700;" class="teal">PosterSpy</span></h1>
+		<h2 style="text-transform: uppercase; text-align: center; font-weight: 300; font-size: 14px;">A global community for poster artists and poster art lovers. <b>Upload and Explore.</b></h2>
 	</div>
 
-<h1 style="font-family: 'Montserrat'; font-weight: 300; font-size: 25px;">PosterSpy News <small><i class="far fa-newspaper"></i></small></h1>
+<h1 style="font-weight: 300; font-size: 25px;">PosterSpy News <small><i class="far fa-newspaper"></i></small></h1>
 
 	<section class="category-tabs">
 		<div id="tabs">
@@ -136,12 +136,12 @@
 		</div>
 	</section>
 	
-	<h1 style="font-family: 'Montserrat'; font-weight: 500; font-size: 32px;">Staff Favourites <small><i class="fas fa-star yellow"></i></small></h1>
+	<h1 style="font-weight: 500; font-size: 32px;">Staff Favourites <small><i class="fas fa-star yellow"></i></small></h1>
 	
 	<?php echo do_shortcode('[imagepress-show category="featured" limit="7" count="7" type="random" size="imagepress_pt_sm"]'); ?>
 	<h4><p class="right"><a href="<?php echo home_url(); ?>/all-posters/staff-favourites">Browse all Staff Favourites</a> <i class="fas fa-arrow-circle-right"></i></p></h4>
 
-	<h1 style="font-family: 'Montserrat'; font-weight: 500; font-size: 25px;">Recent Submissions <small><i class="fas fa-upload"></i></small></h1>
+	<h1 style="font-weight: 500; font-size: 25px;">Recent Submissions <small><i class="fas fa-upload"></i></small></h1>
 	
 	<?php echo do_shortcode('[imagepress-show limit="21" count="21" size="imagepress_pt_sm" sort="yes"]'); ?>
 	<h4><p class="right"><a href="<?php echo home_url(); ?>/all-posters/">Browse all uploads</a> <i class="fas fa-arrow-circle-right"></i></p></h4>
