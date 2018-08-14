@@ -1088,7 +1088,7 @@ ul, li {padding: 0; margin: 0; list-style: none}
 .ip_collections_private_overlay { font-size: 90%; margin: 4px 0; }
 
 
-.modal { display: none; position: fixed; top: 50%; left: 50%; width: 400px; height: auto; margin-left: -200px; margin-top: -150px; background-color: #1e2833; padding: 25px; border-radius: 5px; z-index: 10; box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.5); }
+.modal { display: none; position: fixed; top: 50%; left: 50%; width: 400px; height: auto; margin-left: -200px; margin-top: -150px; background-color: #1e2833; padding: 25px; border-radius: 3px; z-index: 10; box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.5); }
 .modal.active { display: block; }
 .modal .close { position: absolute; top: 6px; right: 8px; margin: 0; }
 .modal .showme { display: none; }
@@ -1111,6 +1111,7 @@ ul, li {padding: 0; margin: 0; list-style: none}
     border: 0 none;
     padding: 8px;
     width: 100%;
+    border-radius: 3px;
 }
 .collection_details_edit select,
 .frontEndModal select,
@@ -1122,10 +1123,11 @@ ul, li {padding: 0; margin: 0; list-style: none}
     color: #34495e;
     border: 0 none;
     padding: 8px;
+    border-radius: 3px;
 }
 
 .toggleFrontEndModal { text-align: center; }
-.frontEndModal { display: none; position: fixed; top: 50%; left: 50%; width: 400px; height: auto; margin-left: -200px; margin-top: -150px; background-color: #1e2833; padding: 25px; border-radius: 5px; z-index: 10; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); }
+.frontEndModal { display: none; position: fixed; top: 50%; left: 50%; width: 400px; height: auto; margin-left: -200px; margin-top: -150px; background-color: #1e2833; padding: 25px; border-radius: 3px; z-index: 10; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); }
 .frontEndModal.active { display: block; text-align: left; }
 .frontEndModal .close { position: absolute; top: 6px; right: 8px; margin: 0; color: #9d9d9d; }
 .frontEndModal .showme { display: none; }

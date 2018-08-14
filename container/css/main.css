@@ -247,7 +247,7 @@ nav ul li:hover > a {}
     padding: 16px 8px;
     text-align: center;
     display: none;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 .social-hub a {
     display: inline-block;
@@ -266,7 +266,7 @@ nav ul li:hover > a {}
 .details-box {
     background-color: rgba(0, 0, 0, 0.15);
     padding: 16px 8px;
-    border-radius: 2px;
+    border-radius: 3px;
 
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -428,7 +428,7 @@ input[type="submit"]:hover {
     margin: 0 4px 4px 0;
     text-decoration: none !important;
     border: 0 none;
-    border-radius: 2px;
+    border-radius: 3px;
 
     white-space: nowrap;
 }
@@ -511,7 +511,7 @@ input[type="submit"]:hover {
 .cinnamon-avatar { max-width: 1280px !important; }
 .cinnamon-cover {
 	position: relative;
-	height: 240px;
+	height: 480px;
 	width: 100%;
     box-shadow: 0 50px 0 #121212;
 }
@@ -732,7 +732,7 @@ span.infinite-loader {
     font-size: 14px;
     white-space: nowrap;
     font-weight: normal;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 /* top */
@@ -2303,28 +2303,6 @@ a:hover { color: #ffffff; }
 
 .notifications-container{background-color:#121212;}.notifications-bell.on{background-color:#121212!important;}.notifications-bell sup{background-color:#005ffb;}.notifications-container a{color:#005ffb;}.notifications-container .notifications-title{border-bottom:1px solid #005ffb;color:#005ffb;}
 
-.single-post {
-	background-color: #ffffff;
-	color: #333333;
-}
-.single-post a:hover {
-	color: #333333;
-}
-.single-post .author {
-	font-weight: 700;
-}
-/**/
-.single-post #comments ul li {
-	background: none;
-	border-top: 1px dotted #cccccc;
-	padding: 0 !important;
-}
-.single-post #comments textarea {
-	background: none !important;
-	border: 1px solid #cccccc;
-}
-
-
 .imagepress-like { font-weight: 700; width: 110px; text-align: center; }
 
 
@@ -2527,7 +2505,7 @@ a:hover { color: #ffffff; }
 .contest-box {
     position: relative;
     box-sizing: border-box;
-    border-radius: 2px;
+    border-radius: 3px;
     float: left;
     width: 24%;
     height: 200px;
@@ -2538,7 +2516,7 @@ a:hover { color: #ffffff; }
     background-color: #95ce1b;
     padding: 2px 4px;
     text-transform: uppercase;
-    border-radius: 2px;
+    border-radius: 3px;
     font-size: 12px;
     font-weight: 700;
     display: none;
@@ -2553,7 +2531,7 @@ a:hover { color: #ffffff; }
 .contest-inlay {
     position: absolute;
     padding: 32px 0 0 0;
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 3px 3px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -2583,7 +2561,7 @@ a:hover { color: #ffffff; }
 }
 .contest-status {
     background-color: #005ffb;
-    border-radius: 0 0 2px 2px;
+    border-radius: 0 0 3px 3px;
     color: #ffffff;
     font-size: 12px;
     padding: 4px 8px;

@@ -33,7 +33,7 @@ $out = '<div style="position: relative;" id="ip-who-value">';
         $out .= '<div class="slide" style="cursor: pointer; font-size: 80%; text-align: center; margin: 10px 0 0 0;"><i class="fas fa-heart"></i> ' . $who . ' and <span class="teal"><span class="imagepress-update-count">' . $totalUsers . '</span> others</span></div>';
     }
 
-    $out .= '<div class="view" style="display: none; position: absolute; background-color: #111111; padding: 16px; max-height: 300px; overflow: auto; z-index: 100; text-align: left; width: 100%; border-radius: 2px;">';
+    $out .= '<div class="view" style="display: none; position: absolute; background-color: #111111; padding: 16px; max-height: 300px; overflow: auto; z-index: 100; text-align: left; width: 100%; border-radius: 3px;">';
 
     if($totalUsers > 0) {
         $out .= '<div><small>' . get_option('ip_vote_who') . '<br></small></div>';
