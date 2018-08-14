@@ -1008,7 +1008,7 @@ function imagepress_search($atts, $content = null) {
 
 	$display = '<form role="search" method="get" action="' . home_url() . '" class="imagepress-form">
 			<div>
-				<input type="search" name="s" id="s" placeholder="Search images..."> 
+				<input type="text" name="s" id="s" placeholder="Search images..."> 
 				<input type="submit" id="searchsubmit" value="Search">
 				<input type="hidden" name="post_type" value="poster">
 			</div>

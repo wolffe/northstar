@@ -574,7 +574,7 @@ function getDiscoverFilters() {
             </div>
 
             <form class="search">
-                <input type="search" name="s" placeholder="Search posters...">
+                <input type="text" name="s" placeholder="Search posters...">
                 <input type="hidden" name="post_type" value="poster">
             </form>
         </div>

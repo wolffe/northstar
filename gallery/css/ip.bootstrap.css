@@ -1200,10 +1200,9 @@ ul, li {padding: 0; margin: 0; list-style: none}
     width: 120px;
     height: 120px;
     margin: 0 auto 16px auto;
-    border-radius: 3px;
 }
 .cinnamon-profile-sidebar .cinnamon-avatar img {
-    border-radius: 3px;
+    border-radius: 50%;
 }
 .cinnamon-profile-sidebar .cinnamon-nametag {
     text-align: center;
